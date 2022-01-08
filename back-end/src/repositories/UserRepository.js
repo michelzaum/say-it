@@ -26,6 +26,12 @@ class UserRepository {
   findAll() {
     return new Promise((resolve) => resolve(users));
   }
+
+  findUserById(id) {
+    return new Promise((resolve) => resolve(
+      users.find((user) => user.id === Number(id))
+    ))
+  }
 }
 
 module.exports = new UserRepository();
