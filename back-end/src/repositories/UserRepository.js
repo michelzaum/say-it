@@ -32,6 +32,21 @@ class UserRepository {
       users.find((user) => user.id === Number(id))
     ))
   }
+
+  create({firstName, lastName, email, password}) {
+    return new Promise((resolve) => {
+      const newUser = {
+        id: users.length + 1,
+        firstName,
+        lastName,
+        email,
+        password
+      }
+
+      users.push(newUser);
+      resolve(newUser);
+    });
+  }
 }
 
 module.exports = new UserRepository();

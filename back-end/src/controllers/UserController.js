@@ -7,11 +7,19 @@ class UserController {
   }
 
   async findById(request, response) {
-    console.log(request.params);
     const { id } = request.params;
     const user = await UserRepository.findUserById(id);
     
     response.json(user);
+  }
+
+  async createUser(request, response) {
+    const { firstName, lastName, email, password } = request.body;
+    const newUser = await UserRepository.create({
+      firstName, lastName, email, password
+    });
+
+    response.json(newUser);
   }
 }
 
