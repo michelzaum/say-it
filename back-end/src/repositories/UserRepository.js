@@ -1,4 +1,4 @@
-const users = [
+let users = [
   {
     id: 1,
     firstName: 'Michel',
@@ -61,6 +61,12 @@ class UserRepository {
 
       resolve(users);
     })
+  }
+
+  delete(id) {
+    return new Promise((resolve) => resolve(
+      users = users.filter((user) => user.id !== id)
+    ));
   }
 }
 
