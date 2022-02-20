@@ -21,6 +21,17 @@ class UserController {
 
     response.json(newUser);
   }
+
+  async updateUser(request, response) {
+    const { firstName, lastName, email, password } = request.body;
+    const { id } = request.params;
+
+    const updatedUser = await UserRepository.update(Number(id), {
+      firstName, lastName, email, password
+    });
+  
+    response.json(updatedUser);
+  }
 }
 
 module.exports = new UserController();

@@ -47,6 +47,21 @@ class UserRepository {
       resolve(newUser);
     });
   }
+
+  update(id, {firstName, lastName, email, password}) {
+    return new Promise((resolve) => {
+      users.forEach((user) => {
+        if(user.id === id) {
+          user.firstName = firstName,
+          user.lastName = lastName,
+          user.email = email,
+          user.password = password
+        }
+      })
+
+      resolve(users);
+    })
+  }
 }
 
 module.exports = new UserRepository();
