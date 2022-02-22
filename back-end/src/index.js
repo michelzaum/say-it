@@ -1,9 +1,9 @@
-const express = require('express');
-const routes = require('./routes');
+const { ApolloServer } = require('apollo-server');
+const typeDefs = require('./graphql/Users/schemas');
+const { resolvers } =require('./graphql/Users/resolvers');
 
-const app = express();
+const server = new ApolloServer({ typeDefs, resolvers });
 
-app.use(express.json())
-app.use(routes);
-
-app.listen(3030, () => console.log('Server started at port 3030'));
+server.listen().then(({ url }) => {
+  console.log(`🚀 Server ready at ${url}`);
+});
