@@ -64,9 +64,11 @@ class UserRepository {
   }
 
   delete(id) {
-    return new Promise((resolve) => resolve(
-      users = users.filter((user) => user.id !== id)
-    ));
+    const deleted = true;
+    return new Promise((resolve) => {
+      users = users.filter((user) => user.id !== id);
+      resolve(deleted);
+    });
   }
 }
 
