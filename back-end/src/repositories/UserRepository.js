@@ -36,15 +36,11 @@ class UserRepository {
     ))
   }
 
-  create({firstName, lastName, email, password, country}) {
+  create(data) {
     return new Promise((resolve) => {
       const newUser = {
         id: users.length + 1,
-        firstName,
-        lastName,
-        email,
-        password,
-        country,
+        ...data,
       }
 
       users.push(newUser);
