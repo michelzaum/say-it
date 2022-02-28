@@ -7,6 +7,7 @@ const typeDefs = gql`
     lastName: String
     email: String
     password: String
+    country: String
   }
 
   input UserInput {
@@ -14,6 +15,7 @@ const typeDefs = gql`
     lastName: String
     email: String
     password: String
+    country: String
   }
 
   type Query {
@@ -23,7 +25,7 @@ const typeDefs = gql`
 
   type Mutation {
     createUser(data: UserInput!): User
-    updateUser(id: ID!, data: UserInput!): [User]
+    updateUser(id: ID!, data: UserInput): [User]
     deleteUser(id: ID!): Boolean
   }
 `;

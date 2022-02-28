@@ -7,7 +7,17 @@ module.exports = {
   },
 
   Mutation: {
-    createUser: async(_, { data }) => await UserRepository.create(data),
+    createUser: async(_, { data }) => {
+      const { firstName, email, password } = data;
+
+      if([firstName, email, password].some((item) => !item)) {
+        console.log('There are empty required fields');
+        return;
+      }
+
+      const newUser = await UserRepository.create(data);
+      return newUser;
+    },
     updateUser: async(_, { id, data }) => await UserRepository.update(Number(id), data),
     deleteUser: async(_, { id }) => await UserRepository.delete(Number(id)),
   }

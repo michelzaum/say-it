@@ -5,6 +5,7 @@ let users = [
     lastName: 'Oliveira',
     email: 'micheloliveira@mail.com',
     password: 'michel123',
+    country: 'Canada',
   },
   {
     id: 2,
@@ -12,6 +13,7 @@ let users = [
     lastName: 'Oliveira',
     email: 'anamaria@mail.com',
     password: 'ana123',
+    country: 'England',
   },
   {
     id: 3,
@@ -19,6 +21,7 @@ let users = [
     lastName: 'Ribeiro',
     email: 'leticiaribeiro@mail.com',
     password: 'leticia123',
+    country: 'Italy',
   },
 ]
 
@@ -33,14 +36,15 @@ class UserRepository {
     ))
   }
 
-  create({firstName, lastName, email, password}) {
+  create({firstName, lastName, email, password, country}) {
     return new Promise((resolve) => {
       const newUser = {
         id: users.length + 1,
         firstName,
         lastName,
         email,
-        password
+        password,
+        country,
       }
 
       users.push(newUser);
@@ -48,14 +52,15 @@ class UserRepository {
     });
   }
 
-  update(id, {firstName, lastName, email, password}) {
+  update(id, {firstName, lastName, email, password, country}) {
     return new Promise((resolve) => {
       users.forEach((user) => {
         if(user.id === id) {
           user.firstName = firstName,
           user.lastName = lastName,
           user.email = email,
-          user.password = password
+          user.password = password,
+          user.country = country
         }
       })
 
