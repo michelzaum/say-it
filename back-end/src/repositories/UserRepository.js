@@ -52,19 +52,20 @@ class UserRepository {
     });
   }
 
-  update(id, {firstName, lastName, email, password, country}) {
+  update(id, data) {
     return new Promise((resolve) => {
-      users.forEach((user) => {
+      let updatedUser = {};
+
+      users.forEach((user, index) => {
         if(user.id === id) {
-          user.firstName = firstName,
-          user.lastName = lastName,
-          user.email = email,
-          user.password = password,
-          user.country = country
+          updatedUser = {
+            ...user,
+            ...data
+          };
+          users[index] = updatedUser;
         }
       })
-
-      resolve(users);
+      resolve(updatedUser);
     })
   }
 

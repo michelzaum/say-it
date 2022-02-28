@@ -18,7 +18,12 @@ module.exports = {
       const newUser = await UserRepository.create(data);
       return newUser;
     },
-    updateUser: async(_, { id, data }) => await UserRepository.update(Number(id), data),
+
+    updateUser: async(_, { id, data }) => {
+      const updatedUser = await UserRepository.update(Number(id), data);
+      return updatedUser;
+    },
+
     deleteUser: async(_, { id }) => await UserRepository.delete(Number(id)),
   }
 }
