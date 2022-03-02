@@ -15,6 +15,7 @@ const typeDefs = gql`
   input PostInput {
     createdAt: String
     content: String!
+    authorId: ID!
   }
 
   type Mutation {
