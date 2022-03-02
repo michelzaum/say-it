@@ -11,8 +11,7 @@ module.exports = {
       const { firstName, email, password } = data;
 
       if([firstName, email, password].some((item) => !item)) {
-        console.log('There are empty required fields');
-        return;
+        return 'There are empty required fields';
       }
 
       const newUser = await UserRepository.create(data);

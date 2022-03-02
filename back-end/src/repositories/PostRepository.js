@@ -2,11 +2,11 @@ let posts = require('../mock/mock_posts');
 
 class PostRepository {
   listPost() {
-    return new Promise((resolver) => resolver(posts));
+    return new Promise((resolve) => resolve(posts));
   };
 
   create(data, author) {
-    return new Promise((resolver) => {
+    return new Promise((resolve) => {
       const newPost = {
         id: posts.length + 1,
         ...data,
@@ -14,17 +14,15 @@ class PostRepository {
       };
 
       posts.push(newPost);
-      resolver(newPost);
+      resolve(newPost);
     });
   };
 
   delete(id) {
-    return new Promise((resolver) => {
-      const deleted = true;
-      posts = posts.filter((post) => {
-        return post.id != id;
-      });
-      resolver(deleted);
+    const deleted = true;
+    return new Promise((resolve) => {
+      posts = posts.filter((post) => post.id != id);
+      resolve(deleted);
     })
   }
 };
