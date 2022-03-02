@@ -14,5 +14,10 @@ module.exports = {
       const newPost = PostRepository.create(data, author);
       return newPost;
     },
+
+    deletePost: async(_, { id }) => {
+      const postDeleted = PostRepository.delete(Number(id));
+      return postDeleted;
+    },
   },
 };

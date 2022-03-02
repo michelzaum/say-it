@@ -1,4 +1,4 @@
-const posts = require('../mock/mock_posts');
+let posts = require('../mock/mock_posts');
 
 class PostRepository {
   listPost() {
@@ -17,6 +17,16 @@ class PostRepository {
       resolver(newPost);
     });
   };
+
+  delete(id) {
+    return new Promise((resolver) => {
+      const deleted = true;
+      posts = posts.filter((post) => {
+        return post.id != id;
+      });
+      resolver(deleted);
+    })
+  }
 };
 
 module.exports = new PostRepository();

@@ -1,4 +1,4 @@
-const users = require('../mock/mock_users');
+let users = require('../mock/mock_users');
 
 class UserRepository {
   findAll() {
