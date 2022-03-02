@@ -3,7 +3,7 @@ const UserRepository = require('../../repositories/UserRepository');
 module.exports = {
   Query: {
     listUsers: async() => await UserRepository.findAll(),
-    findUserById: async(_, { id }) => await UserRepository.findUserById(id),
+    findUserById: async(_, { id }) => await UserRepository.findUserById(Number(id)),
   },
 
   Mutation: {
