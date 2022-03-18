@@ -1,9 +1,10 @@
 import './App.css';
+import { FormField } from './components/FormField';
 
 function App() {
   return (
     <div>
-      <h1>Hello from say-it</h1>
+      <FormField />
     </div>
   );
 }
