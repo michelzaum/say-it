@@ -1,10 +1,12 @@
 import { FormContainer, FormFieldGroup } from './styles';
 
 import { FormField } from '../../components/FormField';
+import { Title } from '../../components/Title';
 
 export const Register = () => {
   return (
     <FormContainer>
+      <Title text="Olá, bem vindo(a) ao say-it!" />
       <FormFieldGroup>
         <FormField label="Primeiro nome" placeholder="Steve" />
         <FormField label="Sobrenome" placeholder="Jobs" />
