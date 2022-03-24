@@ -3,6 +3,7 @@ import { FormContainer, FormFieldGroup } from './styles';
 import { FormField } from '../../components/FormField';
 import { Title } from '../../components/Title';
 import { Button } from '../../components/Button';
+import { TextWithLink } from '../../components/TextWithLink';
 
 export const Register = () => {
   return (
@@ -18,7 +19,10 @@ export const Register = () => {
         <FormField label="Senha" placeholder="No mínimo 8 caracteres" />
         <FormField label="Confirmar senha" placeholder="Repita a senha" />
       </FormFieldGroup>
-      <Button />
+      <FormFieldGroup>
+        <Button />
+        <TextWithLink />
+      </FormFieldGroup>
     </FormContainer>
   );
 };

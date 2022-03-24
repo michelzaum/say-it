@@ -13,6 +13,7 @@ export const Button = styled.button`
   margin-top: ${measures['spacing-x-large']}px;
   cursor: pointer;
   transition: ease-in-out 0.3s;
+  order: 2;
   
   &:hover {
     background-color: ${colors.primaryBlueHover};

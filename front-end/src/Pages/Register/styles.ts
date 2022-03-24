@@ -13,4 +13,5 @@ export const FormContainer = styled.form`
 export const FormFieldGroup = styled.div`
   display: flex;
   gap: ${measures['spacing-large']}px;
+  align-items: center;
 `;
