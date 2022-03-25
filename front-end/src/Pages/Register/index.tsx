@@ -10,14 +10,14 @@ export const Register = () => {
     <FormContainer>
       <Title text="Olá, bem vindo(a) ao say-it!" />
       <FormFieldGroup>
-        <FormField label="Primeiro nome" placeholder="Steve" />
-        <FormField label="Sobrenome" placeholder="Jobs" />
+        <FormField label="Primeiro nome" type="text" placeholder="Steve" />
+        <FormField label="Sobrenome" type="text" placeholder="Jobs" />
       </FormFieldGroup>
-      <FormField largeInput label="E-mail" placeholder="stevejobs@mail.com" />
-      <FormField largeInput label="País" placeholder="Selecione seu país" />
+      <FormField largeInput label="E-mail" type="email" placeholder="stevejobs@mail.com" />
+      <FormField largeInput label="País" type="text" placeholder="Selecione seu país" />
       <FormFieldGroup>
-        <FormField label="Senha" placeholder="No mínimo 8 caracteres" />
-        <FormField label="Confirmar senha" placeholder="Repita a senha" />
+        <FormField label="Senha" type="password" placeholder="No mínimo 8 caracteres" />
+        <FormField label="Confirmar senha" type="password" placeholder="Repita a senha" />
       </FormFieldGroup>
       <FormFieldGroup>
         <Button />
