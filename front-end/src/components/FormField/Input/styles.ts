@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
-import { colors } from '../../constants/colors';
-import { measures } from '../../constants/measures';
+import { colors } from '../../../constants/colors';
+import { measures } from '../../../constants/measures';
 
 import { FormFieldProps } from './types';
 

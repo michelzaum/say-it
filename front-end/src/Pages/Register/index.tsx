@@ -1,9 +1,18 @@
 import { FormContainer, FormFieldGroup } from './styles';
 
-import { FormField } from '../../components/FormField';
 import { Title } from '../../components/Title';
 import { Button } from '../../components/Button';
 import { TextWithLink } from '../../components/TextWithLink';
+import { FormField } from '../../components/FormField/Input';
+import { SelectContainer, SelectOptions } from '../../components/FormField/Select';
+
+const MockCountry = [
+  { id: 1, name: 'Brasil' },
+  { id: 2, name: 'Alemanha' },
+  { id: 3, name: 'Canadá' },
+  { id: 4, name: 'África do Sul' },
+  { id: 5, name: 'Coréia do Sul' },
+]
 
 export const Register = () => {
   return (
@@ -14,7 +23,18 @@ export const Register = () => {
         <FormField label="Sobrenome" type="text" placeholder="Jobs" />
       </FormFieldGroup>
       <FormField largeInput label="E-mail" type="email" placeholder="stevejobs@mail.com" />
-      <FormField largeInput label="País" type="text" placeholder="Selecione seu país" />
+      <SelectContainer selectName="countries" selectLabel="País">
+        <SelectOptions optionId={0} optionName="Selecione seu país" />
+        {
+          MockCountry.map(country => (
+            <SelectOptions 
+              key={country.id}
+              optionId={country.id}
+              optionName={country.name}
+            />
+          ))
+        };
+      </SelectContainer>
       <FormFieldGroup>
         <FormField label="Senha" type="password" placeholder="No mínimo 8 caracteres" />
         <FormField label="Confirmar senha" type="password" placeholder="Repita a senha" />
