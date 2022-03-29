@@ -8,37 +8,10 @@ import { TextWithLink } from '../../components/TextWithLink';
 import { FormField } from '../../components/FormField/Input';
 import { SelectContainer, SelectOptions } from '../../components/FormField/Select';
 
-import { gql, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
+import { CREATE_USER } from '../../graphql/Users/mutations';
 
-const MockCountry = [
-  { id: 1, name: 'Brasil' },
-  { id: 2, name: 'Alemanha' },
-  { id: 3, name: 'Canadá' },
-  { id: 4, name: 'África do Sul' },
-  { id: 5, name: 'Coréia do Sul' },
-]
-
-const CREATE_USER = gql`
-  mutation createUser(
-    $firstName: String!
-    $lastName: String!
-    $email: String!
-    $password: String!
-    $country: String!
-  ) {
-    createUser(data: {
-      firstName: $firstName
-      lastName: $lastName
-      email: $email
-      password: $password
-      country: $country
-    }) {
-      firstName
-      lastName
-      email
-    }
-  }
-`;
+import { MockCountry } from '../../mock/countries';
 
 export const Register = () => {
   const [firstName, setFirstName] = useState('');
@@ -53,18 +26,19 @@ export const Register = () => {
   if (loading) return <h1>Submitting...</h1>;
   if (error) return <h1>Submission error! {error.message}</h1>;
 
+  const handleUser = (e: FormEvent) => {
+    e.preventDefault();
+    createUser({
+      variables: { firstName, lastName, email, password, confirmPassword, country }
+    });
+
+    if (error) {
+      return { message: `Error in create user: ${error}` };
+    }
+  };
+
   return (
-    <FormContainer onSubmit={e => {
-      e.preventDefault();
-      createUser({ variables: {
-        firstName,
-        lastName,
-        email,
-        password,
-        confirmPassword,
-        country,
-      }});
-    }}>
+    <FormContainer onSubmit={handleUser}>
       <Title text="Olá, bem vindo(a) ao say-it!" />
       <FormFieldGroup>
         <FormField 
