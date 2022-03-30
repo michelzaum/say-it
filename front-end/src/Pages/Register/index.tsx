@@ -22,6 +22,8 @@ export const Register = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [country, setCountry] = useState('');
 
+  const requiredFields = [firstName, lastName, email, password, confirmPassword];
+
   const [modalInfo, setModalInfo] = useState({
     show: false,
     title: '',
@@ -37,6 +39,16 @@ export const Register = () => {
   const handleUser = (e: FormEvent) => {
     e.preventDefault();
 
+    if (requiredFields.some(field => field === '')) {
+      setModalInfo({
+        show: true,
+        title: 'Campos obrigatórios',
+        content: 'Há campos obrigatórios que não foram preenchidos',
+        onClick: () => setModalInfo({ ...modalInfo, show: false })
+      });
+      return;
+    };
+
     if (password !== confirmPassword) {
       setModalInfo({
         show: true, 
@@ -45,7 +57,7 @@ export const Register = () => {
         onClick: () => setModalInfo({ ...modalInfo, show: false }),
       });
       return;
-    }
+    };
 
     createUser({
       variables: { firstName, lastName, email, password, confirmPassword, country }
@@ -65,6 +77,7 @@ export const Register = () => {
             label="Primeiro nome"
             type="text"
             placeholder="Steve"
+            required
             onChange={(e: FormEvent<HTMLInputElement>) => {
               setFirstName(e.currentTarget.value);
             }}
@@ -73,6 +86,7 @@ export const Register = () => {
             label="Sobrenome"
             type="text"
             placeholder="Jobs"
+            required
             onChange={(e: FormEvent<HTMLInputElement>) => {
               setLastName(e.currentTarget.value);
             }}
@@ -83,6 +97,7 @@ export const Register = () => {
           label="E-mail"
           type="email"
           placeholder="stevejobs@mail.com"
+          required
           onChange={(e: FormEvent<HTMLInputElement>) => {
             setEmail(e.currentTarget.value);
           }}
@@ -110,6 +125,7 @@ export const Register = () => {
             label="Senha"
             type="password"
             placeholder="No mínimo 8 caracteres"
+            required
             onChange={(e: FormEvent<HTMLInputElement>) => {
               setPassword(e.currentTarget.value);
             }}
@@ -118,6 +134,7 @@ export const Register = () => {
             label="Confirmar senha"
             type="password"
             placeholder="Repita a senha"
+            required
             onChange={(e: FormEvent<HTMLInputElement>) => {
               setConfirmPassword(e.currentTarget.value);
             }}

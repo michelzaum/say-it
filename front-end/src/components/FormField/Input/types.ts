@@ -5,5 +5,6 @@ export type FormFieldProps = {
   placeholder: string
   type: string
   largeInput?: boolean
+  required?: boolean
   onChange: (e: React.FormEvent<HTMLInputElement>) => void
 };

@@ -2,11 +2,11 @@ import React from 'react';
 import { Input, Label, FormFieldContainer } from './styles';
 import { FormFieldProps } from './types';
 
-export const FormField: React.FC<FormFieldProps> = ({ label, placeholder, largeInput, type, onChange }) => {
+export const FormField: React.FC<FormFieldProps> = ({ label, placeholder, largeInput, type, onChange, required }) => {
   return (
     <FormFieldContainer>
       <Label htmlFor={`input${label.replace(/\s/g, '')}`}>
-        {label}
+        {`${label} ${required ? '*' : ''}`}
       </Label>
       <Input
         onChange={onChange}
