@@ -22,7 +22,12 @@ export const Register = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [country, setCountry] = useState('');
 
-  const [differentPasswords, setDifferentPasswords] = useState(false);
+  const [modalInfo, setModalInfo] = useState({
+    show: false,
+    title: '',
+    content: '',
+    onClick: () => {},
+  });
 
   const [createUser, { loading, error }] = useMutation(CREATE_USER);
 
@@ -31,13 +36,21 @@ export const Register = () => {
 
   const handleUser = (e: FormEvent) => {
     e.preventDefault();
+
     if (password !== confirmPassword) {
-      setDifferentPasswords(true);
+      setModalInfo({
+        show: true, 
+        title:"Senhas diferentes",
+        content:"A senha fornecida está diferente da confirmação da senha",
+        onClick: () => setModalInfo({ ...modalInfo, show: false }),
+      });
       return;
     }
+
     createUser({
       variables: { firstName, lastName, email, password, confirmPassword, country }
     });
+
     if (error) {
       return { message: `Error in create user: ${error}` };
     }
@@ -116,10 +129,10 @@ export const Register = () => {
         </FormFieldGroup>
       </FormContainer>
       <Modal 
-        show={differentPasswords} 
-        title="Senhas diferentes"
-        content="A senha fornecida está diferente da confirmação da senha"
-        onClick={() => setDifferentPasswords(false)}
+        show={modalInfo.show} 
+        title={modalInfo.title}
+        content={modalInfo.content}
+        onClick={modalInfo.onClick}
       />
     </>
   );
