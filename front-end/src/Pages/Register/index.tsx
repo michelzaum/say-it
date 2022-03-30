@@ -59,6 +59,16 @@ export const Register = () => {
       return;
     };
 
+    if (password.length < 8) {
+      setModalInfo({
+        show: true,
+        title: 'Senha inválida',
+        content: 'A senha deve conter no mínimo 8 caracteres',
+        onClick: () => setModalInfo({ ...modalInfo, show: false })
+      });
+      return;
+    };
+
     createUser({
       variables: { firstName, lastName, email, password, confirmPassword, country }
     });
