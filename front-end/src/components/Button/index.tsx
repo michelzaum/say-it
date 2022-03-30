@@ -1,7 +1,9 @@
 import { Button as ButtonComponent } from './styles';
 
-export const Button = () => {
+import { ButtonProps } from './types';
+
+export const Button: React.FC<ButtonProps> = ({ onClick, text }) => {
   return (
-    <ButtonComponent>Cadastrar</ButtonComponent>
+    <ButtonComponent onClick={onClick}>{text}</ButtonComponent>
   );
 };
