@@ -14,6 +14,7 @@ import { useMutation } from '@apollo/client';
 import { CREATE_USER } from '../../graphql/Users/mutations';
 
 import { MockCountry } from '../../mock/countries';
+import { returnRandomPeople } from '../../utils/returnRandomPeople';
 
 export const Register = () => {
   const [firstName, setFirstName] = useState('');
@@ -23,14 +24,16 @@ export const Register = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [country, setCountry] = useState('');
 
-  const requiredFields = [firstName, lastName, email, password, confirmPassword];
-
   const [modalInfo, setModalInfo] = useState({
     show: false,
     title: '',
     content: '',
     onClick: () => {},
   });
+
+  const requiredFields = [firstName, lastName, email, password, confirmPassword];
+
+  const { randomFirstName, randomLastName, randomEmail } = returnRandomPeople();
 
   const [createUser, { loading, error }] = useMutation(CREATE_USER);
 
@@ -87,7 +90,7 @@ export const Register = () => {
           <FormField
             label="Primeiro nome"
             type="text"
-            placeholder="Steve"
+            placeholder={randomFirstName}
             required
             onChange={(e: FormEvent<HTMLInputElement>) => {
               setFirstName(e.currentTarget.value);
@@ -96,7 +99,7 @@ export const Register = () => {
           <FormField
             label="Sobrenome"
             type="text"
-            placeholder="Jobs"
+            placeholder={randomLastName}
             required
             onChange={(e: FormEvent<HTMLInputElement>) => {
               setLastName(e.currentTarget.value);
@@ -107,7 +110,7 @@ export const Register = () => {
           largeInput
           label="E-mail"
           type="email"
-          placeholder="stevejobs@mail.com"
+          placeholder={randomEmail}
           required
           onChange={(e: FormEvent<HTMLInputElement>) => {
             setEmail(e.currentTarget.value);
