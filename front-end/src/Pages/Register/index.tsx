@@ -8,6 +8,7 @@ import { TextWithLink } from '../../components/TextWithLink';
 import { FormField } from '../../components/FormField/Input';
 import { SelectContainer, SelectOptions } from '../../components/FormField/Select';
 import { Modal } from '../../components/Modal';
+import { LoadingComponent as Loading } from '../../components/Loading';
 
 import { useMutation } from '@apollo/client';
 import { CREATE_USER } from '../../graphql/Users/mutations';
@@ -33,7 +34,7 @@ export const Register = () => {
 
   const [createUser, { loading, error }] = useMutation(CREATE_USER);
 
-  if (loading) return <h1>Submitting...</h1>;
+  if (loading) return <Loading />;
   if (error) return <h1>Submission error! {error.message}</h1>;
 
   const handleUser = (e: FormEvent) => {
