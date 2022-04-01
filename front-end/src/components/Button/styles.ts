@@ -3,9 +3,9 @@ import { colors } from '../../constants/colors';
 import { measures } from '../../constants/measures';
 
 export const Button = styled.button`
-  width: 340px;
+  width: 50%;
   height: 59px;
-  background-color: ${colors.primaryBlue};
+  background-color: ${colors.blue};
   border-radius: 5px;
   color: ${colors.white};
   font-size: 18px;
@@ -16,7 +16,7 @@ export const Button = styled.button`
   order: 2;
   
   &:hover {
-    background-color: ${colors.primaryBlueHover};
+    background-color: ${colors['blue-dark-1']};
     transition: ease-in-out 0.3s;
   }
 `;

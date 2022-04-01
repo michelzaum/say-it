@@ -1,11 +1,12 @@
 import { useState, FormEvent, ChangeEvent } from 'react';
 
-import { FormContainer, FormFieldGroup } from './styles';
+import { FormContainer } from './styles';
 
-import { Title } from '../../components/Title';
+import { Approach } from '../../components/Approach';
 import { Button } from '../../components/Button';
 import { TextWithLink } from '../../components/TextWithLink';
 import { FormField } from '../../components/FormField/Input';
+import { FormFieldGroup } from '../../components/FormField/Input/styles';
 import { SelectContainer, SelectOptions } from '../../components/FormField/Select';
 import { Modal } from '../../components/Modal';
 import { LoadingComponent as Loading } from '../../components/Loading';
@@ -85,7 +86,7 @@ export const Register = () => {
   return (
     <>
       <FormContainer onSubmit={handleUser}>
-        <Title text="Olá, bem vindo(a) ao say-it!" />
+        <Approach title="Crie sua conta no say-it." approach="Faça seu cadastro para compartilhar idéias, pensamentos ou piadas." />
         <FormFieldGroup>
           <FormField
             label="Primeiro nome"
@@ -156,7 +157,11 @@ export const Register = () => {
         </FormFieldGroup>
         <FormFieldGroup>
           <Button text="Cadastrar" />
-          <TextWithLink />
+          <TextWithLink
+            text="Possui cadastro?"
+            textLink="Faça login"
+            linkTo="/"
+          />
         </FormFieldGroup>
       </FormContainer>
       <Modal 

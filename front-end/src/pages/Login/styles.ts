@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
-export const FormContainer = styled.form`
-  margin: 0 auto;
+export const LoginContainer = styled.div`
   height: 100vh;
   max-width: 605px;
+  margin: 0 auto;
   display: flex;
-  flex-direction: column;
   justify-content: center;
+  flex-direction: column;
 `;

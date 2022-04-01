@@ -38,7 +38,7 @@ const SpinnerRotation = keyframes`
 export const Spinner = styled.div`
   height: 120px;
   width: 120px;
-  border-top: 10px solid ${colors.primaryBlue};
+  border-top: 10px solid ${colors.blue};
   border-radius: 50%;
   animation: ${SpinnerRotation} 1s linear infinite;
 `;

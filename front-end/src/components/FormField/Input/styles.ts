@@ -13,7 +13,7 @@ export const Label = styled.label`
 
 export const Input = styled.input<Partial<FormFieldProps>>`
   height: 59px;
-  width: ${({ largeInput }) => largeInput ? '100%' : '340px' };
+  width: 100%;
   color: ${colors.dark};
   border: 1px solid ${colors.gray};
   border-radius: 5px;
@@ -25,9 +25,17 @@ export const Input = styled.input<Partial<FormFieldProps>>`
   }
 `;
 
-export const FormFieldContainer = styled.div`
+export const FormFieldContainer = styled.div<Partial<FormFieldProps>>`
   margin-top: ${measures['spacing-x-large']}px;
+  width: ${(props) => props.largeInput ? '100%' : '50%'};
   display: flex;
   flex-direction: column;
   gap: ${measures['spacing-small']}px;
+`;
+
+export const FormFieldGroup = styled.div`
+  width: 100%;
+  display: flex;
+  gap: ${measures['spacing-large']}px;
+  align-items: center;
 `;

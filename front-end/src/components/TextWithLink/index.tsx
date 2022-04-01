@@ -1,9 +1,13 @@
-import { Text, Link } from './styles';
+import { TextContainer, Text, Link } from './styles';
 
-export const TextWithLink = () => {
+import { TextWithLinkProps } from './types';
+
+export const TextWithLink: React.FC<TextWithLinkProps> = ({ text, linkTo, textLink }) => {
   return (
-      <Text>Possui cadastro?
-        <Link href="/"> Faça login</Link>
+    <TextContainer>
+      <Text>{text}
+        <Link href={linkTo}>{` ${textLink}`}</Link>
       </Text>
+    </TextContainer>
   );
 };
