@@ -1,11 +1,11 @@
 import './App.css';
-import { Register } from './pages/Register';
-import { Login } from './pages/Login';
+
+import { RoutesComponent } from './routes';
 
 function App() {
   return (
     <div className="container">
-      <Login />
+      <RoutesComponent />
     </div>
   );
 }

@@ -11,7 +11,7 @@ export const Label = styled.label`
   color: ${colors.dark};
 `;
 
-export const Input = styled.input<Partial<FormFieldProps>>`
+export const Input = styled.input`
   height: 59px;
   width: 100%;
   color: ${colors.dark};
