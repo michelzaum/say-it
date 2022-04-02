@@ -1,4 +1,5 @@
-import { TextContainer, Text, Link } from './styles';
+
+import { TextContainer, Text, LinkTo } from './styles';
 
 import { TextWithLinkProps } from './types';
 
@@ -6,7 +7,7 @@ export const TextWithLink: React.FC<TextWithLinkProps> = ({ text, linkTo, textLi
   return (
     <TextContainer>
       <Text>{text}
-        <Link href={linkTo}>{` ${textLink}`}</Link>
+        <LinkTo to={linkTo}>{` ${textLink}`}</LinkTo>
       </Text>
     </TextContainer>
   );

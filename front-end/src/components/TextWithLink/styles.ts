@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 import styled, { css } from 'styled-components';
 import { colors } from '../../constants/colors';
 import { measures } from '../../constants/measures';
@@ -23,7 +25,7 @@ export const Text = styled.span`
   color: ${colors.dark};
 `;
 
-export const Link = styled.a`
+export const LinkTo = styled(Link)`
   ${DefaultTextStyles}
   color: ${colors.blue};
   text-decoration: none;

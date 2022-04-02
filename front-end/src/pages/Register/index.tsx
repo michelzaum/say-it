@@ -160,7 +160,7 @@ export const Register = () => {
           <TextWithLink
             text="Possui cadastro?"
             textLink="Faça login"
-            linkTo="/"
+            linkTo="/Login"
           />
         </FormFieldGroup>
       </FormContainer>

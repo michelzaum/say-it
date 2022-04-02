@@ -70,7 +70,7 @@ export const Login = () => {
           <TextWithLink
             text="Não tem conta?"
             textLink="Faça cadastro"
-            linkTo="/"
+            linkTo="/Register"
           />
           <Button text="Entrar" />
         </FormFieldGroup>
