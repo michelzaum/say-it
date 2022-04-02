@@ -1,3 +1,5 @@
+import { FormEvent, useState } from 'react';
+
 import { LoginContainer } from './styles';
 
 import { Approach } from '../../components/Approach';
@@ -6,42 +8,79 @@ import { TextWithLink } from '../../components/TextWithLink';
 
 import { FormFieldGroup } from '../../components/FormField/Input/styles';
 
-import { returnRandomPeople } from '../../utils/returnRandomPeople';
 import { Button } from '../../components/Button';
+import { Modal } from '../../components/Modal';
+
+import { returnRandomPeople } from '../../utils/returnRandomPeople';
 
 export const Login = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [modalInfo, setModalInfo] = useState({
+    show: false,
+    title: '',
+    content: '',
+    onClick: () => {}
+  });
+
   const { randomEmail } = returnRandomPeople();
 
+  function handleLogin (e: FormEvent) {
+    e.preventDefault();
+
+    if (password === '' || email === '') {
+      setModalInfo({
+        show: true,
+        title: 'Credenciais obrigatórias',
+        content: 'Preencha seu e-mail e senha para realizar o login',
+        onClick: () => setModalInfo({ ...modalInfo, show: false  })
+      });
+      return;
+    };
+  };
+
   return (
-    <LoginContainer>
-      <Approach title="Bem vindo(a) de volta!" approach="Entre com suas credenciais para acessar a sua conta." />
-      <FormField
-        label="E-mail"
-        type="email"
-        placeholder={randomEmail}
-        onChange={() => {}}
-        largeInput
-      />
-      <FormFieldGroup>
+    <>
+      <LoginContainer onSubmit={handleLogin}>
+        <Approach title="Bem vindo(a) de volta!" approach="Entre com suas credenciais para acessar a sua conta." />
         <FormField
-          label="Senha"
-          type="password"
-          placeholder="********"
-          onChange={() => {}}
+          label="E-mail"
+          type="email"
+          placeholder={randomEmail}
+          onChange={(e: FormEvent<HTMLInputElement>) => {
+            setEmail(e.currentTarget.value);
+          }}
+          largeInput
         />
-        <TextWithLink
-          linkTo="/"
-          textLink="Esqueceu a senha?"
-        />
-      </FormFieldGroup>
-      <FormFieldGroup>
-        <TextWithLink
-          text="Não possui cadastro?"
-          textLink="Fazer cadastro"
-          linkTo="/"
-        />
-        <Button text="Entrar" />
-      </FormFieldGroup>
-    </LoginContainer>
+        <FormFieldGroup>
+          <FormField
+            label="Senha"
+            type="password"
+            placeholder="********"
+            onChange={(e: FormEvent<HTMLInputElement>) => {
+              setPassword(e.currentTarget.value);
+            }}
+          />
+          <TextWithLink
+            linkTo="/"
+            textLink="Esqueceu a senha?"
+          />
+        </FormFieldGroup>
+        <FormFieldGroup>
+          <TextWithLink
+            text="Não tem conta?"
+            textLink="Faça cadastro"
+            linkTo="/"
+          />
+          <Button text="Entrar" />
+        </FormFieldGroup>
+      </LoginContainer>
+      <Modal
+        show={modalInfo.show}
+        title={modalInfo.title}
+        content={modalInfo.content}
+        onClick={modalInfo.onClick}
+      />
+    </>
   );
 };

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const LoginContainer = styled.div`
+export const LoginContainer = styled.form`
   height: 100vh;
   max-width: 605px;
   margin: 0 auto;
