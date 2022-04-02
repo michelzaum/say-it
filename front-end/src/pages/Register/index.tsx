@@ -1,4 +1,4 @@
-import { useState, FormEvent, ChangeEvent } from 'react';
+import { useState, useEffect, FormEvent, ChangeEvent } from 'react';
 
 import { FormContainer } from './styles';
 
@@ -25,18 +25,30 @@ export const Register = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [country, setCountry] = useState('');
 
+  const [randomPeople, setRandomPeople] = useState({
+    randomFirstName: '',
+    randomLastName: '',
+    randomEmail: ''
+  });
+
   const [modalInfo, setModalInfo] = useState({
     show: false,
     title: '',
     content: '',
     onClick: () => {},
   });
-
+  
   const requiredFields = [firstName, lastName, email, password, confirmPassword];
-
-  const { randomFirstName, randomLastName, randomEmail } = returnRandomPeople();
-
+  
   const [createUser, { loading, error }] = useMutation(CREATE_USER);
+  
+  useEffect(() => {
+    const { randomFirstName, randomLastName, randomEmail } = returnRandomPeople();
+    
+    setRandomPeople({
+      randomFirstName, randomLastName, randomEmail
+    });
+  }, []);
 
   if (loading) return <Loading />;
   if (error) return <h1>Submission error! {error.message}</h1>;
@@ -57,8 +69,8 @@ export const Register = () => {
     if (password !== confirmPassword) {
       setModalInfo({
         show: true, 
-        title:"Senhas diferentes",
-        content:"A senha fornecida está diferente da confirmação da senha",
+        title: 'Senhas diferentes',
+        content: 'A senha fornecida está diferente da confirmação da senha',
         onClick: () => setModalInfo({ ...modalInfo, show: false }),
       });
       return;
@@ -91,7 +103,7 @@ export const Register = () => {
           <FormField
             label="Primeiro nome"
             type="text"
-            placeholder={randomFirstName}
+            placeholder={randomPeople.randomFirstName}
             required
             onChange={(e: FormEvent<HTMLInputElement>) => {
               setFirstName(e.currentTarget.value);
@@ -100,7 +112,7 @@ export const Register = () => {
           <FormField
             label="Sobrenome"
             type="text"
-            placeholder={randomLastName}
+            placeholder={randomPeople.randomLastName}
             required
             onChange={(e: FormEvent<HTMLInputElement>) => {
               setLastName(e.currentTarget.value);
@@ -111,7 +123,7 @@ export const Register = () => {
           largeInput
           label="E-mail"
           type="email"
-          placeholder={randomEmail}
+          placeholder={randomPeople.randomEmail}
           required
           onChange={(e: FormEvent<HTMLInputElement>) => {
             setEmail(e.currentTarget.value);
