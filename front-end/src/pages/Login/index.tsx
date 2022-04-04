@@ -62,7 +62,7 @@ export const Login = () => {
             }}
           />
           <TextWithLink
-            linkTo="/"
+            linkTo="/forgotPassword"
             textLink="Esqueceu a senha?"
           />
         </FormFieldGroup>
