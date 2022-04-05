@@ -23,6 +23,16 @@ class UserRepository {
     });
   };
 
+  findUserByEmail(email) {
+    return new Promise((resolve, reject) => {
+      if (email) {
+        resolve(users.find((user) => user.email === email));
+      } else {
+        reject({ err: 'E-mail not found' });
+      };
+    });
+  };
+
   create(data) {
     return new Promise((resolve, reject) => {
       if (data) {

@@ -19,6 +19,22 @@ module.exports = {
         console.log(err);
       }
     },
+
+    findUserByEmail: async (_, { email }) => {
+      try {
+        if (email) {
+          const userByEmail = await UserRepository.findUserByEmail(email);
+
+          if (userByEmail) {
+            return userByEmail;
+          } else {
+            return { message: 'E-mail not found' };
+          };
+        };
+      } catch (err) {
+        console.log(err);
+      }
+    },
   },
 
   Mutation: {
