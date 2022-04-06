@@ -22,14 +22,12 @@ export const ForgotPassword = () => {
     onClick: () => {}
   });
   
-  const [getUser, { loading, error }] = useLazyQuery(FIND_USER_BY_EMAIL, {
-    variables: { email: userEmail },
-  });
+  const [getEmailByUser, { loading, error, data }] = useLazyQuery(FIND_USER_BY_EMAIL);
 
   if (loading) return <Loading />
   if (error) return <h1>Error: {` ${error}`}</h1>
 
-  async function handleUserEmail (e: FormEvent) {
+  async function handleEmailByUser(e: FormEvent) {
     e.preventDefault();
 
     if (userEmail === '') {
@@ -42,16 +40,16 @@ export const ForgotPassword = () => {
       return;
     };
 
-    const { data: { findUserByEmail: { id, email } } } = await getUser();
-    
-    setUserEmail('');
-    console.log(id, email);
-    
+    getEmailByUser({
+      variables: {
+        email: userEmail
+      },
+    });
   };
 
   return (
     <>
-      <ForgotPasswordContainer onSubmit={handleUserEmail}>
+      <ForgotPasswordContainer onSubmit={handleEmailByUser}>
         <Approach
           title="Esqueceu sua senha?"
           approach="Não se preocupe! Vamos te ajudar. Primeiro, informe seu e-mail cadastrado." />
@@ -67,7 +65,7 @@ export const ForgotPassword = () => {
           />
           <FormFieldGroup>
             <TextWithLink
-              linkTo="/login"
+              linkTo="/"
               text="Voltar para o"
               textLink="Login"
             />

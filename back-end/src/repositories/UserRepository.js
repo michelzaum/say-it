@@ -26,9 +26,13 @@ class UserRepository {
   findUserByEmail(email) {
     return new Promise((resolve, reject) => {
       if (email) {
-        resolve(users.find((user) => user.email === email));
-      } else {
-        reject({ err: 'E-mail not found' });
+        const userEmail = users.find((user) => user.email === email);
+
+        if (userEmail) {
+          resolve(userEmail);
+        } else {
+          reject({ message: 'E-mail not found' });
+        };
       };
     });
   };

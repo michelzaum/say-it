@@ -25,11 +25,7 @@ module.exports = {
         if (email) {
           const userByEmail = await UserRepository.findUserByEmail(email);
 
-          if (userByEmail) {
-            return userByEmail;
-          } else {
-            return { message: 'E-mail not found' };
-          };
+          return userByEmail;
         };
       } catch (err) {
         console.log(err);
