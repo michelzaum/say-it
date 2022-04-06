@@ -22,7 +22,7 @@ export const ForgotPassword = () => {
     onClick: () => {}
   });
   
-  const [getEmailByUser, { loading, error, data }] = useLazyQuery(FIND_USER_BY_EMAIL);
+  const [getEmailByUser, { loading, error }] = useLazyQuery(FIND_USER_BY_EMAIL);
 
   if (loading) return <Loading />
   if (error) return <h1>Error: {` ${error}`}</h1>
@@ -40,11 +40,23 @@ export const ForgotPassword = () => {
       return;
     };
 
-    getEmailByUser({
+    const { data: { findUserByEmail } } = await getEmailByUser({
       variables: {
         email: userEmail
       },
     });
+
+    if (findUserByEmail) {
+      const { id, email } = findUserByEmail;
+      console.log(id, email);
+    } else {
+      setModalInfo({
+        show: true,
+        title: 'E-mail não encontrado',
+        content: 'Não encontramos nenhum registro com o e-mail fornecido. Por favor, tente outro e-mail.',
+        onClick: () => setModalInfo({ ...modalInfo, show: false })
+      });
+    };
   };
 
   return (
