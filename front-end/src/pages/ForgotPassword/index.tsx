@@ -56,7 +56,10 @@ export const ForgotPassword = () => {
         content: 'Não encontramos nenhum registro com o e-mail fornecido. Por favor, tente outro e-mail.',
         onClick: () => setModalInfo({ ...modalInfo, show: false })
       });
+      return;
     };
+
+    setUserEmail('');
   };
 
   return (
@@ -71,6 +74,7 @@ export const ForgotPassword = () => {
             placeholder="stevejobs@apple.com"
             largeInput
             required
+            value={userEmail}
             onChange={(e: FormEvent<HTMLInputElement>) => {
               setUserEmail(e.currentTarget.value);
             }}

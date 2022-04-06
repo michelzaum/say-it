@@ -6,5 +6,6 @@ export type FormFieldProps = {
   type: string
   largeInput?: boolean
   required?: boolean
+  value?: string
   onChange: (e: React.FormEvent<HTMLInputElement>) => void
 };
