@@ -9,12 +9,20 @@ import { Button } from '../../components/Button';
 import { FormFieldGroup } from '../../components/FormField/Input/styles';
 import { useLocation } from 'react-router-dom';
 
+type ParamsProps = {
+  id: string
+  email: string
+}
+
 export const ResetPassword = () => {
   const [codeVerification, setCodeVerification] = useState('');
 
-  const { state } = useLocation();
+  const location = useLocation();
+  
+  const params = location.state as ParamsProps;
 
-  console.log(state)
+  console.log(params)
+
   return (
     <ResetPasswordContainer>
       <Approach
