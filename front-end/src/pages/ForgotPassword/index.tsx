@@ -1,4 +1,5 @@
 import { FormEvent, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { ForgotPasswordContainer } from './styles';
 
@@ -13,6 +14,7 @@ import { useLazyQuery } from '@apollo/client';
 import { FIND_USER_BY_EMAIL } from '../../graphql/Users/queries';
 import { LoadingComponent as Loading} from '../../components/Loading';
 
+
 export const ForgotPassword = () => {
   const [userEmail, setUserEmail] = useState('');
   const [modalInfo, setModalInfo] = useState({
@@ -21,6 +23,8 @@ export const ForgotPassword = () => {
     content: '',
     onClick: () => {}
   });
+
+  const navigation = useNavigate();
   
   const [getEmailByUser, { loading, error }] = useLazyQuery(FIND_USER_BY_EMAIL);
 
@@ -48,7 +52,13 @@ export const ForgotPassword = () => {
 
     if (findUserByEmail) {
       const { id, email } = findUserByEmail;
-      console.log(id, email);
+
+      navigation('/resetPassword', {
+        state: {
+          id, email
+        }
+      });
+      
     } else {
       setModalInfo({
         show: true,
