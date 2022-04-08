@@ -86,6 +86,27 @@ class UserRepository {
       };
     });
   };
+
+  updateResetPasswordCode(id, randomCode) {
+    return new Promise((resolve, reject) => {
+      let updatedUser = {};
+
+      if (id && randomCode) {
+        users.forEach((user, index) => {
+          if (user.id == id) {
+            updatedUser = {
+              ...user,
+              codeToResetPassword: randomCode,
+            };
+            users[index] = updatedUser;
+          };
+        });
+        resolve(updatedUser);
+      } else {
+        reject({ message: 'Error in update reset code.' });
+      }
+    });
+  };
 };
 
 module.exports = new UserRepository();

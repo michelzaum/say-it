@@ -6,6 +6,7 @@ let users = [
     email: 'micheloliveira@mail.com',
     password: 'michel123',
     country: 'Canada',
+    codeToResetPassword: 0,
   },
   {
     id: 2,
@@ -14,6 +15,7 @@ let users = [
     email: 'anamaria@mail.com',
     password: 'ana123',
     country: 'England',
+    codeToResetPassword: 0,
   },
   {
     id: 3,
@@ -22,6 +24,7 @@ let users = [
     email: 'leticiaribeiro@mail.com',
     password: 'leticia123',
     country: 'Italy',
+    codeToResetPassword: 0,
   },
 ];
 
