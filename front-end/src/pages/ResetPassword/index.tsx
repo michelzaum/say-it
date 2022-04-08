@@ -12,6 +12,7 @@ import { useLocation } from 'react-router-dom';
 type ParamsProps = {
   id: string
   email: string
+  codeToResetPassword: number
 }
 
 export const ResetPassword = () => {
@@ -21,10 +22,18 @@ export const ResetPassword = () => {
   
   const params = location.state as ParamsProps;
 
-  console.log(params)
+  function handleCodeVerification() {
+    const { codeToResetPassword } = params;
+    
+    if (Number(codeVerification) === Number(codeToResetPassword)) {
+      alert('Código válido');
+    } else {
+      alert('Código inválido');
+    };
+  };
 
   return (
-    <ResetPasswordContainer>
+    <ResetPasswordContainer onSubmit={handleCodeVerification} >
       <Approach
         title="Código de verificação"
         approach="Cheque seu e-mail e insira o código de verificação que foi enviado para prosseguir."
