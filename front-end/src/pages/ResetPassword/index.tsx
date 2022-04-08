@@ -22,9 +22,11 @@ export const ResetPassword = () => {
   
   const params = location.state as ParamsProps;
 
-  function handleCodeVerification() {
-    const { codeToResetPassword } = params;
+  function handleCodeVerification(e: FormEvent) {
+    e.preventDefault();
     
+    const { codeToResetPassword } = params;
+
     if (Number(codeVerification) === Number(codeToResetPassword)) {
       alert('Código válido');
     } else {
