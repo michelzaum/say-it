@@ -21,3 +21,11 @@ export const CREATE_USER = gql`
     }
   }
 `;
+
+export const GENERATE_CODE_TO_RESET_PASSWORD = gql`
+  mutation UpdateUserResetPasswordCode($id: ID) {
+    updateUserResetPasswordCode(id: $id) {
+      codeToResetPassword
+    }
+  }
+`;

@@ -11,9 +11,10 @@ import { Modal } from '../../components/Modal';
 import { FormFieldGroup } from '../../components/FormField/Input/styles';
 
 import { useLazyQuery } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { FIND_USER_BY_EMAIL } from '../../graphql/Users/queries';
+import { GENERATE_CODE_TO_RESET_PASSWORD } from '../../graphql/Users/mutations';
 import { LoadingComponent as Loading} from '../../components/Loading';
-
 
 export const ForgotPassword = () => {
   const [userEmail, setUserEmail] = useState('');
@@ -27,6 +28,7 @@ export const ForgotPassword = () => {
   const navigation = useNavigate();
   
   const [getEmailByUser, { loading, error }] = useLazyQuery(FIND_USER_BY_EMAIL);
+  const [getCodeResetPassword] = useMutation(GENERATE_CODE_TO_RESET_PASSWORD);
 
   if (loading) return <Loading />
   if (error) return <h1>Error: {` ${error}`}</h1>
@@ -44,26 +46,55 @@ export const ForgotPassword = () => {
       return;
     };
 
-    const { data: { findUserByEmail } } = await getEmailByUser({
-      variables: {
-        email: userEmail
-      },
-    });
-
-    if (findUserByEmail) {
-      const { id, email } = findUserByEmail;
-
-      navigation('/resetPassword', {
-        state: {
-          id, email
-        }
+    try {
+      const { data: { findUserByEmail } } = await getEmailByUser({
+        variables: {
+          email: userEmail
+        },
       });
-      
-    } else {
+  
+      if (findUserByEmail) {
+        const { id, email } = findUserByEmail;
+  
+        const { data } = await getCodeResetPassword({
+          variables: {
+            id,
+          },
+        });
+  
+        if (data) {
+          const { updateUserResetPasswordCode: { codeToResetPassword } } = data;
+          
+          navigation('/resetPassword', {
+            state: {
+              id, email, codeToResetPassword
+            }
+          });
+  
+        } else {
+          setModalInfo({
+            show: true,
+            title: 'Tivemos um problema',
+            content: 'Ocorreu um problema na geração do código para a recuperação de senha. Por favor, tente novamente.',
+            onClick: () => setModalInfo({ ...modalInfo, show: false })
+          });
+          return;
+        };
+        
+      } else {
+        setModalInfo({
+          show: true,
+          title: 'E-mail não encontrado',
+          content: 'Não encontramos nenhum registro com o e-mail fornecido. Por favor, tente outro e-mail.',
+          onClick: () => setModalInfo({ ...modalInfo, show: false })
+        });
+        return;
+      };
+    } catch (err) {
       setModalInfo({
         show: true,
-        title: 'E-mail não encontrado',
-        content: 'Não encontramos nenhum registro com o e-mail fornecido. Por favor, tente outro e-mail.',
+        title: 'Tivemos um problema',
+        content: 'Ocorreu um problema no envio do código para recuperação de senha. Por favor, tente novamente.',
         onClick: () => setModalInfo({ ...modalInfo, show: false })
       });
       return;
