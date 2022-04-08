@@ -7,7 +7,7 @@ import { FormField } from '../../components/FormField/Input';
 import { TextWithLink } from '../../components/TextWithLink';
 import { Button } from '../../components/Button';
 import { FormFieldGroup } from '../../components/FormField/Input/styles';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 type ParamsProps = {
   id: string
@@ -18,20 +18,28 @@ type ParamsProps = {
 export const ResetPassword = () => {
   const [codeVerification, setCodeVerification] = useState('');
 
+  const navigation = useNavigate();
+
   const location = useLocation();
   
   const params = location.state as ParamsProps;
 
   function handleCodeVerification(e: FormEvent) {
     e.preventDefault();
-    
-    const { codeToResetPassword } = params;
+
+    const { codeToResetPassword, id } = params;
 
     if (Number(codeVerification) === Number(codeToResetPassword)) {
-      alert('Código válido');
+      navigation('/newPassword', {
+        state: {
+          id
+        },
+      });
     } else {
       alert('Código inválido');
     };
+
+    setCodeVerification('');
   };
 
   return (
