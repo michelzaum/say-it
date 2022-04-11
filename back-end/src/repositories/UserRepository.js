@@ -42,6 +42,7 @@ class UserRepository {
       if (data) {
         const newUser = {
           id: users.length + 1,
+          codeToResetPassword: 0,
           ...data,
         };
   
