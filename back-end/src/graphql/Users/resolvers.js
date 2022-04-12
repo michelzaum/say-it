@@ -1,5 +1,6 @@
 const UserRepository = require('../../repositories/UserRepository');
 const generateRandomCode = require('../../utils/generateRandomCode');
+const sendEmailToResetPassword = require('../../utils/sendEmail');
 
 module.exports = {
   Query: {
@@ -72,6 +73,11 @@ module.exports = {
         const randomCode = generateRandomCode();
         
         const userToResetPassword = await UserRepository.updateResetPasswordCode(id, randomCode);
+
+        if (userToResetPassword) {
+          const { email } = userToResetPassword;
+          sendEmailToResetPassword(email, randomCode);
+        }
         return userToResetPassword;
       } catch (err) {
         console.log(err);

@@ -3,7 +3,7 @@ let users = [
     id: 1,
     firstName: 'Michel',
     lastName: 'Oliveira',
-    email: 'micheloliveira@mail.com',
+    email: 'micheloliver42@gmail.com',
     password: 'michel123',
     country: 'Canada',
     codeToResetPassword: 0,
