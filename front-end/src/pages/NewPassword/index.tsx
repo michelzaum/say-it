@@ -10,6 +10,11 @@ import { TextWithLink } from '../../components/TextWithLink';
 import { Modal } from '../../components/Modal';
 import { ModalProps } from '../../components/Modal/types';
 
+import { useMutation } from '@apollo/client';
+import { UPDATE_USER_PASSWORD } from '../../graphql/Users/mutations';
+import { ParamsProps } from '../ResetPassword/types';
+import { LoadingComponent } from '../../components/Loading';
+
 export const NewPassword = () => {
   const [newPassword, setNewPassword] = useState('');
   const [confirmNewPassword, setConfirmNewPassword] = useState('');
@@ -20,11 +25,16 @@ export const NewPassword = () => {
     onClick: () => {}
   });
 
+  const [updatePassword, { loading, error }] = useMutation(UPDATE_USER_PASSWORD);
+
   const location = useLocation();
 
   const params = location.state;
 
-  console.log(params);
+  const { id } = params as ParamsProps;
+
+  if (loading) return <LoadingComponent />
+  if (error) return <h1>Submission error! {error.message}</h1>;
 
   function handleNewPassword (e: FormEvent) {
     e.preventDefault();
@@ -53,6 +63,14 @@ export const NewPassword = () => {
         onClick: () => setModalInfo({ ...modalInfo, show: false })
       });
       return;
+    };
+
+    updatePassword({
+      variables: { userId: id, newPassword: newPassword },
+    });
+
+    if (error) {
+      return { message: `Error: ${error}` };
     };
   };
   

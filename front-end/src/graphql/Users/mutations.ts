@@ -22,6 +22,18 @@ export const CREATE_USER = gql`
   }
 `;
 
+export const UPDATE_USER_PASSWORD = gql`
+  mutation UpdateUser($userId: ID!, $newPassword: String!) {
+    updateUser(id: $userId, data: {
+      password: $newPassword
+    }) {
+      id
+      email
+      password
+    }
+  }
+`;
+
 export const GENERATE_CODE_TO_RESET_PASSWORD = gql`
   mutation UpdateUserResetPasswordCode($id: ID) {
     updateUserResetPasswordCode(id: $id) {
