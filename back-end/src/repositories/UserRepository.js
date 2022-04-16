@@ -108,6 +108,21 @@ class UserRepository {
       }
     });
   };
+
+  validateCodeToResetPassword(email, codeProvided) {
+    return new Promise((resolve, reject) => {
+      let codeIsValid = false;
+
+      users.forEach(user => {
+        if (user.email === email) {
+          if (user.codeToResetPassword === codeProvided) {
+            codeIsValid = true;
+          };
+        };
+      });
+      resolve(codeIsValid);
+    });
+  };
 };
 
 module.exports = new UserRepository();

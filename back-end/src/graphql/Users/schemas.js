@@ -23,6 +23,7 @@ const typeDefs = gql`
     listUsers: [User!]
     findUserById(id: ID!): User!
     findUserByEmail(email: String): User
+    validateCodeToResetPassword(email: String, codeProvided: Int): Boolean!
   }
 
   type Mutation {

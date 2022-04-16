@@ -33,6 +33,15 @@ module.exports = {
         console.log(err);
       }
     },
+
+    validateCodeToResetPassword: async(_, { email, codeProvided }) => {
+      try {
+        const codeIsValid = await UserRepository.validateCodeToResetPassword(email, codeProvided);
+        return !!codeIsValid;
+      } catch (err) {
+        console.log(err);
+      };
+    },
   },
 
   Mutation: {
