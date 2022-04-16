@@ -7,3 +7,9 @@ export const FIND_USER_BY_EMAIL = gql`
     }
   }
 `;
+
+export const VALIDATE_CODE_TO_RESET_PASSWORD = gql`
+  query validateCodeToResetPassword($email: String, $codeProvided: Int) {
+    isCodeProvidedValid(email: $email, codeProvided: $codeProvided)
+  }
+`;

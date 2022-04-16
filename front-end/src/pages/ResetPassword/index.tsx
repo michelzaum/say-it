@@ -8,12 +8,15 @@ import { FormField } from '../../components/FormField/Input';
 import { TextWithLink } from '../../components/TextWithLink';
 import { Button } from '../../components/Button';
 import { Modal } from '../../components/Modal';
+import { LoadingComponent } from '../../components/Loading';
 import { ModalProps } from '../../components/Modal/types';
 import { FormFieldGroup } from '../../components/FormField/Input/styles';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useLazyQuery } from '@apollo/client';
+import { VALIDATE_CODE_TO_RESET_PASSWORD } from '../../graphql/Users/queries';
 
 export const ResetPassword = () => {
-  const [codeVerification, setCodeVerification] = useState('');
+  const [codeProvided, setCodeProvided] = useState('');
   const [modalInfo, setModalInfo] = useState<ModalProps>({
     show: false,
     title: '',
@@ -21,33 +24,68 @@ export const ResetPassword = () => {
     onClick: () => {}
   });
 
+  const [validateCode, { loading, error }] = useLazyQuery(VALIDATE_CODE_TO_RESET_PASSWORD);
+
   const navigation = useNavigate();
 
   const location = useLocation();
   
   const params = location.state as ParamsProps;
 
-  function handleCodeVerification(e: FormEvent) {
+  if (loading) return <LoadingComponent />
+  if (error) return <h1>Error: {` ${error}`}</h1>
+
+  async function handleCodeVerification(e: FormEvent) {
     e.preventDefault();
 
-    const { codeToResetPassword, id } = params;
+    try {
+      const { email } = params;
 
-    if (Number(codeVerification) === Number(codeToResetPassword)) {
-      navigation('/newPassword', {
-        state: {
-          id
+      if (codeProvided === '') {
+        setModalInfo({
+          show: true,
+          title: 'Código obrigatório',
+          content: 'Digite o código encaminhado para o e-mail fornecido para prosseguir com a recuperação de senha.',
+          onClick: () => setModalInfo({ ...modalInfo, show: false })
+        });
+        return;
+      };
+  
+      const checkCode = await validateCode({
+        variables: {
+          email,
+          codeProvided: Number(codeProvided)
         },
       });
-    } else {
+  
+      if (checkCode) {
+        const { data: { isCodeProvidedValid } } = checkCode;
+        
+        if (isCodeProvidedValid) {
+          navigation('/newPassword', {
+              state: {
+                email,
+             },
+          });
+        } else {
+          setModalInfo({
+            show: true,
+            title: 'Código inválido',
+            content: 'O código preenchido é inválido. Por favor, insira o código encaminhado ao e-mail fornecido.',
+            onClick: () => setModalInfo({ ...modalInfo, show: false })
+          });
+        };
+      };
+  
+      setCodeProvided('');
+    } catch (err) {
       setModalInfo({
         show: true,
-        title: 'Código inválido',
-        content: 'O código fornecido está inválido. Por favor, tente novamente.',
+        title: 'Tivemos um problema',
+        content: 'Houve um erro na validação do código de recuperação de senha. Por favor, tente novamente.',
         onClick: () => setModalInfo({ ...modalInfo, show: false })
       });
     };
-
-    setCodeVerification('');
   };
 
   return (
@@ -63,9 +101,9 @@ export const ResetPassword = () => {
             placeholder="Insira o código"
             type="text"
             required
-            value={codeVerification}
+            value={codeProvided}
             onChange={(e: FormEvent<HTMLInputElement>) => {
-              setCodeVerification(e.currentTarget.value)
+              setCodeProvided(e.currentTarget.value)
             }}
           />
           <TextWithLink

@@ -109,7 +109,7 @@ class UserRepository {
     });
   };
 
-  validateCodeToResetPassword(email, codeProvided) {
+  isCodeProvidedValid(email, codeProvided) {
     return new Promise((resolve, reject) => {
       let codeIsValid = false;
 

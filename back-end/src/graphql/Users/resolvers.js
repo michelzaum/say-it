@@ -34,9 +34,9 @@ module.exports = {
       }
     },
 
-    validateCodeToResetPassword: async(_, { email, codeProvided }) => {
+    isCodeProvidedValid: async(_, { email, codeProvided }) => {
       try {
-        const codeIsValid = await UserRepository.validateCodeToResetPassword(email, codeProvided);
+        const codeIsValid = await UserRepository.isCodeProvidedValid(email, codeProvided);
         return !!codeIsValid;
       } catch (err) {
         console.log(err);
