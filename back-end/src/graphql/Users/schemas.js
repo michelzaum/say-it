@@ -29,7 +29,7 @@ const typeDefs = gql`
     createUser(data: UserInput!): User
     updateUser(id: ID!, data: UserInput): User
     deleteUser(id: ID!): Boolean
-    updateUserResetPasswordCode(id: ID): User
+    generateCodeToResetPassword(email: String): Boolean
   }
 `;
 

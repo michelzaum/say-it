@@ -27,8 +27,8 @@ export const ForgotPassword = () => {
 
   const navigation = useNavigate();
   
-  const [getEmailByUser, { loading, error }] = useLazyQuery(FIND_USER_BY_EMAIL);
-  const [getCodeResetPassword] = useMutation(GENERATE_CODE_TO_RESET_PASSWORD);
+  const [getUserByEmail, { loading, error }] = useLazyQuery(FIND_USER_BY_EMAIL);
+  const [generateCodeToResetPassword] = useMutation(GENERATE_CODE_TO_RESET_PASSWORD);
 
   if (loading) return <Loading />
   if (error) return <h1>Error: {` ${error}`}</h1>
@@ -47,30 +47,27 @@ export const ForgotPassword = () => {
     };
 
     try {
-      const { data: { findUserByEmail } } = await getEmailByUser({
+      const { data: { findUserByEmail } } = await getUserByEmail({
         variables: {
           email: userEmail
         },
       });
   
       if (findUserByEmail) {
-        const { id, email } = findUserByEmail;
+        const { email } = findUserByEmail;
   
-        const { data } = await getCodeResetPassword({
+        const { data } = await generateCodeToResetPassword({
           variables: {
-            id,
+            email,
           },
         });
   
         if (data) {
-          const { updateUserResetPasswordCode: { codeToResetPassword } } = data;
-          
           navigation('/resetPassword', {
             state: {
-              id, email, codeToResetPassword
+              email
             }
           });
-  
         } else {
           setModalInfo({
             show: true,

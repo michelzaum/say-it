@@ -88,13 +88,13 @@ class UserRepository {
     });
   };
 
-  updateResetPasswordCode(id, randomCode) {
+  generateCodeToResetPassword(email, randomCode) {
     return new Promise((resolve, reject) => {
       let updatedUser = {};
 
-      if (id && randomCode) {
+      if (email && randomCode) {
         users.forEach((user, index) => {
-          if (user.id == id) {
+          if (user.email === email) {
             updatedUser = {
               ...user,
               codeToResetPassword: randomCode,

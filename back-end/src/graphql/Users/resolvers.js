@@ -68,17 +68,17 @@ module.exports = {
       };
     },
 
-    updateUserResetPasswordCode: async (_, { id }) => {
+    generateCodeToResetPassword: async (_, { email }) => {
       try {
         const randomCode = generateRandomCode();
         
-        const userToResetPassword = await UserRepository.updateResetPasswordCode(id, randomCode);
+        const userToResetPassword = await UserRepository.generateCodeToResetPassword(email, randomCode);
 
         if (userToResetPassword) {
           const { email } = userToResetPassword;
           sendEmailToResetPassword(email, randomCode);
         }
-        return userToResetPassword;
+        return !!userToResetPassword;
       } catch (err) {
         console.log(err);
       };
