@@ -63,7 +63,7 @@ export const ForgotPassword = () => {
         });
   
         if (data) {
-          navigation('/resetPassword', {
+          navigation('/codeToResetPassword', {
             state: {
               email
             }

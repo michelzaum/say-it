@@ -12,7 +12,7 @@ import { ModalProps } from '../../components/Modal/types';
 
 import { useMutation } from '@apollo/client';
 import { UPDATE_USER_PASSWORD } from '../../graphql/Users/mutations';
-import { ParamsProps } from '../ResetPassword/types';
+import { ParamsProps } from '../CodeToResetPassword/types';
 import { LoadingComponent } from '../../components/Loading';
 
 export const NewPassword = () => {

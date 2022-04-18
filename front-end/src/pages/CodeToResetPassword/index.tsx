@@ -15,7 +15,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useLazyQuery } from '@apollo/client';
 import { VALIDATE_CODE_TO_RESET_PASSWORD } from '../../graphql/Users/queries';
 
-export const ResetPassword = () => {
+export const CodeToResetPassword = () => {
   const [codeProvided, setCodeProvided] = useState('');
   const [modalInfo, setModalInfo] = useState<ModalProps>({
     show: false,
