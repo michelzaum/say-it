@@ -31,7 +31,7 @@ export const NewPassword = () => {
 
   const params = location.state;
 
-  const { id } = params as ParamsProps;
+  const { email } = params as ParamsProps;
 
   if (loading) return <LoadingComponent />
   if (error) return <h1>Submission error! {error.message}</h1>;
@@ -66,7 +66,10 @@ export const NewPassword = () => {
     };
 
     updatePassword({
-      variables: { userId: id, newPassword: newPassword },
+      variables: {
+        email,
+        newPassword
+      },
     });
 
     if (error) {
