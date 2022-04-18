@@ -92,5 +92,14 @@ module.exports = {
         console.log(err);
       };
     },
+
+    updateUserPassword: async (_, { email, newPassword }) => {
+      try {
+        const userWithNewPassword = await UserRepository.updateUserPassword(email, newPassword);
+        return userWithNewPassword;
+      } catch (err) {
+        console.log(err);
+      };
+    },
   },
 };

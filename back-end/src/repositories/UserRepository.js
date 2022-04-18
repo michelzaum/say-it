@@ -123,6 +123,27 @@ class UserRepository {
       resolve(codeIsValid);
     });
   };
+
+  updateUserPassword(email, newPassword) {
+    return new Promise((resolve, reject) => {
+      let updatedUser = {};
+
+      if (email) {
+        users.forEach((user, index) => {
+          if (user.email === email) {
+            updatedUser = {
+              ...user,
+              password: newPassword,
+            };
+            users[index] = updatedUser;
+          };
+        });
+        resolve(updatedUser);
+      } else {
+        reject({ message: 'Email not found' });
+      };
+    });
+  };
 };
 
 module.exports = new UserRepository();
