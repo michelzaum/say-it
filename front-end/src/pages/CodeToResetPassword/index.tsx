@@ -93,7 +93,7 @@ export const CodeToResetPassword = () => {
       <ResetPasswordContainer onSubmit={handleCodeVerification}>
         <Approach
           title="Código de verificação"
-          approach="Cheque seu e-mail e insira o código de verificação que foi enviado para prosseguir."
+          approach={`Encaminhamos um código para o e-mail ${params?.email}. Por favor, acesse este e-mail e insira o código no campo abaixo.`}
         />
         <FormFieldGroup>
           <FormField
