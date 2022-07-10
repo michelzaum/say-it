@@ -1,6 +1,7 @@
 const UserRepository = require('../../repositories/UserRepository');
 const generateRandomCode = require('../../utils/generateRandomCode');
 const sendEmailToResetPassword = require('../../utils/sendEmail');
+const encryption = require('../../utils/encryption');
 
 module.exports = {
   Query: {
@@ -51,9 +52,11 @@ module.exports = {
   
         if([firstName, email, password].some((item) => !item)) {
           return 'There are empty required fields';
-        }
+        };
+
+        const encryptedPassword = encryption(password);
   
-        const newUser = await UserRepository.create(data);
+        const newUser = await UserRepository.create({...data, password: encryptedPassword});
         return newUser;
       } catch (err) {
         console.log(err);
