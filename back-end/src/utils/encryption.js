@@ -3,40 +3,42 @@ const alphabet = require('./alphabet');
 const dotenv = require('dotenv');
 dotenv.config();
 
-function encryption () {
+function encryption (value) {
   let hash = process.env.HASH_KEY;
-  const plainText = "senha123";
+  const plainText = value;
   
-  hash += plainText.substring(0, plainText.length - hash.length);
+  hash += plainText?.substring(0, plainText.length - hash.length);
 
-  const hashToArray = hash.split('');
-  const plainTextToArray = plainText.split('');
+  const hashToArray = hash?.split('');
+  const plainTextToArray = plainText?.split('');
 
   let indexOfItemsHash = [];
-  hashToArray.forEach(item => {
+  hashToArray?.forEach(item => {
     indexOfItemsHash.push(alphabet.indexOf(item));
   });
 
   let indexOfItemsPlainText = [];
-  plainTextToArray.forEach(item => {
+  plainTextToArray?.forEach(item => {
     indexOfItemsPlainText.push(alphabet.indexOf(item));
   });
 
   let indexOfEncryptedText = [];
   for (let i = 0; i < indexOfItemsHash.length; i++) {
-    indexOfEncryptedText.push(indexOfItemsHash[i] + indexOfItemsPlainText[i]);
+    let result = indexOfItemsHash[i] + indexOfItemsPlainText[i];
+
+    if (result > alphabet.length - 1) {
+      result = result - alphabet.length;
+    }
+
+    indexOfEncryptedText.push(result);
   };
 
   let encryptedText = "";
-  indexOfEncryptedText.forEach(item => {
-    if (item > alphabet.length - 1) {
-      item = item - alphabet.length;
-    };
-
+  indexOfEncryptedText?.forEach(item => {
     encryptedText += alphabet[item];
   });
 
   return encryptedText;
 };
 
-encryption();
+module.exports = encryption;
