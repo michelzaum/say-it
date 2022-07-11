@@ -2,6 +2,7 @@ const UserRepository = require('../../repositories/UserRepository');
 const generateRandomCode = require('../../utils/generateRandomCode');
 const sendEmailToResetPassword = require('../../utils/sendEmail');
 const encryption = require('../../utils/encryption');
+const decryption = require('../../utils/decryption');
 
 module.exports = {
   Query: {
@@ -39,6 +40,30 @@ module.exports = {
       try {
         const codeIsValid = await UserRepository.isCodeProvidedValid(email, codeProvided);
         return !!codeIsValid;
+      } catch (err) {
+        console.log(err);
+      };
+    },
+
+    login: async (_, { email, passwordProvided }) => {
+      try {
+        const user = await UserRepository.findUserByEmail(email);
+
+        if (!user) {
+          return false;
+        };
+  
+        const { password } = user;
+        const decryptedPassword = decryption(password);
+  
+        if (passwordProvided === decryptedPassword) {
+          console.log('Login ok!');
+          return true;
+        } else {
+          console.log('Login refused!');
+          return false;
+        };
+  
       } catch (err) {
         console.log(err);
       };

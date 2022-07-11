@@ -11,7 +11,11 @@ import { FormFieldGroup } from '../../components/FormField/Input/styles';
 import { Button } from '../../components/Button';
 import { Modal } from '../../components/Modal';
 
+import { useLazyQuery } from '@apollo/client';
+import { LOGIN } from '../../graphql/Users/queries';
+
 import { returnRandomPeople } from '../../utils/returnRandomPeople';
+import { LoadingComponent } from '../../components/Loading';
 
 export const Login = () => {
   const [email, setEmail] = useState('');
@@ -23,9 +27,14 @@ export const Login = () => {
     onClick: () => {}
   });
 
+  const [validateLogin, { loading, error }] = useLazyQuery(LOGIN);
+
   const { randomEmail } = returnRandomPeople();
 
-  function handleLogin (e: FormEvent) {
+  if (loading) return <LoadingComponent />
+  if (error) return <h1>Error: {` ${error}`}</h1>
+
+  async function handleLogin (e: FormEvent) {
     e.preventDefault();
 
     if (password === '' || email === '') {
@@ -36,6 +45,15 @@ export const Login = () => {
         onClick: () => setModalInfo({ ...modalInfo, show: false  })
       });
       return;
+    };
+
+    const loginResult = await validateLogin({
+      variables: { email, passwordProvided: password },
+    });
+
+    if (loginResult) {
+      const { data } = loginResult;
+      alert(data.login);
     };
   };
 

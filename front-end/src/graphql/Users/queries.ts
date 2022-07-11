@@ -13,3 +13,9 @@ export const VALIDATE_CODE_TO_RESET_PASSWORD = gql`
     isCodeProvidedValid(email: $email, codeProvided: $codeProvided)
   }
 `;
+
+export const LOGIN = gql`
+  query login($email: String, $passwordProvided: String) {
+    login(email: $email, passwordProvided: $passwordProvided)
+  }
+`;

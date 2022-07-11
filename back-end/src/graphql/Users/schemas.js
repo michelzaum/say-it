@@ -24,6 +24,7 @@ const typeDefs = gql`
     findUserById(id: ID!): User!
     findUserByEmail(email: String): User
     isCodeProvidedValid(email: String, codeProvided: Int): Boolean!
+    login(email: String, passwordProvided: String) : Boolean
   }
 
   type Mutation {
