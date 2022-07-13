@@ -7,7 +7,7 @@ export const randomPeople = [
   { id: 6, randomFirstName: 'Alan', randomLastName: 'Turing', randomEmail: 'alanturing@mail.com'},
   { id: 7, randomFirstName: 'Bill', randomLastName: 'Gates', randomEmail: 'billgates@microsoft.com'},
   { id: 8, randomFirstName: 'Nicolas', randomLastName: 'Tesla', randomEmail: 'nicolastesla@mail.com'},
-  { id: 9, randomFirstName: 'Albert', randomLastName: 'Einstein', randomEmail: 'alberteinstein@apple.com'},
+  { id: 9, randomFirstName: 'Albert', randomLastName: 'Einstein', randomEmail: 'alberteinstein@mail.com'},
   { id: 10, randomFirstName: 'Jeff', randomLastName: 'Bezos', randomEmail: 'jeffbezos@amazon.com'},
   { id: 11, randomFirstName: 'Ryan', randomLastName: 'Dahl', randomEmail: 'ryandahl@node.com'},
   { id: 12, randomFirstName: 'Larry', randomLastName: 'Page', randomEmail: 'larrypage@google.com'},
@@ -39,4 +39,7 @@ export const randomPeople = [
   { id: 38, randomFirstName: 'Dorothy', randomLastName: 'Vaughan', randomEmail: 'dorothyvaughan@mail.com'},
   { id: 39, randomFirstName: 'Mary', randomLastName: 'Jackson', randomEmail: 'maryjackson@mail.com'},
   { id: 40, randomFirstName: 'Ana Amelia', randomLastName: 'Nascimento', randomEmail: 'anaamelia@mail.com'},
+  { id: 41, randomFirstName: 'Tom', randomLastName: 'Cruise', randomEmail: 'tomcruise@mail.com'},
+  { id: 42, randomFirstName: 'Steve', randomLastName: 'Strange', randomEmail: 'stevestrange@mail.com'},
+  { id: 42, randomFirstName: 'Friedrich', randomLastName: 'Nietzsche', randomEmail: 'friedrichnietzsche@mail.com'},
 ]

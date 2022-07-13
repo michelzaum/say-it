@@ -26,6 +26,14 @@ let users = [
     country: 'Italy',
     codeToResetPassword: 0,
   },
+  {
+    firstName: "Ana Amélia",
+    lastName: "Nascimento",
+    email: "aninha@mail.com",
+    password: "ncizbafvgu",
+    country: 'Espanha',
+    codeToResetPassword: 0,
+  }
 ];
 
 module.exports = users;
