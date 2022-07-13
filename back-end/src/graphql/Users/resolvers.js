@@ -74,6 +74,11 @@ module.exports = {
     createUser: async (_, { data }) => {
       try {
         const { firstName, email, password } = data;
+
+        const userExists = await UserRepository.findUserByEmail(email);
+        if (userExists) {
+          return new Error('User already exists');
+        };
   
         if([firstName, email, password].some((item) => !item)) {
           return 'There are empty required fields';

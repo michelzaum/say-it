@@ -51,9 +51,8 @@ export const Register = () => {
   }, []);
 
   if (loading) return <Loading />;
-  if (error) return <h1>Submission error! {error.message}</h1>;
 
-  const handleUser = (e: FormEvent) => {
+  const handleUser = async (e: FormEvent) => {
     e.preventDefault();
 
     if (requiredFields.some(field => field === '')) {
@@ -86,13 +85,17 @@ export const Register = () => {
       return;
     };
 
-    createUser({
-      variables: { firstName, lastName, email, password, confirmPassword, country }
+    await createUser({
+      variables: { firstName, lastName, email, password, confirmPassword, country },
+      onError(error) {
+        setModalInfo({
+          show: true,
+          title: 'Ocorreu um erro:',
+          content: error.message,
+          onClick: () => setModalInfo({ ...modalInfo, show: false })
+        });
+      },
     });
-
-    if (error) {
-      return { message: `Error in create user: ${error}` };
-    }
   };
 
   return (
