@@ -1,0 +1,42 @@
+CREATE DATABASE sayit;
+
+CREATE TABLE IF NOT EXISTS users (
+  id BINARY(16) PRIMARY KEY UNIQUE DEFAULT (UUID_TO_BIN(UUID())),
+  first_name VARCHAR(45) NOT NULL,
+  last_name VARCHAR(45) NOT NULL,
+  email VARCHAR(45) NOT NULL,
+  password VARCHAR (16) NOT NULL,
+  country VARCHAR(45) NULL,
+  isActive bit NOT NULL,
+  bio VARCHAR(140) NULL,
+  codeToResetPassword INT NULL,
+  github VARCHAR(100) NULL,
+  linkedin VARCHAR(100) NULL
+);
+
+CREATE TABLE IF NOT EXISTS posts (
+  id BINARY(16) PRIMARY KEY UNIQUE DEFAULT (UUID_TO_BIN(UUID())),
+  createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  content VARCHAR(255) NULL,
+  user_id BINARY(16),
+  FOREIGN KEY(user_id) REFERENCES users(id)
+);
+
+CREATE TABLE IF NOT EXISTS interactions (
+  id BINARY(16) PRIMARY KEY UNIQUE DEFAULT (UUID_TO_BIN(UUID())),
+  post_id BINARY(16),
+  user_id BINARY(16),
+  `like` BIT NULL,
+  comment VARCHAR(255) NULL,
+  createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY(post_id) REFERENCES posts(id),
+  FOREIGN KEY(user_id) REFERENCES users(id)
+);
+
+CREATE TABLE connections (
+  id BINARY(16) PRIMARY KEY UNIQUE DEFAULT (UUID_TO_BIN(UUID())),
+  user_id BINARY(16),
+  followedUser BINARY(16),
+  FOREIGN KEY(user_id) REFERENCES users(id),
+  FOREIGN KEY(followedUser) REFERENCES users(id)
+);
