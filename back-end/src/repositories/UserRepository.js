@@ -1,16 +1,20 @@
 let users = require('../mock/mock_users');
+const db = require('../database');
 
 class UserRepository {
-  findAll() {
-    return new Promise((resolve, reject) => {
-      const listOfUsers = users;
-
-      if (listOfUsers) {
-        resolve(listOfUsers);
-      } else {
-        reject({err: 'Error fetching users'});
-      };
-    });
+  async findAll() {
+    try {
+      const [response] = await db.query('SELECT * FROM users');
+      const formatedResponse = response.map(user => {
+        return {
+          ...user,
+          id: user.id.toString("hex"),
+        };
+      });
+      return formatedResponse;
+    } catch (err) {
+      console.log(err);
+    };
   };
 
   findUserById(id) {
