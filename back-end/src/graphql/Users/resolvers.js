@@ -8,10 +8,17 @@ module.exports = {
   Query: {
     listUsers: async () => {
       try {
-        return await UserRepository.findAll();
+        const allUsers = await UserRepository.findAll();
+        const formatedResponse = allUsers.map(user => {
+          return {
+            ...user,
+            id: user.id.toString("hex"),
+          };
+        });
+        return formatedResponse;
       } catch (err) {
         console.log(err);
-      }
+      };
     },
 
     findUserById: async (_, { id }) => {

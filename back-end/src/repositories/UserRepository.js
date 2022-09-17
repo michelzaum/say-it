@@ -5,13 +5,7 @@ class UserRepository {
   async findAll() {
     try {
       const [response] = await db.query('SELECT * FROM users');
-      const formatedResponse = response.map(user => {
-        return {
-          ...user,
-          id: user.id.toString("hex"),
-        };
-      });
-      return formatedResponse;
+      return response;
     } catch (err) {
       console.log(err);
     };
