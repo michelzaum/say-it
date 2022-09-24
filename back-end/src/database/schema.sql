@@ -1,4 +1,4 @@
-CREATE DATABASE sayit;
+CREATE DATABASE IF NOT EXISTS sayit;
 
 CREATE TABLE IF NOT EXISTS users (
   id VARCHAR(36) PRIMARY KEY UNIQUE DEFAULT (UUID()),
@@ -7,16 +7,16 @@ CREATE TABLE IF NOT EXISTS users (
   email VARCHAR(45) NOT NULL,
   password VARCHAR (16) NOT NULL,
   country VARCHAR(45) NULL,
-  isActive BOOLEAN NOT NULL DEFAULT true,
+  is_active BOOLEAN NOT NULL DEFAULT true,
   bio VARCHAR(140) NULL,
-  codeToResetPassword INT NULL,
+  code_to_reset_password INT NULL,
   github VARCHAR(100) NULL,
   linkedin VARCHAR(100) NULL
 );
 
 CREATE TABLE IF NOT EXISTS posts (
   id VARCHAR(36) PRIMARY KEY UNIQUE DEFAULT (UUID()),
-  createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   content VARCHAR(255) NULL,
   user_id VARCHAR(36),
   FOREIGN KEY(user_id) REFERENCES users(id)
@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS interactions (
   user_id VARCHAR(36),
   `like` BOOLEAN NULL,
   comment VARCHAR(255) NULL,
-  createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY(post_id) REFERENCES posts(id),
   FOREIGN KEY(user_id) REFERENCES users(id)
 );
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS interactions (
 CREATE TABLE connections (
   id VARCHAR(36) PRIMARY KEY UNIQUE DEFAULT (UUID()),
   user_id VARCHAR(36),
-  followedUser VARCHAR(36),
+  followed_user VARCHAR(36),
   FOREIGN KEY(user_id) REFERENCES users(id),
-  FOREIGN KEY(followedUser) REFERENCES users(id)
+  FOREIGN KEY(followed_user) REFERENCES users(id)
 );
