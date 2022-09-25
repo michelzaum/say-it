@@ -35,21 +35,20 @@ class UserRepository {
     });
   };
 
-  create(data) {
-    return new Promise((resolve, reject) => {
-      if (data) {
-        const newUser = {
-          id: users.length + 1,
-          codeToResetPassword: 0,
-          ...data,
-        };
-  
-        users.push(newUser);
-        resolve(newUser);
-      } else {
-        reject({ err: 'Error creating user' });
-      };
-    });
+  async create(data) {
+    const { first_name, last_name, email, password, country } = data;
+    try {
+      const [response] = await db.query(`
+        INSERT INTO users (
+          first_name, last_name, email, password, country
+        ) VALUES (
+          ?, ?, ?, ?, ?
+        )
+      `, [first_name, last_name, email, password, country]);
+      return response;
+    } catch (err) {
+      console.log(err);
+    };
   };
 
   update(id, data) {

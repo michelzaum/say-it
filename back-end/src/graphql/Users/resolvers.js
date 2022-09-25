@@ -74,14 +74,14 @@ module.exports = {
   Mutation: {
     createUser: async (_, { data }) => {
       try {
-        const { firstName, email, password } = data;
+        const { first_name, last_name, email, password } = data;
 
-        const userExists = await UserRepository.findUserByEmail(email);
-        if (userExists) {
-          return new Error('User already exists');
-        };
+        // const userExists = await UserRepository.findUserByEmail(email);
+        // if (userExists) {
+        //   return new Error('User already exists');
+        // };
   
-        if([firstName, email, password].some((item) => !item)) {
+        if([first_name, last_name, email, password].some((item) => !item)) {
           return 'There are empty required fields';
         };
 
