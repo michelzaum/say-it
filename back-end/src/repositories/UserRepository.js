@@ -13,7 +13,7 @@ class UserRepository {
 
   async findUserById(id) {
     try {
-      const [response] = await db.query('SELECT * FROM users WHERE id = ?', [id]);
+      const [[response]] = await db.query('SELECT * FROM users WHERE id = ?', [id]);
       return response;
     } catch (err) {
       console.log(err);

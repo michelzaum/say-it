@@ -18,7 +18,7 @@ module.exports = {
     findUserById: async (_, { id }) => {
       try {
         if (id) {
-          const [userById] = await UserRepository.findUserById(id);
+          const userById = await UserRepository.findUserById(id);
           return userById;
         }
       } catch (err) {
