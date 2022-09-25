@@ -18,7 +18,8 @@ module.exports = {
     findUserById: async (_, { id }) => {
       try {
         if (id) {
-          return await UserRepository.findUserById(Number(id));
+          const [userById] = await UserRepository.findUserById(id);
+          return userById;
         }
       } catch (err) {
         console.log(err);

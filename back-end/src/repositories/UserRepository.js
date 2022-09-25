@@ -11,14 +11,13 @@ class UserRepository {
     };
   };
 
-  findUserById(id) {
-    return new Promise((resolve, reject) => {
-      if (id) {
-        resolve(users.find((user) => user.id === id))
-      } else {
-        reject({ err: 'Error fetching user' });
-      };
-    });
+  async findUserById(id) {
+    try {
+      const [response] = await db.query('SELECT * FROM users WHERE id = ?', [id]);
+      return response;
+    } catch (err) {
+      console.log(err);
+    };
   };
 
   findUserByEmail(email) {
