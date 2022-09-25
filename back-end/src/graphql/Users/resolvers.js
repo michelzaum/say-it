@@ -9,13 +9,7 @@ module.exports = {
     listUsers: async () => {
       try {
         const allUsers = await UserRepository.findAll();
-        const formatedResponse = allUsers.map(user => {
-          return {
-            ...user,
-            id: user.id.toString("hex"),
-          };
-        });
-        return formatedResponse;
+        return allUsers;
       } catch (err) {
         console.log(err);
       };
