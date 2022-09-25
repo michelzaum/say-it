@@ -30,7 +30,6 @@ module.exports = {
       try {
         if (email) {
           const userByEmail = await UserRepository.findUserByEmail(email);
-
           return userByEmail;
         };
       } catch (err) {

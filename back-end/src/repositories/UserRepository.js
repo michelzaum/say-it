@@ -20,18 +20,13 @@ class UserRepository {
     };
   };
 
-  findUserByEmail(email) {
-    return new Promise((resolve, reject) => {
-      if (email) {
-        const userEmail = users.find((user) => user.email === email);
-
-        if (userEmail) {
-          resolve(userEmail);
-        } else {
-          reject({ message: 'E-mail not found' });
-        };
-      };
-    });
+  async findUserByEmail(email) {
+    try {
+      const [[response]] = await db.query('SELECT * FROM users WHERE email = ?', [email]);
+      return response;
+    } catch (err) {
+      console.log(err);
+    };
   };
 
   async create(data) {
