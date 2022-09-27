@@ -39,8 +39,7 @@ module.exports = {
 
     isCodeProvidedValid: async(_, { email, codeProvided }) => {
       try {
-        const codeIsValid = await UserRepository.isCodeProvidedValid(email, codeProvided);
-        return !!codeIsValid;
+        return await UserRepository.isCodeProvidedValid(email, codeProvided);
       } catch (err) {
         console.log(err);
       };

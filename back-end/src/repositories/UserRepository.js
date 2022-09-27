@@ -84,19 +84,20 @@ class UserRepository {
     };
   };
 
-  isCodeProvidedValid(email, codeProvided) {
-    return new Promise((resolve, reject) => {
-      let codeIsValid = false;
-
-      users.forEach(user => {
-        if (user.email === email) {
-          if (user.codeToResetPassword === codeProvided) {
-            codeIsValid = true;
-          };
-        };
-      });
-      resolve(codeIsValid);
-    });
+  async isCodeProvidedValid(email, codeProvided) {
+    try {
+      const [[response]] = await db.query(`
+        SELECT code_to_reset_password FROM users
+        WHERE email = ?
+      `, [email]);
+      
+      if (response.code_to_reset_password !== codeProvided) {
+        return false;
+      };
+      return true;
+    } catch (err) {
+      console.log(err);
+    };
   };
 
   updateUserPassword(email, newPassword) {
