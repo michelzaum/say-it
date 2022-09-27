@@ -39,7 +39,7 @@ class UserRepository {
           ?, ?, ?, ?, ?
         )
       `, [first_name, last_name, email, password, country]);
-      return response;
+      return response.affectedRows;
     } catch (err) {
       console.log(err);
     };
