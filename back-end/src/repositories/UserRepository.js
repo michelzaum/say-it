@@ -45,26 +45,18 @@ class UserRepository {
     };
   };
 
-  update(id, data) {
-    return new Promise((resolve, reject) => {
-      if (id && data) {
-        let updatedUser = {};
-  
-        users.forEach((user, index) => {
-          if(user.id === id) {
-            updatedUser = {
-              ...user,
-              ...data
-            };
-            users[index] = updatedUser;
-          };
-        });
-        
-        resolve(updatedUser);
-      } else {
-        reject({ err: 'Error updating user' });
-      };
-    });
+  async update(id, data) {
+    const { first_name, last_name, email, password, country } = data;
+    try {
+      await db.query(`
+        UPDATE users
+        SET first_name = ?, last_name = ?, email = ?, password = ?, country = ?
+        WHERE id = ?
+      `, [first_name, last_name, email, password, country, id]);
+      return this.findUserById(id);
+    } catch (error) {
+      console.log(error);
+    };
   };
 
   delete(id) {

@@ -96,7 +96,7 @@ module.exports = {
 
     updateUser: async (_, { id, data }) => {
       try {
-        const updatedUser = await UserRepository.update(Number(id), data);
+        const updatedUser = await UserRepository.update(id, data);
         return updatedUser;
       } catch (err) {
         console.log(err);
