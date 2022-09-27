@@ -128,7 +128,8 @@ module.exports = {
 
     updateUserPassword: async (_, { email, newPassword }) => {
       try {
-        const userWithNewPassword = await UserRepository.updateUserPassword(email, newPassword);
+        const newPasswordEncrypted = encryption(newPassword);
+        const userWithNewPassword = await UserRepository.updateUserPassword(email, newPasswordEncrypted);
         return userWithNewPassword;
       } catch (err) {
         console.log(err);

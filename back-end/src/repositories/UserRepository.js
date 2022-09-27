@@ -100,25 +100,17 @@ class UserRepository {
     };
   };
 
-  updateUserPassword(email, newPassword) {
-    return new Promise((resolve, reject) => {
-      let updatedUser = {};
-
-      if (email) {
-        users.forEach((user, index) => {
-          if (user.email === email) {
-            updatedUser = {
-              ...user,
-              password: newPassword,
-            };
-            users[index] = updatedUser;
-          };
-        });
-        resolve(updatedUser);
-      } else {
-        reject({ message: 'Email not found' });
-      };
-    });
+  async updateUserPassword(email, newPassword) {
+    try {
+      const [response] = await db.query(`
+        UPDATE users
+        SET password = ?
+        WHERE email = ?
+      `, [newPassword, email]);
+      return response.affectedRows;
+    } catch (err) {
+      console.log(err);
+    };
   };
 };
 
