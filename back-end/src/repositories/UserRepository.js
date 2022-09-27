@@ -71,25 +71,17 @@ class UserRepository {
     };
   };
 
-  generateCodeToResetPassword(email, randomCode) {
-    return new Promise((resolve, reject) => {
-      let updatedUser = {};
-
-      if (email && randomCode) {
-        users.forEach((user, index) => {
-          if (user.email === email) {
-            updatedUser = {
-              ...user,
-              codeToResetPassword: randomCode,
-            };
-            users[index] = updatedUser;
-          };
-        });
-        resolve(updatedUser);
-      } else {
-        reject({ message: 'Error in update reset code.' });
-      }
-    });
+  async generateCodeToResetPassword(email, randomCode) {
+    try {
+      const [response] = await db.query(`
+        UPDATE users
+        SET code_to_reset_password = ?
+        WHERE email = ?
+      `, [randomCode, email]);
+      return response.affectedRows;
+    } catch (err) {
+      console.log(err);
+    };
   };
 
   isCodeProvidedValid(email, codeProvided) {
