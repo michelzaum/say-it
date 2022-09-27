@@ -105,7 +105,7 @@ module.exports = {
 
     deleteUser: async (_, { id }) => {
       try {
-        return await UserRepository.delete(Number(id))
+        return await UserRepository.delete(id);
       } catch (err) {
         console.log(err);
       };

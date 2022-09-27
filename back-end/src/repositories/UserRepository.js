@@ -59,16 +59,16 @@ class UserRepository {
     };
   };
 
-  delete(id) {
-    const deleted = true;
-    return new Promise((resolve, reject) => {
-      if (id) {
-        users = users.filter((user) => user.id !== id);
-        resolve(deleted);
-      } else {
-        reject({ err: 'Error deleting user' });
-      };
-    });
+  async delete(id) {
+    try {
+      const [response] = await db.query(`
+        DELETE FROM users
+        WHERE id = ?
+      `, [id]);
+      return response.affectedRows;
+    } catch (err) {
+      console.log(err);
+    };
   };
 
   generateCodeToResetPassword(email, randomCode) {
