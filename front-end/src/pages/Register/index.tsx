@@ -40,7 +40,7 @@ export const Register = () => {
   
   const requiredFields = [firstName, lastName, email, password, confirmPassword];
   
-  const [createUser, { loading, error }] = useMutation(CREATE_USER);
+  const [createUser, { loading }] = useMutation(CREATE_USER);
   
   useEffect(() => {
     const { randomFirstName, randomLastName, randomEmail } = returnRandomPeople();

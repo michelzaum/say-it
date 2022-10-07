@@ -1,4 +1,3 @@
-let users = require('../mock/mock_users');
 const db = require('../database');
 
 class UserRepository {
