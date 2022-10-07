@@ -26,13 +26,13 @@ const typeDefs = gql`
   type Query {
     listUsers: [User!]
     findUserById(id: ID!): User!
-    findUserByEmail(email: String): User
+    findUserByEmail(email: String): User!
     isCodeProvidedValid(email: String, codeProvided: Int): Boolean!
-    login(email: String, passwordProvided: String) : Boolean
+    login(email: String, passwordProvided: String) : Boolean!
   }
 
   type Mutation {
-    createUser(data: UserInput!): User
+    createUser(data: UserInput!): Boolean
     updateUser(id: ID!, data: UserInput): User
     deleteUser(id: ID!): Boolean
     generateCodeToResetPassword(email: String): Boolean

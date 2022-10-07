@@ -95,7 +95,10 @@ module.exports = {
 
     updateUser: async (_, { id, data }) => {
       try {
-        const updatedUser = await UserRepository.update(id, data);
+        const encryptedPassword = encryption(data.password);
+        const userData = { ...data, password: encryptedPassword };
+        
+        const updatedUser = await UserRepository.update(id, userData);
         return updatedUser;
       } catch (err) {
         console.log(err);
