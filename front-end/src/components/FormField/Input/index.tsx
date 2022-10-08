@@ -1,13 +1,9 @@
 import React, { useRef, useState } from 'react';
 import { Input, Label, FormFieldContainer, Icon } from './styles';
 import { FormFieldProps } from './types';
+import { InputTypes } from './enums';
 import { EyeOff } from '../../Icons/eyeOff';
 import { Eye } from '../../Icons/eye';
-
-enum InputTypes {
-  TEXT = 'text',
-  PASSWORD = 'password',
-};
 
 export const FormField: React.FC<FormFieldProps> = ({
   label, placeholder, largeInput, type, onChange, required, value

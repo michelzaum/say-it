@@ -1,8 +1,5 @@
 import React from "react";
-
-export type IconProps = {
-  onClick: () => void
-}
+import { IconProps } from '../types';
 
 export const EyeOff: React.FC<IconProps> = ({ onClick }) => {
   return (
