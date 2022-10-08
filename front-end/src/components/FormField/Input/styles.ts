@@ -39,3 +39,15 @@ export const FormFieldGroup = styled.div`
   gap: ${measures['spacing-large']}px;
   align-items: center;
 `;
+
+export const Icon = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: end;
+
+  i {
+    position: absolute;
+    padding: 0 1.5rem;
+    cursor: pointer;
+  }
+`;
