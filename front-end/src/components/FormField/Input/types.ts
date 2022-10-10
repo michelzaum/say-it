@@ -1,4 +1,4 @@
-import React from "react";
+import React, { RefObject } from "react";
 
 export type FormFieldProps = {
   label: string
@@ -7,5 +7,6 @@ export type FormFieldProps = {
   largeInput?: boolean
   required?: boolean
   value?: string
-  onChange: (e: React.FormEvent<HTMLInputElement>) => void
+  onChange?: (e: React.FormEvent<HTMLInputElement>) => void
+  inputRef?: RefObject<HTMLInputElement>
 };

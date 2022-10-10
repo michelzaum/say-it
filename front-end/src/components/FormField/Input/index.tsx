@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { Input, Label, FormFieldContainer, Icon } from './styles';
 import { FormFieldProps } from './types';
 import { InputTypes } from './enums';
@@ -6,20 +6,19 @@ import { EyeOff } from '../../Icons/eyeOff';
 import { Eye } from '../../Icons/eye';
 
 export const FormField: React.FC<FormFieldProps> = ({
-  label, placeholder, largeInput, type, onChange, required, value
+  label, placeholder, largeInput, type, onChange, required, value, inputRef
 }) => {
   const [currentInputType, setCurrentInputType] = useState(InputTypes.PASSWORD);
-  const inputRef = useRef<HTMLInputElement>(null);
 
   function toggleViewPassword() {
     if (currentInputType === InputTypes.PASSWORD) {
       setCurrentInputType(InputTypes.TEXT);
-      if (inputRef.current?.type) {
+      if (inputRef?.current?.type) {
         inputRef.current.type = InputTypes.TEXT;
       };
     } else {
       setCurrentInputType(InputTypes.PASSWORD);
-      if (inputRef.current?.type) {
+      if (inputRef?.current?.type) {
         inputRef.current.type = InputTypes.PASSWORD;
       };
     };

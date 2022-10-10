@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, useState, useRef } from 'react';
 
 import { LoginContainer } from './styles';
 
@@ -18,8 +18,9 @@ import { returnRandomPeople } from '../../utils/returnRandomPeople';
 import { LoadingComponent } from '../../components/Loading';
 
 export const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const emailRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
+
   const [modalInfo, setModalInfo] = useState({
     show: false,
     title: '',
@@ -37,18 +38,21 @@ export const Login = () => {
   async function handleLogin (e: FormEvent) {
     e.preventDefault();
 
-    if (password === '' || email === '') {
+    const emailValue = emailRef.current?.value;
+    const passwordValue = passwordRef.current?.value;
+
+    if (emailValue === '' || passwordValue === '') {
       setModalInfo({
         show: true,
         title: 'Credenciais obrigatórias',
         content: 'Preencha seu e-mail e senha para realizar o login',
-        onClick: () => setModalInfo({ ...modalInfo, show: false  })
+        onClick: () => setModalInfo({ ...modalInfo, show: false  }),
       });
       return;
     };
 
     const loginResult = await validateLogin({
-      variables: { email, passwordProvided: password },
+      variables: { emailValue, passwordProvided: passwordValue },
     });
 
     if (loginResult) {
@@ -65,19 +69,15 @@ export const Login = () => {
           label="E-mail"
           type="email"
           placeholder={randomEmail}
-          onChange={(e: FormEvent<HTMLInputElement>) => {
-            setEmail(e.currentTarget.value);
-          }}
           largeInput
+          inputRef={emailRef}
         />
         <FormFieldGroup>
           <FormField
             label="Senha"
             type="password"
             placeholder="********"
-            onChange={(e: FormEvent<HTMLInputElement>) => {
-              setPassword(e.currentTarget.value);
-            }}
+            inputRef={passwordRef}
           />
           <TextWithLink
             linkTo="/forgotPassword"
