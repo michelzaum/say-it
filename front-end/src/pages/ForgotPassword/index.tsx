@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { ForgotPasswordContainer } from './styles';
@@ -17,7 +17,8 @@ import { GENERATE_CODE_TO_RESET_PASSWORD } from '../../graphql/Users/mutations';
 import { LoadingComponent as Loading} from '../../components/Loading';
 
 export const ForgotPassword = () => {
-  const [userEmail, setUserEmail] = useState('');
+  const userEmail = useRef<HTMLInputElement>(null);
+
   const [modalInfo, setModalInfo] = useState({
     show: false,
     title: '',
@@ -35,8 +36,9 @@ export const ForgotPassword = () => {
 
   async function handleEmailByUser(e: FormEvent) {
     e.preventDefault();
+    const userEmailValue = userEmail.current?.value;
 
-    if (userEmail === '') {
+    if (userEmailValue === '') {
       setModalInfo({
         show: true,
         title: 'E-mail obrigatório',
@@ -49,7 +51,7 @@ export const ForgotPassword = () => {
     try {
       const { data: { findUserByEmail } } = await getUserByEmail({
         variables: {
-          email: userEmail
+          email: userEmailValue
         },
       });
   
@@ -96,8 +98,6 @@ export const ForgotPassword = () => {
       });
       return;
     };
-
-    setUserEmail('');
   };
 
   return (
@@ -112,10 +112,7 @@ export const ForgotPassword = () => {
             placeholder="stevejobs@apple.com"
             largeInput
             required
-            value={userEmail}
-            onChange={(e: FormEvent<HTMLInputElement>) => {
-              setUserEmail(e.currentTarget.value);
-            }}
+            inputRef={userEmail}
           />
           <FormFieldGroup>
             <TextWithLink
