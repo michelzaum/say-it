@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, useState, useRef } from 'react';
 
 import { ResetPasswordContainer } from './styles';
 import { ParamsProps } from './types';
@@ -16,7 +16,8 @@ import { useLazyQuery } from '@apollo/client';
 import { VALIDATE_CODE_TO_RESET_PASSWORD } from '../../graphql/Users/queries';
 
 export const CodeToResetPassword = () => {
-  const [codeProvided, setCodeProvided] = useState('');
+  const codeProvidedRef = useRef<HTMLInputElement>(null);
+
   const [modalInfo, setModalInfo] = useState<ModalProps>({
     show: false,
     title: '',
@@ -38,10 +39,11 @@ export const CodeToResetPassword = () => {
   async function handleCodeVerification(e: FormEvent) {
     e.preventDefault();
 
+    const codeProvidedValue = codeProvidedRef.current?.value;
     try {
       const { email } = params;
 
-      if (codeProvided === '') {
+      if (codeProvidedValue === '') {
         setModalInfo({
           show: true,
           title: 'Código obrigatório',
@@ -54,7 +56,7 @@ export const CodeToResetPassword = () => {
       const checkCode = await validateCode({
         variables: {
           email,
-          codeProvided: Number(codeProvided)
+          codeProvided: Number(codeProvidedValue)
         },
       });
   
@@ -76,8 +78,6 @@ export const CodeToResetPassword = () => {
           });
         };
       };
-  
-      setCodeProvided('');
     } catch (err) {
       setModalInfo({
         show: true,
@@ -101,10 +101,7 @@ export const CodeToResetPassword = () => {
             placeholder="Insira o código"
             type="text"
             required
-            value={codeProvided}
-            onChange={(e: FormEvent<HTMLInputElement>) => {
-              setCodeProvided(e.currentTarget.value)
-            }}
+            inputRef={codeProvidedRef}
           />
           <TextWithLink
             linkTo="/forgotPassword"
