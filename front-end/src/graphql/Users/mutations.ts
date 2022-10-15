@@ -2,23 +2,19 @@ import { gql } from '@apollo/client';
 
 export const CREATE_USER = gql`
   mutation createUser(
-    $firstName: String!
-    $lastName: String!
-    $email: String!
-    $password: String!
-    $country: String!
+    $firstNameValue: String!
+    $lastNameValue: String!
+    $emailValue: String!
+    $passwordValue: String!
+    $countryValue: String!
   ) {
     createUser(data: {
-      firstName: $firstName
-      lastName: $lastName
-      email: $email
-      password: $password
-      country: $country
-    }) {
-      firstName
-      lastName
-      email
-    }
+      first_name: $firstNameValue
+      last_name: $lastNameValue
+      email: $emailValue
+      password: $passwordValue
+      country: $countryValue
+    })
   }
 `;
 
@@ -26,7 +22,7 @@ export const UPDATE_USER_PASSWORD = gql`
   mutation updateUserPassword($email: String!, $newPassword: String!) {
     updateUserPassword(email: $email, newPassword: $newPassword) {
       id
-      firstName
+      first_name
       email
     }
   }

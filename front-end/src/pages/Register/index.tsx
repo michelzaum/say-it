@@ -95,7 +95,7 @@ export const Register = () => {
 
     await createUser({
       variables: {
-        firstNameValue, lastNameValue, emailValue, passwordValue, confirmPasswordValue, countryValue
+        firstNameValue, lastNameValue, emailValue, passwordValue, countryValue
       },
       onError(error) {
         setModalInfo({
