@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { NewPasswordContainer } from './styles';
@@ -16,8 +16,9 @@ import { ParamsProps } from '../CodeToResetPassword/types';
 import { LoadingComponent } from '../../components/Loading';
 
 export const NewPassword = () => {
-  const [newPassword, setNewPassword] = useState('');
-  const [confirmNewPassword, setConfirmNewPassword] = useState('');
+  const newPasswordRef = useRef<HTMLInputElement>(null);
+  const confirmNewPasswordRef = useRef<HTMLInputElement>(null);
+
   const [modalInfo, setModalInfo] = useState<ModalProps>({
     show: false,
     title: '',
@@ -39,7 +40,10 @@ export const NewPassword = () => {
   function handleNewPassword (e: FormEvent) {
     e.preventDefault();
 
-    if (newPassword === '' || confirmNewPassword === '') {
+    const newPasswordValue = newPasswordRef.current?.value;
+    const confirmNewPasswordValue = confirmNewPasswordRef.current?.value;
+
+    if (newPasswordValue === '' || confirmNewPasswordValue === '') {
       setModalInfo({
         show: true,
         title: 'Campos obrigatórios',
@@ -47,7 +51,7 @@ export const NewPassword = () => {
         onClick: () => setModalInfo({ ...modalInfo, show: false })
       });
       return;
-    } else if (newPassword.length < 8) {
+    } else if (newPasswordValue && newPasswordValue.length < 8) {
       setModalInfo({
         show: true,
         title: 'Senha inválida',
@@ -55,7 +59,7 @@ export const NewPassword = () => {
         onClick: () => setModalInfo({ ...modalInfo, show: false })
       });
       return;
-    } else if (newPassword !== confirmNewPassword) {
+    } else if (newPasswordValue !== confirmNewPasswordValue) {
       setModalInfo({
         show: true,
         title: 'Senhas diferentes',
@@ -68,7 +72,7 @@ export const NewPassword = () => {
     updatePassword({
       variables: {
         email,
-        newPassword
+        newPassword: newPasswordValue
       },
     });
 
@@ -90,20 +94,14 @@ export const NewPassword = () => {
             placeholder="No mínimo 8 caracteres"
             type="password"
             required
-            value={newPassword}
-            onChange={(e: FormEvent<HTMLInputElement>) => {
-              setNewPassword(e.currentTarget.value);
-            }}
+            inputRef={newPasswordRef}
           />
           <FormField
             label="Confirmar nova senha"
             placeholder="Repita a nova senha"
             type="password"
             required
-            value={confirmNewPassword}
-            onChange={(e: FormEvent<HTMLInputElement>) => {
-              setConfirmNewPassword(e.currentTarget.value);
-            }}
+            inputRef={confirmNewPasswordRef}
           />
         </FormFieldGroup>
         <FormFieldGroup>

@@ -17,7 +17,7 @@ import { GENERATE_CODE_TO_RESET_PASSWORD } from '../../graphql/Users/mutations';
 import { LoadingComponent as Loading} from '../../components/Loading';
 
 export const ForgotPassword = () => {
-  const userEmail = useRef<HTMLInputElement>(null);
+  const userEmailRef = useRef<HTMLInputElement>(null);
 
   const [modalInfo, setModalInfo] = useState({
     show: false,
@@ -36,7 +36,7 @@ export const ForgotPassword = () => {
 
   async function handleEmailByUser(e: FormEvent) {
     e.preventDefault();
-    const userEmailValue = userEmail.current?.value;
+    const userEmailValue = userEmailRef.current?.value;
 
     if (userEmailValue === '') {
       setModalInfo({
@@ -112,7 +112,7 @@ export const ForgotPassword = () => {
             placeholder="stevejobs@apple.com"
             largeInput
             required
-            inputRef={userEmail}
+            inputRef={userEmailRef}
           />
           <FormFieldGroup>
             <TextWithLink
