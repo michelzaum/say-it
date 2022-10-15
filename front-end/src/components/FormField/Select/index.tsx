@@ -3,11 +3,11 @@ import { ListContainer, ListLabel, List, Option } from './styles';
 
 import { SelectProps, SelectOptionProps } from './types';
 
-export const SelectContainer: React.FC<SelectProps> = ({ children, selectName, selectLabel, onChange }) => {
+export const SelectContainer: React.FC<SelectProps> = ({ children, selectName, selectLabel, inputRef }) => {
   return (
     <ListContainer>
       <ListLabel>{selectLabel}</ListLabel>
-      <List name={selectName} onChange={onChange}>
+      <List name={selectName} ref={inputRef}>
         {children}
       </List>
     </ListContainer>

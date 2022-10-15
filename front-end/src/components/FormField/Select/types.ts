@@ -1,11 +1,11 @@
-import { ChangeEvent } from "react"
+import { RefObject } from "react"
 
 export type SelectProps = {
   selectLabel: string
   selectName: string
   required?: boolean
-  onChange: (e: ChangeEvent<HTMLSelectElement>) => void
-}
+  inputRef: RefObject<HTMLSelectElement>
+};
 
 export type SelectOptionProps = {
   optionName: string

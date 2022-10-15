@@ -1,4 +1,4 @@
-import { useState, useEffect, FormEvent, ChangeEvent } from 'react';
+import { useState, useEffect, useRef, FormEvent } from 'react';
 
 import { FormContainer } from './styles';
 
@@ -18,12 +18,12 @@ import { MockCountry } from '../../mock/countries';
 import { returnRandomPeople } from '../../utils/returnRandomPeople';
 
 export const Register = () => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [country, setCountry] = useState('');
+  const firstNameRef = useRef<HTMLInputElement>(null);
+  const lastNameRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
+  const confirmPasswordRef = useRef<HTMLInputElement>(null);
+  const countryRef = useRef<HTMLSelectElement>(null);
 
   const [randomPeople, setRandomPeople] = useState({
     randomFirstName: '',
@@ -37,8 +37,6 @@ export const Register = () => {
     content: '',
     onClick: () => {},
   });
-  
-  const requiredFields = [firstName, lastName, email, password, confirmPassword];
   
   const [createUser, { loading }] = useMutation(CREATE_USER);
   
@@ -54,6 +52,16 @@ export const Register = () => {
 
   const handleUser = async (e: FormEvent) => {
     e.preventDefault();
+    const firstNameValue = firstNameRef.current?.value;
+    const lastNameValue = lastNameRef.current?.value;
+    const emailValue = emailRef.current?.value;
+    const passwordValue = passwordRef.current?.value;
+    const confirmPasswordValue = confirmPasswordRef.current?.value;
+    const countryValue = countryRef.current?.value;
+
+    const requiredFields = [
+      firstNameValue, lastNameValue, emailValue, passwordValue, confirmPasswordValue
+    ];
 
     if (requiredFields.some(field => field === '')) {
       setModalInfo({
@@ -65,7 +73,7 @@ export const Register = () => {
       return;
     };
 
-    if (password !== confirmPassword) {
+    if (passwordValue !== confirmPasswordValue) {
       setModalInfo({
         show: true, 
         title: 'Senhas diferentes',
@@ -75,7 +83,7 @@ export const Register = () => {
       return;
     };
 
-    if (password.length < 8) {
+    if (passwordValue && passwordValue.length < 8) {
       setModalInfo({
         show: true,
         title: 'Senha inválida',
@@ -86,7 +94,9 @@ export const Register = () => {
     };
 
     await createUser({
-      variables: { firstName, lastName, email, password, confirmPassword, country },
+      variables: {
+        firstNameValue, lastNameValue, emailValue, passwordValue, confirmPasswordValue, countryValue
+      },
       onError(error) {
         setModalInfo({
           show: true,
@@ -108,18 +118,14 @@ export const Register = () => {
             type="text"
             placeholder={randomPeople.randomFirstName}
             required
-            onChange={(e: FormEvent<HTMLInputElement>) => {
-              setFirstName(e.currentTarget.value);
-            }}
+            inputRef={firstNameRef}
           />
           <FormField
             label="Sobrenome"
             type="text"
             placeholder={randomPeople.randomLastName}
             required
-            onChange={(e: FormEvent<HTMLInputElement>) => {
-              setLastName(e.currentTarget.value);
-            }}
+            inputRef={lastNameRef}
           />
         </FormFieldGroup>
         <FormField
@@ -128,16 +134,12 @@ export const Register = () => {
           type="email"
           placeholder={randomPeople.randomEmail}
           required
-          onChange={(e: FormEvent<HTMLInputElement>) => {
-            setEmail(e.currentTarget.value);
-          }}
+          inputRef={emailRef}
         />
         <SelectContainer
           selectName="countries"
           selectLabel="País"
-          onChange={(e: ChangeEvent<HTMLSelectElement>) => {
-            setCountry(e.currentTarget.value);
-          }}
+          inputRef={countryRef}
         >
           <SelectOptions optionId={0} optionName="Selecione seu país" />
           {
@@ -156,18 +158,14 @@ export const Register = () => {
             type="password"
             placeholder="No mínimo 8 caracteres"
             required
-            onChange={(e: FormEvent<HTMLInputElement>) => {
-              setPassword(e.currentTarget.value);
-            }}
+            inputRef={passwordRef}
           />
           <FormField
             label="Confirmar senha"
             type="password"
             placeholder="Repita a senha"
             required
-            onChange={(e: FormEvent<HTMLInputElement>) => {
-              setConfirmPassword(e.currentTarget.value);
-            }}
+            inputRef={confirmPasswordRef}
           />
         </FormFieldGroup>
         <FormFieldGroup>
