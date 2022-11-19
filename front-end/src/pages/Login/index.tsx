@@ -7,8 +7,6 @@ import { FormField } from '../../components/FormField/Input';
 import { Approach } from '../../components/Approach';
 import { TextWithLink } from '../../components/TextWithLink';
 
-import { FormFieldGroup } from '../../components/FormField/InputOld/styles';
-
 import { Button } from '../../components/Button';
 import { Modal } from '../../components/Modal';
 
@@ -17,7 +15,7 @@ import { LOGIN } from '../../graphql/Users/queries';
 
 import { returnRandomPeople } from '../../utils/returnRandomPeople';
 import { LoadingComponent } from '../../components/Loading';
-import { InputGroup } from '../../components/FormField/Input/InputComponent/styles';
+import { FormFieldGroup } from '../../components/FormField/FormFieldGroup';
 
 export const Login = () => {
   const emailRef = useRef<HTMLInputElement>(null);
@@ -76,7 +74,7 @@ export const Login = () => {
             required
           />
         </FormField.InputContainer>
-        <InputGroup>
+        <FormFieldGroup>
           <FormField.InputContainer>
             <FormField.InputFieldPassword
               label='Sua senha'
@@ -89,7 +87,7 @@ export const Login = () => {
             linkTo="/forgotPassword"
             textLink="Esqueceu a senha?"
           />
-        </InputGroup>
+        </FormFieldGroup>
         <FormFieldGroup>
           <TextWithLink
             text="Não tem conta?"
