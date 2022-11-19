@@ -2,11 +2,12 @@ import { FormEvent, useState, useRef } from 'react';
 
 import { LoginContainer } from './styles';
 
-import { Approach } from '../../components/Approach';
 import { FormField } from '../../components/FormField/Input';
+
+import { Approach } from '../../components/Approach';
 import { TextWithLink } from '../../components/TextWithLink';
 
-import { FormFieldGroup } from '../../components/FormField/Input/styles';
+import { FormFieldGroup } from '../../components/FormField/InputOld/styles';
 
 import { Button } from '../../components/Button';
 import { Modal } from '../../components/Modal';
@@ -16,6 +17,7 @@ import { LOGIN } from '../../graphql/Users/queries';
 
 import { returnRandomPeople } from '../../utils/returnRandomPeople';
 import { LoadingComponent } from '../../components/Loading';
+import { InputGroup } from '../../components/FormField/Input/InputComponent/styles';
 
 export const Login = () => {
   const emailRef = useRef<HTMLInputElement>(null);
@@ -65,25 +67,29 @@ export const Login = () => {
     <>
       <LoginContainer onSubmit={handleLogin}>
         <Approach title="Bem vindo(a) de volta!" approach="Entre com suas credenciais para acessar a sua conta." />
-        <FormField
-          label="E-mail"
-          type="email"
-          placeholder={randomEmail}
-          largeInput
-          inputRef={emailRef}
-        />
-        <FormFieldGroup>
-          <FormField
-            label="Senha"
-            type="password"
-            placeholder="********"
-            inputRef={passwordRef}
+        <FormField.InputContainer largeInput>
+          <FormField.InputLabel label='E-mail' required />
+          <FormField.InputField
+            placeholder={randomEmail}
+            type='email'
+            inputRef={emailRef}
+            required
           />
+        </FormField.InputContainer>
+        <InputGroup>
+          <FormField.InputContainer>
+            <FormField.InputFieldPassword
+              label='Sua senha'
+              placeholder='********'
+              required
+              inputRef={passwordRef}
+            />
+          </FormField.InputContainer>
           <TextWithLink
             linkTo="/forgotPassword"
             textLink="Esqueceu a senha?"
           />
-        </FormFieldGroup>
+        </InputGroup>
         <FormFieldGroup>
           <TextWithLink
             text="Não tem conta?"

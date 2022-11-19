@@ -4,11 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import { ForgotPasswordContainer } from './styles';
 
 import { Approach } from '../../components/Approach';
-import { FormField } from '../../components/FormField/Input';
+import { FormField } from '../../components/FormField/InputOld';
 import { TextWithLink } from '../../components/TextWithLink';
 import { Button } from '../../components/Button';
 import { Modal } from '../../components/Modal';
-import { FormFieldGroup } from '../../components/FormField/Input/styles';
+import { FormFieldGroup } from '../../components/FormField/InputOld/styles';
 
 import { useLazyQuery } from '@apollo/client';
 import { useMutation } from '@apollo/client';

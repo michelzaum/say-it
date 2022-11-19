@@ -4,13 +4,13 @@ import { ResetPasswordContainer } from './styles';
 import { ParamsProps } from './types';
 
 import { Approach } from '../../components/Approach';
-import { FormField } from '../../components/FormField/Input';
+import { FormField } from '../../components/FormField/InputOld';
 import { TextWithLink } from '../../components/TextWithLink';
 import { Button } from '../../components/Button';
 import { Modal } from '../../components/Modal';
 import { LoadingComponent } from '../../components/Loading';
 import { ModalProps } from '../../components/Modal/types';
-import { FormFieldGroup } from '../../components/FormField/Input/styles';
+import { FormFieldGroup } from '../../components/FormField/InputOld/styles';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useLazyQuery } from '@apollo/client';
 import { VALIDATE_CODE_TO_RESET_PASSWORD } from '../../graphql/Users/queries';

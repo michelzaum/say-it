@@ -3,8 +3,8 @@ import { useLocation } from 'react-router-dom';
 
 import { NewPasswordContainer } from './styles';
 import { Approach } from '../../components/Approach';
-import { FormField } from '../../components/FormField/Input';
-import { FormFieldGroup } from '../../components/FormField/Input/styles';
+import { FormField } from '../../components/FormField/InputOld';
+import { FormFieldGroup } from '../../components/FormField/InputOld/styles';
 import { Button } from '../../components/Button';
 import { TextWithLink } from '../../components/TextWithLink';
 import { Modal } from '../../components/Modal';
