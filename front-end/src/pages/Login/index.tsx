@@ -68,10 +68,10 @@ export const Login = () => {
         <FormField.InputContainer largeInput>
           <FormField.InputLabel label='E-mail' required />
           <FormField.InputField
+            id='E-mail'
             placeholder={randomEmail}
             type='email'
             inputRef={emailRef}
-            required
           />
         </FormField.InputContainer>
         <FormFieldGroup>

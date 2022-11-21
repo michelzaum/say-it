@@ -1,19 +1,20 @@
 import { FormEvent, useState, useRef } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+
+import { useLazyQuery } from '@apollo/client';
+import { VALIDATE_CODE_TO_RESET_PASSWORD } from '../../graphql/Users/queries';
 
 import { ResetPasswordContainer } from './styles';
 import { ParamsProps } from './types';
 
 import { Approach } from '../../components/Approach';
-import { FormField } from '../../components/FormField/InputOld';
+import { FormField } from '../../components/FormField/Input';
 import { TextWithLink } from '../../components/TextWithLink';
 import { Button } from '../../components/Button';
 import { Modal } from '../../components/Modal';
 import { LoadingComponent } from '../../components/Loading';
 import { ModalProps } from '../../components/Modal/types';
-import { FormFieldGroup } from '../../components/FormField/InputOld/styles';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { useLazyQuery } from '@apollo/client';
-import { VALIDATE_CODE_TO_RESET_PASSWORD } from '../../graphql/Users/queries';
+import { FormFieldGroup } from '../../components/FormField/FormFieldGroup';
 
 export const CodeToResetPassword = () => {
   const codeProvidedRef = useRef<HTMLInputElement>(null);
@@ -96,13 +97,15 @@ export const CodeToResetPassword = () => {
           approach={`Encaminhamos um código para o e-mail ${params?.email}. Por favor, acesse este e-mail e insira o código no campo abaixo.`}
         />
         <FormFieldGroup>
-          <FormField
-            label="Código"
-            placeholder="Insira o código"
-            type="text"
-            required
-            inputRef={codeProvidedRef}
-          />
+          <FormField.InputContainer>
+            <FormField.InputLabel label='Código' required />
+            <FormField.InputField
+              id="Código"
+              placeholder="Insira o código"
+              type="text"
+              inputRef={codeProvidedRef}
+            />
+          </FormField.InputContainer>
           <TextWithLink
             linkTo="/forgotPassword"
             text="Não recebeu?"
