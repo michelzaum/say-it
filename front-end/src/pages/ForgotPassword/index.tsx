@@ -4,17 +4,17 @@ import { useNavigate } from 'react-router-dom';
 import { ForgotPasswordContainer } from './styles';
 
 import { Approach } from '../../components/Approach';
-import { FormField } from '../../components/FormField/InputOld';
+import { FormField } from '../../components/FormField/Input'
 import { TextWithLink } from '../../components/TextWithLink';
 import { Button } from '../../components/Button';
 import { Modal } from '../../components/Modal';
-import { FormFieldGroup } from '../../components/FormField/InputOld/styles';
+import { FormFieldGroup } from '../../components/FormField/FormFieldGroup';
 
 import { useLazyQuery } from '@apollo/client';
 import { useMutation } from '@apollo/client';
 import { FIND_USER_BY_EMAIL } from '../../graphql/Users/queries';
 import { GENERATE_CODE_TO_RESET_PASSWORD } from '../../graphql/Users/mutations';
-import { LoadingComponent as Loading} from '../../components/Loading';
+import { LoadingComponent as Loading } from '../../components/Loading';
 
 export const ForgotPassword = () => {
   const userEmailRef = useRef<HTMLInputElement>(null);
@@ -105,26 +105,29 @@ export const ForgotPassword = () => {
       <ForgotPasswordContainer onSubmit={handleEmailByUser}>
         <Approach
           title="Esqueceu sua senha?"
-          approach="Não se preocupe! Vamos te ajudar. Primeiro, informe seu e-mail cadastrado." />
-          <FormField
+          approach="Não se preocupe! Vamos te ajudar. Primeiro, informe seu e-mail cadastrado."
+        />
+        <FormField.InputContainer largeInput>
+          <FormField.InputLabel label='E-mail' required />
+          <FormField.InputField
             label="E-mail"
             type="email"
             placeholder="stevejobs@apple.com"
-            largeInput
             required
             inputRef={userEmailRef}
           />
-          <FormFieldGroup>
-            <TextWithLink
-              linkTo="/"
-              text="Voltar para o"
-              textLink="Login"
-            />
-            <Button
-              type="submit"
-              text="Enviar código"
-            />
-          </FormFieldGroup>
+        </FormField.InputContainer>
+        <FormFieldGroup>
+          <TextWithLink
+            linkTo="/"
+            text="Voltar para o"
+            textLink="Login"
+          />
+          <Button
+            type="submit"
+            text="Enviar código"
+          />
+        </FormFieldGroup>
       </ForgotPasswordContainer>
       <Modal
         show={modalInfo.show}
