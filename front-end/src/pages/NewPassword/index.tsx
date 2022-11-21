@@ -1,19 +1,19 @@
 import { FormEvent, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
+import { useMutation } from '@apollo/client';
+import { UPDATE_USER_PASSWORD } from '../../graphql/Users/mutations';
+
 import { NewPasswordContainer } from './styles';
 import { Approach } from '../../components/Approach';
-import { FormField } from '../../components/FormField/InputOld';
-import { FormFieldGroup } from '../../components/FormField/InputOld/styles';
+import { FormField } from '../../components/FormField/Input';
+import { FormFieldGroup } from '../../components/FormField/FormFieldGroup';
 import { Button } from '../../components/Button';
 import { TextWithLink } from '../../components/TextWithLink';
 import { Modal } from '../../components/Modal';
 import { ModalProps } from '../../components/Modal/types';
-
-import { useMutation } from '@apollo/client';
-import { UPDATE_USER_PASSWORD } from '../../graphql/Users/mutations';
-import { ParamsProps } from '../CodeToResetPassword/types';
 import { LoadingComponent } from '../../components/Loading';
+import { ParamsProps } from '../CodeToResetPassword/types';
 
 export const NewPassword = () => {
   const newPasswordRef = useRef<HTMLInputElement>(null);
@@ -89,20 +89,24 @@ export const NewPassword = () => {
           approach="Crie uma nova senha para acessar o say.it."
         />
         <FormFieldGroup>
-          <FormField
-            label="Nova senha"
-            placeholder="No mínimo 8 caracteres"
-            type="password"
-            required
-            inputRef={newPasswordRef}
-          />
-          <FormField
-            label="Confirmar nova senha"
-            placeholder="Repita a nova senha"
-            type="password"
-            required
-            inputRef={confirmNewPasswordRef}
-          />
+          <FormField.InputContainer>
+            <FormField.InputLabel label='Nova senha' required />
+            <FormField.InputField
+              id='Nova senha'
+              placeholder="No mínimo 8 caracteres"
+              type="password"
+              inputRef={newPasswordRef}
+            />
+          </FormField.InputContainer>
+          <FormField.InputContainer>
+            <FormField.InputLabel label='Confirmar nova senha' required />
+            <FormField.InputField
+              id='Confirmar nova senha'
+              placeholder="Repita a nova senha"
+              type="password"
+              inputRef={confirmNewPasswordRef}
+            />
+          </FormField.InputContainer>
         </FormFieldGroup>
         <FormFieldGroup>
           <TextWithLink
