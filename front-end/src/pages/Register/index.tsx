@@ -5,8 +5,8 @@ import { FormContainer } from './styles';
 import { Approach } from '../../components/Approach';
 import { Button } from '../../components/Button';
 import { TextWithLink } from '../../components/TextWithLink';
-import { FormField } from '../../components/FormField/InputOld';
-import { FormFieldGroup } from '../../components/FormField/InputOld/styles';
+import { FormField } from '../../components/FormField/Input';
+import { FormFieldGroup } from '../../components/FormField/FormFieldGroup';
 import { SelectContainer, SelectOptions } from '../../components/FormField/Select';
 import { Modal } from '../../components/Modal';
 import { LoadingComponent as Loading } from '../../components/Loading';
@@ -111,31 +111,39 @@ export const Register = () => {
   return (
     <>
       <FormContainer onSubmit={handleUser}>
-        <Approach title="Crie sua conta no say-it." approach="Faça seu cadastro para compartilhar idéias, pensamentos ou piadas." />
-        <FormFieldGroup>
-          <FormField
-            label="Primeiro nome"
-            type="text"
-            placeholder={randomPeople.randomFirstName}
-            required
-            inputRef={firstNameRef}
-          />
-          <FormField
-            label="Sobrenome"
-            type="text"
-            placeholder={randomPeople.randomLastName}
-            required
-            inputRef={lastNameRef}
-          />
-        </FormFieldGroup>
-        <FormField
-          largeInput
-          label="E-mail"
-          type="email"
-          placeholder={randomPeople.randomEmail}
-          required
-          inputRef={emailRef}
+        <Approach
+          title="Crie sua conta no say-it."
+          approach="Faça seu cadastro para compartilhar idéias, pensamentos ou piadas."
         />
+        <FormFieldGroup>
+          <FormField.InputContainer>
+            <FormField.InputLabel label='Primeiro nome' required />
+            <FormField.InputField
+              id='Primeiro nome'
+              type="text"
+              placeholder={randomPeople.randomFirstName}
+              inputRef={firstNameRef}
+            />
+          </FormField.InputContainer>
+          <FormField.InputContainer>
+            <FormField.InputLabel label='Sobrenome' required />
+            <FormField.InputField
+              id="Sobrenome"
+              type="text"
+              placeholder={randomPeople.randomLastName}
+              inputRef={lastNameRef}
+            />
+          </FormField.InputContainer>
+        </FormFieldGroup>
+        <FormField.InputContainer largeInput>
+          <FormField.InputLabel label='E-mail' required />
+          <FormField.InputField
+            id="E-mail"
+            type="email"
+            placeholder={randomPeople.randomEmail}
+            inputRef={emailRef}
+          />
+        </FormField.InputContainer>
         <SelectContainer
           selectName="countries"
           selectLabel="País"
@@ -153,20 +161,24 @@ export const Register = () => {
           };
         </SelectContainer>
         <FormFieldGroup>
-          <FormField
-            label="Senha"
-            type="password"
-            placeholder="No mínimo 8 caracteres"
-            required
-            inputRef={passwordRef}
-          />
-          <FormField
-            label="Confirmar senha"
-            type="password"
-            placeholder="Repita a senha"
-            required
-            inputRef={confirmPasswordRef}
-          />
+          <FormField.InputContainer>
+            <FormField.InputLabel label='Senha' />
+            <FormField.InputField
+              id='Senha'
+              type="password"
+              placeholder="No mínimo 8 caracteres"
+              inputRef={passwordRef}
+            />
+          </FormField.InputContainer>
+          <FormField.InputContainer>
+            <FormField.InputLabel label='Confirmar senha' />
+            <FormField.InputField
+              id='Confirmar senha'
+              type="password"
+              placeholder="Repita a senha"
+              inputRef={confirmPasswordRef}
+            />
+          </FormField.InputContainer>
         </FormFieldGroup>
         <FormFieldGroup>
           <Button text="Cadastrar" />

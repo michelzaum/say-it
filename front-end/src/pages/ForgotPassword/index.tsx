@@ -110,10 +110,9 @@ export const ForgotPassword = () => {
         <FormField.InputContainer largeInput>
           <FormField.InputLabel label='E-mail' required />
           <FormField.InputField
-            label="E-mail"
+            id="E-mail"
             type="email"
             placeholder="stevejobs@apple.com"
-            required
             inputRef={userEmailRef}
           />
         </FormField.InputContainer>

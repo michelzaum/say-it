@@ -1,4 +1,4 @@
 export interface LabelProps {
   label: string
-  required: boolean
+  required?: boolean
 };
