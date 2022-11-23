@@ -1,6 +1,11 @@
 import { FormEvent, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { useLazyQuery } from '@apollo/client';
+import { useMutation } from '@apollo/client';
+import { FIND_USER_BY_EMAIL } from '../../graphql/Users/queries';
+import { GENERATE_CODE_TO_RESET_PASSWORD } from '../../graphql/Users/mutations';
+
 import { ForgotPasswordContainer } from './styles';
 
 import { Approach } from '../../components/Approach';
@@ -9,11 +14,6 @@ import { TextWithLink } from '../../components/TextWithLink';
 import { Button } from '../../components/Button';
 import { Modal } from '../../components/Modal';
 import { FormFieldGroup } from '../../components/FormField/FormFieldGroup';
-
-import { useLazyQuery } from '@apollo/client';
-import { useMutation } from '@apollo/client';
-import { FIND_USER_BY_EMAIL } from '../../graphql/Users/queries';
-import { GENERATE_CODE_TO_RESET_PASSWORD } from '../../graphql/Users/mutations';
 import { LoadingComponent as Loading } from '../../components/Loading';
 
 export const ForgotPassword = () => {

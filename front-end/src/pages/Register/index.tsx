@@ -1,5 +1,8 @@
 import { useState, useEffect, useRef, FormEvent } from 'react';
 
+import { useMutation } from '@apollo/client';
+import { CREATE_USER } from '../../graphql/Users/mutations';
+
 import { FormContainer } from './styles';
 
 import { Approach } from '../../components/Approach';
@@ -10,9 +13,6 @@ import { FormFieldGroup } from '../../components/FormField/FormFieldGroup';
 import { SelectContainer, SelectOptions } from '../../components/FormField/Select';
 import { Modal } from '../../components/Modal';
 import { LoadingComponent as Loading } from '../../components/Loading';
-
-import { useMutation } from '@apollo/client';
-import { CREATE_USER } from '../../graphql/Users/mutations';
 
 import { MockCountry } from '../../mock/countries';
 import { returnRandomPeople } from '../../utils/returnRandomPeople';

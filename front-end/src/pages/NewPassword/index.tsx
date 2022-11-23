@@ -5,6 +5,7 @@ import { useMutation } from '@apollo/client';
 import { UPDATE_USER_PASSWORD } from '../../graphql/Users/mutations';
 
 import { NewPasswordContainer } from './styles';
+
 import { Approach } from '../../components/Approach';
 import { FormField } from '../../components/FormField/Input';
 import { FormFieldGroup } from '../../components/FormField/FormFieldGroup';
@@ -13,6 +14,7 @@ import { TextWithLink } from '../../components/TextWithLink';
 import { Modal } from '../../components/Modal';
 import { ModalProps } from '../../components/Modal/types';
 import { LoadingComponent } from '../../components/Loading';
+
 import { ParamsProps } from '../CodeToResetPassword/types';
 
 export const NewPassword = () => {
