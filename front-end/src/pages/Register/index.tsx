@@ -10,7 +10,7 @@ import { Button } from '../../components/Button';
 import { TextWithLink } from '../../components/TextWithLink';
 import { FormField } from '../../components/FormField/Input';
 import { FormFieldGroup } from '../../components/FormField/FormFieldGroup';
-import { SelectContainer, SelectOptions } from '../../components/FormField/Select';
+import { List } from '../../components/FormField/Select';
 import { Modal } from '../../components/Modal';
 import { LoadingComponent as Loading } from '../../components/Loading';
 
@@ -144,22 +144,20 @@ export const Register = () => {
             inputRef={emailRef}
           />
         </FormField.InputContainer>
-        <SelectContainer
+        <List.Container
           selectName="countries"
           selectLabel="País"
           inputRef={countryRef}
         >
-          <SelectOptions optionId={0} optionName="Selecione seu país" />
-          {
-            MockCountry.map(country => (
-              <SelectOptions
-                key={country.id}
-                optionId={country.id}
-                optionName={country.name}
-              />
-            ))
-          };
-        </SelectContainer>
+          <List.Item optionId={0} optionName="Selecione seu país" />
+          {MockCountry.map(country => (
+            <List.Item
+              key={country.id}
+              optionId={country.id}
+              optionName={country.name}
+            />
+          ))};
+        </List.Container>
         <FormFieldGroup>
           <FormField.InputContainer>
             <FormField.InputLabel label='Senha' />

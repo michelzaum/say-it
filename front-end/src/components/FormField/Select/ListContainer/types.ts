@@ -6,8 +6,3 @@ export type SelectProps = {
   required?: boolean
   inputRef: RefObject<HTMLSelectElement>
 };
-
-export type SelectOptionProps = {
-  optionName: string
-  optionId: number
-}
