@@ -144,19 +144,10 @@ export const Register = () => {
             inputRef={emailRef}
           />
         </FormField.InputContainer>
-        <List.Container
-          selectName="countries"
-          selectLabel="País"
-          inputRef={countryRef}
-        >
-          <List.Item optionId={0} optionName="Selecione seu país" />
+        <List.Container selectName="countries" selectLabel="País" inputRef={countryRef}>
           {MockCountry.map(country => (
-            <List.Item
-              key={country.id}
-              optionId={country.id}
-              optionName={country.name}
-            />
-          ))};
+            <List.Item optionId={country.id.toString()} optionName={country.name} />
+          ))}
         </List.Container>
         <FormFieldGroup>
           <FormField.InputContainer>

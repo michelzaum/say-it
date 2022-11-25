@@ -15,7 +15,7 @@ export const ListLabel = styled.label`
   color: ${colors.dark};
 `;
 
-export const List = styled.select`
+export const List = styled.datalist`
   height: 59px;
   width: 100%;
   background-color: transparent;

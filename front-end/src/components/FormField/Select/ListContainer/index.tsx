@@ -1,4 +1,7 @@
-import { ListContainer, List, ListLabel } from './styles';
+import { ListContainer, List } from './styles';
+
+import { FormField } from '../../Input';
+
 import { SelectProps } from './types';
 
 export const SelectContainer: React.FC<SelectProps> = ({
@@ -6,10 +9,13 @@ export const SelectContainer: React.FC<SelectProps> = ({
 }) => {
   return (
     <ListContainer>
-      <ListLabel>{selectLabel}</ListLabel>
-      <List name={selectName} ref={inputRef}>
-        {children}
-      </List>
+      <FormField.InputContainer largeInput>
+        <FormField.InputLabel label='País' />
+        <FormField.InputField list='ice-cream-flavors' id='ice-cream-flavors' name='ice-cream-flavors' />
+        <List id="ice-cream-flavors">
+          {children}
+        </List>
+      </FormField.InputContainer>
     </ListContainer>
   );
 };
