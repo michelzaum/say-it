@@ -23,7 +23,7 @@ export const Register = () => {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const confirmPasswordRef = useRef<HTMLInputElement>(null);
-  const countryRef = useRef<HTMLSelectElement>(null);
+  const countryRef = useRef<HTMLInputElement>(null);
 
   const [randomPeople, setRandomPeople] = useState({
     randomFirstName: '',
@@ -144,7 +144,7 @@ export const Register = () => {
             inputRef={emailRef}
           />
         </FormField.InputContainer>
-        <List.Container selectName="countries" selectLabel="País" inputRef={countryRef}>
+        <List.Container ListRef={countryRef} id='listCountries'>
           {MockCountry.map(country => (
             <List.Item optionId={country.id.toString()} optionName={country.name} />
           ))}

@@ -4,15 +4,18 @@ import { FormField } from '../../Input';
 
 import { SelectProps } from './types';
 
-export const SelectContainer: React.FC<SelectProps> = ({
-  children, selectName, selectLabel, inputRef
-}) => {
+export const SelectContainer: React.FC<SelectProps> = ({ children, ListRef, id }) => {
   return (
     <ListContainer>
       <FormField.InputContainer largeInput>
         <FormField.InputLabel label='País' />
-        <FormField.InputField list='ice-cream-flavors' id='ice-cream-flavors' name='ice-cream-flavors' />
-        <List id="ice-cream-flavors">
+        <FormField.InputField
+          inputRef={ListRef}
+          list={id}
+          id={id}
+          name={id}
+        />
+        <List id={id}>
           {children}
         </List>
       </FormField.InputContainer>
