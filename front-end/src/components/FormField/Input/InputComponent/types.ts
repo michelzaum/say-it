@@ -1,11 +1,10 @@
-import React, { RefObject } from "react";
+import { RefObject, InputHTMLAttributes } from "react";
 
-export type InputProps = {
+export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   id?: string
   placeholder?: string
   type?: string
   value?: string
-  onChange?: (e: React.FormEvent<HTMLInputElement>) => void
   inputRef?: RefObject<HTMLInputElement>
   list?: string
   name?: string
