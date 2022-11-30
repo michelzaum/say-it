@@ -155,19 +155,15 @@ export const Register = () => {
         </List.Container>
         <FormFieldGroup>
           <FormField.InputContainer>
-            <FormField.InputLabel label='Senha' />
-            <FormField.InputField
-              id='Senha'
-              type="password"
+            <FormField.InputLabel label='Senha' required />
+            <FormField.InputFieldPassword
               placeholder="No mínimo 8 caracteres"
               inputRef={passwordRef}
             />
           </FormField.InputContainer>
           <FormField.InputContainer>
-            <FormField.InputLabel label='Confirmar senha' />
-            <FormField.InputField
-              id='Confirmar senha'
-              type="password"
+            <FormField.InputLabel label='Confirmar senha' required />
+            <FormField.InputFieldPassword
               placeholder="Repita a senha"
               inputRef={confirmPasswordRef}
             />

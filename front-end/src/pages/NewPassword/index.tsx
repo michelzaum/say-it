@@ -93,19 +93,15 @@ export const NewPassword = () => {
         <FormFieldGroup>
           <FormField.InputContainer>
             <FormField.InputLabel label='Nova senha' required />
-            <FormField.InputField
-              id='Nova senha'
+            <FormField.InputFieldPassword
               placeholder="No mínimo 8 caracteres"
-              type="password"
               inputRef={newPasswordRef}
             />
           </FormField.InputContainer>
           <FormField.InputContainer>
             <FormField.InputLabel label='Confirmar nova senha' required />
-            <FormField.InputField
-              id='Confirmar nova senha'
+            <FormField.InputFieldPassword
               placeholder="Repita a nova senha"
-              type="password"
               inputRef={confirmNewPasswordRef}
             />
           </FormField.InputContainer>

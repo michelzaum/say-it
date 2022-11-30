@@ -74,10 +74,9 @@ export const Login = () => {
         </FormField.InputContainer>
         <FormFieldGroup>
           <FormField.InputContainer>
+            <FormField.InputLabel label='Senha' required />
             <FormField.InputFieldPassword
-              label='Sua senha'
               placeholder='********'
-              required
               inputRef={passwordRef}
             />
           </FormField.InputContainer>
