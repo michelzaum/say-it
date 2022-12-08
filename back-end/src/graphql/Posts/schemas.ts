@@ -1,6 +1,6 @@
-const { gql } = require('apollo-server');
+import { gql } from 'apollo-server';
 
-const typeDefs = gql`
+export const postSchema = gql`
   type Post {
     id: ID!
     author: User!
@@ -23,5 +23,3 @@ const typeDefs = gql`
     deletePost(id: ID!): Boolean
   }
 `;
-
-module.exports = typeDefs;

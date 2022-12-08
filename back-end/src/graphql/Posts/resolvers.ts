@@ -1,7 +1,7 @@
-const PostRepository = require("../../repositories/PostRepository");
-const UserRepository = require("../../repositories/UserRepository");
+import PostRepository from "../../repositories/PostRepository";
+import UserRepository from "../../repositories/UserRepository";
 
-module.exports = {
+export const postResolver = {
   Query: {
     posts: async () => {
       try {
