@@ -1,38 +1,38 @@
-const alphabet = require('./alphabet');
+import { alphabet } from './alphabet';
+import dotenv from 'dotenv';
 
-const dotenv = require('dotenv');
 dotenv.config();
 
-function decryption(value) {
-  let hash = process.env.HASH_KEY;
-  const encryptedText = value;
+export function decryption(value: string): string {
+  let hash: string = process.env.HASH_KEY || "";
+  const encryptedText: string = value;
 
-  const initialHashLength = hash.length;
-  const encryptedTextGreaterThanHash = encryptedText.length > hash.length;
+  const initialHashLength: number = hash.length;
+  const encryptedTextGreaterThanHash: boolean = encryptedText.length > hash.length;
 
   hash += encryptedText.substring(0, encryptedText.length - hash.length);
 
-  const hashToArray = hash.split('');
-  const encryptedTextToArray = encryptedText.split('');
+  const hashToArray: Array<string> = hash.split('');
+  const encryptedTextToArray: Array<string> = encryptedText.split('');
 
-  let indexOfItemsHash = [];
-  hashToArray.forEach(item => {
+  const indexOfItemsHash: Array<number> = [];
+  hashToArray.forEach((item: string) => {
     indexOfItemsHash.push(alphabet.indexOf(item))
   });
 
-  let indexOfEncryptedText = [];
-  encryptedTextToArray.forEach(item => {
+  const indexOfEncryptedText: Array<number> = [];
+  encryptedTextToArray.forEach((item: string) => {
     indexOfEncryptedText.push(alphabet.indexOf(item));
   });
 
-  let indexOfItemsPlainText = [];
-  function formatPlainText() {
+  let indexOfItemsPlainText: Array<number> = [];
+  function formatPlainText(): number[] {
     if (indexOfItemsPlainText.length > 0) {
       indexOfItemsPlainText = [];
     };
 
     for (let i = 0; i < indexOfEncryptedText.length; i++) {
-      let result = indexOfEncryptedText[i] - indexOfItemsHash[i];
+      let result: number = indexOfEncryptedText[i] - indexOfItemsHash[i];
   
       if(result < 0) {
         result = alphabet.length - Math.abs(result);
@@ -47,7 +47,7 @@ function decryption(value) {
   formatPlainText();
 
   if (encryptedTextGreaterThanHash) {
-    let count = 0;
+    let count: number = 0;
     for (let i = initialHashLength; i < encryptedText.length; i++) {
       indexOfItemsHash[i] = indexOfItemsPlainText[count];
       count++;
@@ -56,8 +56,8 @@ function decryption(value) {
     formatPlainText();
   };
 
-  let plainText = "";
-  indexOfItemsPlainText.forEach(item => {
+  let plainText: string = "";
+  indexOfItemsPlainText.forEach((item: number) => {
     if (item > alphabet.length - 1) {
       item = item - alphabet.length;
     };
@@ -67,5 +67,3 @@ function decryption(value) {
 
   return plainText;
 };
-
-module.exports = decryption;
