@@ -1,7 +1,22 @@
 const db = require('../database');
+import { CRUD } from '../interfaces/CRUD';
 
-class UserRepository {
-  async findAll() {
+type User = {
+  id: String
+  first_name: String
+  last_name: String
+  email: String
+  password: String
+  country: String
+  is_active: Boolean
+  bio: String
+  code_to_reset_password: Number
+  github: String
+  linkedin: String
+};
+
+class UserRepository implements CRUD<User> {
+  async listAll(): Promise<any> {
     try {
       const [response] = await db.query('SELECT * FROM users');
       return response;
@@ -10,7 +25,7 @@ class UserRepository {
     };
   };
 
-  async findUserById(id) {
+  async listOne(id: string): Promise<any> {
     try {
       const [[response]] = await db.query('SELECT * FROM users WHERE id = ?', [id]);
       return response;
@@ -19,7 +34,7 @@ class UserRepository {
     };
   };
 
-  async findUserByEmail(email) {
+  async findUserByEmail(email: string) {
     try {
       const [[response]] = await db.query('SELECT * FROM users WHERE email = ?', [email]);
       return response;
@@ -28,7 +43,7 @@ class UserRepository {
     };
   };
 
-  async create(data) {
+  async create(data: User) {
     const { first_name, last_name, email, password, country } = data;
     try {
       const [response] = await db.query(`
@@ -44,7 +59,7 @@ class UserRepository {
     };
   };
 
-  async update(id, data) {
+  async update(id: string, data: User) {
     const { first_name, last_name, email, password, country } = data;
     try {
       await db.query(`
@@ -52,13 +67,13 @@ class UserRepository {
         SET first_name = ?, last_name = ?, email = ?, password = ?, country = ?
         WHERE id = ?
       `, [first_name, last_name, email, password, country, id]);
-      return this.findUserById(id);
+      return this.listOne(id);
     } catch (error) {
       console.log(error);
     };
   };
 
-  async delete(id) {
+  async delete(id: String) {
     try {
       const [response] = await db.query(`
         DELETE FROM users
@@ -70,7 +85,7 @@ class UserRepository {
     };
   };
 
-  async generateCodeToResetPassword(email, randomCode) {
+  async generateCodeToResetPassword(email: string, randomCode: number) {
     try {
       const [response] = await db.query(`
         UPDATE users
@@ -83,7 +98,7 @@ class UserRepository {
     };
   };
 
-  async isCodeProvidedValid(email, codeProvided) {
+  async isCodeProvidedValid(email: string, codeProvided: number) {
     try {
       const [[response]] = await db.query(`
         SELECT code_to_reset_password FROM users
@@ -99,7 +114,7 @@ class UserRepository {
     };
   };
 
-  async updateUserPassword(email, newPassword) {
+  async updateUserPassword(email: string, newPassword: string) {
     try {
       const [response] = await db.query(`
         UPDATE users
@@ -113,4 +128,4 @@ class UserRepository {
   };
 };
 
-module.exports = new UserRepository();
+export default new UserRepository();
