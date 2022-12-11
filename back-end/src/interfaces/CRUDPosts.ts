@@ -1,16 +1,4 @@
-type User = {
-  id: String
-  first_name: String
-  last_name: String
-  email: String
-  password: String
-  country: String
-  is_active: Boolean
-  bio: String
-  code_to_reset_password: Number
-  github: String
-  linkedin: String
-};
+import { User } from '../types/User';
 
 export interface CRUDPosts<T> {
   listAll (): Promise<T[]>,

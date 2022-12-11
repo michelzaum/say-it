@@ -1,27 +1,9 @@
 import { CRUDPosts } from "../interfaces/CRUDPosts";
 
+import { User } from '../types/User';
+import { Post } from '../types/Post';
+
 let posts = require('../mock/mock_posts');
-
-type User = {
-  id: String
-  first_name: String
-  last_name: String
-  email: String
-  password: String
-  country: String
-  is_active: Boolean
-  bio: String
-  code_to_reset_password: Number
-  github: String
-  linkedin: String
-};
-
-type Post = {
-  id: string
-  author: User
-  createdAt: string
-  content: string
-};
 
 class PostRepository implements CRUDPosts<Post> {
   listAll(): Promise<Post[]> {

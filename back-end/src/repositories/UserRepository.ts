@@ -1,19 +1,7 @@
 const db = require('../database');
-import { CRUD } from '../interfaces/CRUD';
 
-type User = {
-  id: String
-  first_name: String
-  last_name: String
-  email: String
-  password: String
-  country: String
-  is_active: Boolean
-  bio: String
-  code_to_reset_password: Number
-  github: String
-  linkedin: String
-};
+import { CRUD } from '../interfaces/CRUD';
+import { User } from '../types/User';
 
 class UserRepository implements CRUD<User> {
   async listAll(): Promise<any> {

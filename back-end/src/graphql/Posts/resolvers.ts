@@ -1,26 +1,6 @@
 import PostRepository from "../../repositories/PostRepository";
 import UserRepository from "../../repositories/UserRepository";
-
-type User = {
-  id: string
-  first_name: string
-  last_name: string
-  email: string
-  password: string
-  country: string
-  is_active: Boolean
-  bio: string
-  code_to_reset_password: Number
-  github: string
-  linkedin: string
-};
-
-type Post = {
-  id: string
-  author: User
-  createdAt: string
-  content: string
-};
+import { Post } from '../../types/Post';
 
 export const postResolver = {
   Query: {
