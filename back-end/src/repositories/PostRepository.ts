@@ -6,31 +6,31 @@ import { Post } from '../types/Post';
 let posts = require('../mock/mock_posts');
 
 class PostRepository implements CRUDPosts<Post> {
-  async listAll(): Promise<Post[]> {
+  listAll(): Promise<Post[]> {
     throw new Error("Method not implemented.");
   };
 
-  async listOne(id: string): Promise<Post> {
+  listOne(id: any): Promise<Post> {
     throw new Error("Method not implemented.");
   };
 
-  async update(id: string, data: Post): Promise<any> {
+  update(id: string, data: Post): Promise<any> {
     throw new Error("Method not implemented.");
   };
 
-  async listPost() {
+  listPost() {
     return new Promise((resolve, reject) => {
       const listPosts = posts;
 
       if (listPosts) {
         resolve(posts);
       } else {
-        reject({ err: 'Error fetching posts' });
+        reject({ err: 'Error fetchin posts' });
       };
     });
   };
 
-  async create(data: Post, author: User) {
+  create(data: Post, author: User) {
     return new Promise((resolve, reject) => {
       if(data && author) {
         const newPost = {
@@ -46,7 +46,7 @@ class PostRepository implements CRUDPosts<Post> {
     });
   };
 
-  async delete(id: string) {
+  delete(id: string) {
     const deleted = true;
     return new Promise((resolve, reject) => {
       if(id) {
