@@ -3,7 +3,20 @@ import { generateRandomCode } from '../../utils/generateRandomCode';
 import { sendCodeToResetPasswordViaEmail } from '../../utils/sendEmail';
 import { encryption } from '../../utils/encryption';
 import { decryption } from '../../utils/decryption';
-import { User } from '../../types/User';
+
+type User = {
+  id: string
+  first_name: string
+  last_name: string
+  email: string
+  password: string
+  country: string
+  is_active: Boolean
+  bio: string
+  code_to_reset_password: Number
+  github: string
+  linkedin: string
+};
 
 export const userResolver = {
   Query: {
