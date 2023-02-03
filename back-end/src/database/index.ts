@@ -11,6 +11,6 @@ const pool = mysql.createPool({
   database: process.env.DATABASE_NAME,
 });
 
-export async function query(sql: string, values: Array<string>) {
+export async function query(sql, values) {
   return await pool.query(sql, values);
 };

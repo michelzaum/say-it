@@ -1,27 +1,6 @@
 import PostRepository from "../../repositories/PostRepository";
 import UserRepository from "../../repositories/UserRepository";
 
-type User = {
-  id: string
-  first_name: string
-  last_name: string
-  email: string
-  password: string
-  country: string
-  is_active: Boolean
-  bio: string
-  code_to_reset_password: Number
-  github: string
-  linkedin: string
-};
-
-type Post = {
-  id: string
-  author: User
-  createdAt: string
-  content: string
-};
-
 export const postResolver = {
   Query: {
     posts: async () => {
@@ -34,10 +13,10 @@ export const postResolver = {
   },
 
   Mutation: {
-    createPost: async (parent: string, data: Post) => {
+    createPost: async (_, { data }) => {
       try {
-        const { author: { id } } = data;
-        const author = await UserRepository.listOne(id);
+        const { authorId } = data;
+        const author = UserRepository.findUserById(Number(authorId));
   
         const newPost = PostRepository.create(data, author);
         return newPost;
@@ -46,9 +25,9 @@ export const postResolver = {
       };
     },
 
-    deletePost: async (parent: string, id: string) => {
+    deletePost: async (_, { id }) => {
       try {
-        const postDeleted = PostRepository.delete(id);
+        const postDeleted = PostRepository.delete(Number(id));
         return postDeleted;
       } catch (err) {
         console.log(err);

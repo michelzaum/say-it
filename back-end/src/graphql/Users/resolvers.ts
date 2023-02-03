@@ -4,45 +4,29 @@ import { sendCodeToResetPasswordViaEmail } from '../../utils/sendEmail';
 import { encryption } from '../../utils/encryption';
 import { decryption } from '../../utils/decryption';
 
-type User = {
-  id: string
-  first_name: string
-  last_name: string
-  email: string
-  password: string
-  country: string
-  is_active: Boolean
-  bio: string
-  code_to_reset_password: Number
-  github: string
-  linkedin: string
-};
-
 export const userResolver = {
   Query: {
     listUsers: async () => {
       try {
-        const allUsers = await UserRepository.listAll();
+        const allUsers = await UserRepository.findAll();
         return allUsers;
       } catch (err) {
         console.log(err);
       };
     },
 
-    findUserById: async (parent: any, params: User) => {
-      const { id } = params;
+    findUserById: async (_, { id }) => {
       try {
         if (id) {
-          const userById = await UserRepository.listOne(id);
+          const userById = await UserRepository.findUserById(id);
           return userById;
-        };
+        }
       } catch (err) {
         console.log(err);
-      };
+      }
     },
 
-    findUserByEmail: async (parent: any, params: User) => {
-      const { email } = params;
+    findUserByEmail: async (_, { email }) => {
       try {
         if (email) {
           const userByEmail = await UserRepository.findUserByEmail(email);
@@ -53,7 +37,7 @@ export const userResolver = {
       }
     },
 
-    isCodeProvidedValid: async(parent: any, email: string, codeProvided: number) => {
+    isCodeProvidedValid: async(_, { email, codeProvided }) => {
       try {
         return await UserRepository.isCodeProvidedValid(email, codeProvided);
       } catch (err) {
@@ -61,7 +45,7 @@ export const userResolver = {
       };
     },
 
-    login: async (parent: any, email: string, passwordProvided: string) => {
+    login: async (_, { email, passwordProvided }) => {
       try {
         const user = await UserRepository.findUserByEmail(email);
 
@@ -87,7 +71,7 @@ export const userResolver = {
   },
 
   Mutation: {
-    createUser: async (parent: any, data: User) => {
+    createUser: async (_, { data }) => {
       try {
         const { first_name, last_name, email, password } = data;
 
@@ -109,7 +93,7 @@ export const userResolver = {
       };
     },
 
-    updateUser: async (parent: any, id: string, data: User) => {
+    updateUser: async (_, { id, data }) => {
       try {
         const encryptedPassword = encryption(data.password);
         const userData = { ...data, password: encryptedPassword };
@@ -121,7 +105,7 @@ export const userResolver = {
       };
     },
 
-    deleteUser: async (parent: any, id: string) => {
+    deleteUser: async (_, { id }) => {
       try {
         return await UserRepository.delete(id);
       } catch (err) {
@@ -129,7 +113,7 @@ export const userResolver = {
       };
     },
 
-    generateCodeToResetPassword: async (parent: any, email: string) => {
+    generateCodeToResetPassword: async (_, { email }) => {
       try {
         const randomCode = generateRandomCode();
         
@@ -145,7 +129,7 @@ export const userResolver = {
       };
     },
 
-    updateUserPassword: async (parent: any, email: string, newPassword: string) => {
+    updateUserPassword: async (_, { email, newPassword }) => {
       try {
         const newPasswordEncrypted = encryption(newPassword);
         const userWithNewPassword = await UserRepository.updateUserPassword(email, newPasswordEncrypted);
