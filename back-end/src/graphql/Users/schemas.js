@@ -1,6 +1,6 @@
-import { gql } from 'apollo-server';
+const { gql } = require('apollo-server');
 
-export const userSchema = gql`
+const typeDefs = gql`
   type User {
     id: ID!
     first_name: String
@@ -39,3 +39,5 @@ export const userSchema = gql`
     updateUserPassword(email: String, newPassword: String): Boolean
   }
 `;
+
+module.exports = typeDefs;

@@ -1,10 +1,10 @@
-import UserRepository from '../../repositories/UserRepository';
-import { generateRandomCode } from '../../utils/generateRandomCode';
-import { sendCodeToResetPasswordViaEmail } from '../../utils/sendEmail';
-import { encryption } from '../../utils/encryption';
-import { decryption } from '../../utils/decryption';
+const UserRepository = require('../../repositories/UserRepository');
+const generateRandomCode = require('../../utils/generateRandomCode');
+const sendEmailToResetPassword = require('../../utils/sendEmail');
+const encryption = require('../../utils/encryption');
+const decryption = require('../../utils/decryption');
 
-export const userResolver = {
+module.exports = {
   Query: {
     listUsers: async () => {
       try {
@@ -121,7 +121,7 @@ export const userResolver = {
 
         if (userToResetPassword) {
           const { email } = userToResetPassword;
-          sendCodeToResetPasswordViaEmail(email, randomCode);
+          sendEmailToResetPassword(email, randomCode);
         }
         return !!userToResetPassword;
       } catch (err) {

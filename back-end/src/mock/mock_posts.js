@@ -1,4 +1,4 @@
-export const mockPosts: Array<{}> = [
+let posts = [
   {
     id: 1,
     createdAt: Date.now(),
@@ -39,3 +39,5 @@ export const mockPosts: Array<{}> = [
     },
   },
 ];
+
+module.exports = posts;
