@@ -36,10 +36,10 @@ export const Login = () => {
   async function handleLogin (e: FormEvent) {
     e.preventDefault();
 
-    const emailValue = emailRef.current?.value;
-    const passwordValue = passwordRef.current?.value;
+    const email = emailRef.current?.value;
+    const password = passwordRef.current?.value;
 
-    if (emailValue === '' || passwordValue === '') {
+    if (email === '' || password === '') {
       setModalInfo({
         show: true,
         title: 'Credenciais obrigatórias',
@@ -50,7 +50,7 @@ export const Login = () => {
     };
 
     const loginResult = await validateLogin({
-      variables: { emailValue, passwordProvided: passwordValue },
+      variables: { email, passwordProvided: password },
     });
 
     if (loginResult) {

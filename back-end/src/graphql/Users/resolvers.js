@@ -55,7 +55,6 @@ module.exports = {
   
         const { password } = user;
         const decryptedPassword = decryption(password);
-  
         if (passwordProvided === decryptedPassword) {
           console.log('Login ok!');
           return true;
