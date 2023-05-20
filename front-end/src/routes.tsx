@@ -5,6 +5,7 @@ import { Login } from './pages/Login';
 import { ForgotPassword } from './pages/ForgotPassword';
 import { CodeToResetPassword } from './pages/CodeToResetPassword';
 import { NewPassword } from './pages/NewPassword';
+import { Feed } from './pages/Feed';
 
 export const RoutesComponent = () => {
   return (
@@ -15,6 +16,7 @@ export const RoutesComponent = () => {
         <Route path="/forgotPassword" element={<ForgotPassword />} />
         <Route path="/codeToResetPassword" element={<CodeToResetPassword />} />
         <Route path="/newPassword" element={<NewPassword />} />
+        <Route path='/feed' element={<Feed />} />
       </Routes>
     </BrowserRouter>
   );

@@ -1,4 +1,5 @@
 import { FormEvent, useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { useLazyQuery } from '@apollo/client';
 import { LOGIN } from '../../graphql/Users/queries';
@@ -18,6 +19,8 @@ import { returnRandomPeople } from '../../utils/returnRandomPeople';
 export const Login = () => {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
+
+  const navigation = useNavigate();
 
   const [modalInfo, setModalInfo] = useState({
     show: false,
@@ -54,8 +57,7 @@ export const Login = () => {
     });
 
     if (loginResult) {
-      const { data } = loginResult;
-      alert(data.login);
+      navigation('/feed');
     };
   };
 
