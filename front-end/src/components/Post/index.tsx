@@ -1,3 +1,5 @@
+import { Comment } from '../Icons/comment';
+import { Like } from '../Icons/like';
 import {
   Interaction,
   InteractionsContaincer,
@@ -20,19 +22,24 @@ export const Post = () => {
           <UserImage />
           <UserInfo>
             <UserName>Michel de Oliveira</UserName>
-            <PostTime>3 hours ago</PostTime>
+            <UserLocation>São Paulo, Brazil</UserLocation>
           </UserInfo>
+          <PostTime>3 hours ago</PostTime>
         </PostDetails>
-        <UserLocation>São Paulo, Brazil</UserLocation>
       </PostInfoContainer>
       <PostContent>
         Muito legal essa rede social. Adorei a ideia. SImples, objetiva e bem bonita! :) gostei mesmo, bastante
       </PostContent>
       <InteractionsContaincer>
-        <Interaction>12 curtidas</Interaction>
-        <Interaction>4 comentários</Interaction>
-        <Interaction>2 compartilhamentos</Interaction>
+        <Interaction>
+          <Like />
+          12 curtidas
+        </Interaction>
+        <Interaction>
+          <Comment />
+          4 comentários
+        </Interaction>
       </InteractionsContaincer>
     </PostContainer>
-  )
-}
+  );
+};

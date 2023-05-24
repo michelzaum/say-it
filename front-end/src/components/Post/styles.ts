@@ -17,11 +17,16 @@ export const PostInfoContainer = styled.div`
 
 export const PostDetails = styled.div`
   display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  width: 100%;
 `;
 
 export const UserInfo = styled.div`
+  width: 100%;
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 export const UserImage = styled.img`
