@@ -29,9 +29,7 @@ export const UserInfo = styled.div`
   justify-content: space-between;
 `;
 
-export const UserImage = styled.img`
-
-`;
+export const UserImage = styled.img``;
 
 export const UserName = styled.span`
   font-weight: 500;
@@ -47,15 +45,12 @@ export const UserLocation = styled.span`
 
 export const PostContent = styled.div`
   padding: 1.5rem 0;
+  border-bottom: 1px solid ${colors.gray};
 `;
 
-export const InteractionsContaincer = styled.div`
-  border-top: 1px solid ${colors.gray};
+export const InteractionList = styled.div`
   display: flex;
-  gap: 1.5rem;
-  padding: 1rem 0;
-`;
-
-export const Interaction = styled.span`
-  font-size: 14px;
+  justify-content: start;
+  padding-top: 1rem;
+  gap: 1rem;
 `;
