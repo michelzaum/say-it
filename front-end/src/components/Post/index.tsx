@@ -1,5 +1,8 @@
+import React from 'react';
+
 import { Comment } from '../Icons/comment';
 import { Like } from '../Icons/like';
+import { Interaction } from '../Interaction';
 
 import {
   InteractionList,
@@ -14,27 +17,47 @@ import {
   UserName
 } from './styles';
 
-import { Interaction } from '../Interaction';
+type User = {
+  name: string
+  location: string
+}
 
-export const Post = () => {
+type Interactions = {
+  likes: number
+  comments: number
+}
+
+type PostProps = {
+  userInfo: User
+  time: string
+  content: string
+  interactions: Interactions
+}
+
+export const Post: React.FC<PostProps> = ({
+  content,
+  time,
+  userInfo,
+  interactions,
+}) => {
   return (
     <PostContainer>
       <PostInfoContainer>
          <PostDetails>
           <UserImage />
           <UserInfo>
-            <UserName>Michel de Oliveira</UserName>
-            <UserLocation>São Paulo, Brazil</UserLocation>
+            <UserName>{ userInfo.name }</UserName>
+            <UserLocation>{ userInfo.location }</UserLocation>
           </UserInfo>
-          <PostTime>3 hours ago</PostTime>
+          <PostTime>{ time }</PostTime>
         </PostDetails>
       </PostInfoContainer>
       <PostContent>
-        Muito legal essa rede social. Adorei a ideia. SImples, objetiva e bem bonita! :) gostei mesmo, bastante
+        { content }
       </PostContent>
       <InteractionList>
-        <Interaction count={12} icon={<Like />}/>
-        <Interaction count={4} icon={<Comment />} />
+        <Interaction count={ interactions.likes } icon={<Like />}/>
+        <Interaction count={ interactions.comments } icon={<Comment />} />
       </InteractionList>
     </PostContainer>
   );
