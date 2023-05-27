@@ -2,6 +2,7 @@ import React from 'react';
 
 import { Comment } from '../Icons/comment';
 import { Like } from '../Icons/like';
+import { Location } from '../Icons/location';
 import { Interaction } from '../Interaction';
 
 import {
@@ -13,6 +14,7 @@ import {
   PostTime,
   UserImage,
   UserInfo,
+  UserLocationContainer,
   UserLocation,
   UserName
 } from './styles';
@@ -47,7 +49,12 @@ export const Post: React.FC<PostProps> = ({
           <UserImage />
           <UserInfo>
             <UserName>{ userInfo.name }</UserName>
-            <UserLocation>{ userInfo.location }</UserLocation>
+            <UserLocationContainer>
+              { <Location /> }
+              <UserLocation>
+                { userInfo.location }
+              </UserLocation>
+            </UserLocationContainer>
           </UserInfo>
           <PostTime>{ time }</PostTime>
         </PostDetails>

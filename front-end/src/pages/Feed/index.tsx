@@ -5,7 +5,7 @@ export const Feed = () => {
   const mockPosts = [
     { 
       time: '3 horas atrás',
-      content: 'Muita legal essa nova rede social aqui, hein!!! :)',
+      content: 'Muita legal essa nova rede social aqui, hein!!! :). Aqui é muito bom, posso postar várias coisas e o design da plataforma é muito bonito.',
       userInfo: {
         name: 'Michel de Oliveira',
         location: 'São Paulo, Brazil'
@@ -34,6 +34,7 @@ export const Feed = () => {
         <Title>Feed page</Title>
         {mockPosts.map((post) => (
           <Post
+            key={post.time}
             {...post}
           />
         ))}

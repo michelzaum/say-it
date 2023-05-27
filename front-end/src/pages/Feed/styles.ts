@@ -14,7 +14,8 @@ export const PostsList = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 1rem;
+  padding: 1rem;
   max-width: 700px;
 `;
 

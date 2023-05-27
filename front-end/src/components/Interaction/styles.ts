@@ -4,7 +4,7 @@ import { colors } from "../../constants/colors";
 export const InteractionsContaincer = styled.div`
   display: flex;
   align-items: start;
-  gap: 1rem;
+  gap: 0.5rem;
   padding: 0.8rem;
   border: 0.1px solid transparent;
   border-radius: 8px;
