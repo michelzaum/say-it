@@ -48,7 +48,7 @@ export const UserLocationContainer = styled.span`
 
 export const UserLocation = styled.span`
   font-size: 0.8rem;
-  color: ${colors.gray};
+  color: ${colors['gray-darker']};
 `;
 
 export const PostContent = styled.div`

@@ -3,7 +3,7 @@ import { colors } from '../../../constants/colors';
 export const Location = () => {
   return (
     <i>
-      <svg width="12" height="12" fill={colors.gray} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <svg width="12" height="12" fill={colors['gray-darker']} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
         <path d="M12 14c2.206 0 4-1.794 4-4s-1.794-4-4-4-4 1.794-4 4 1.794 4 4 4Zm0-6c1.103 0 2 .897 2 2s-.897 2-2 2-2-.897-2-2 .897-2 2-2Z"></path>
         <path d="M11.42 21.814a.998.998 0 0 0 1.16 0C12.884 21.599 20.03 16.44 20 10c0-4.411-3.589-8-8-8-4.41 0-8 3.589-8 7.995-.029 6.445 7.116 11.604 7.42 11.819ZM12 4c3.31 0 6 2.691 6 6.005.021 4.438-4.388 8.423-6 9.73-1.61-1.308-6.02-5.294-6-9.735 0-3.309 2.691-6 6-6Z"></path>
       </svg>
