@@ -1,5 +1,6 @@
 import { FeedContainer, Title, PostsList } from './styles';
 import { Post } from '../../components/Post';
+import { NewPost } from '../../components/NewPost';
 
 export const Feed = () => {
   const mockPosts = [
@@ -28,8 +29,14 @@ export const Feed = () => {
       }
     },
   ]
+
   return (
     <FeedContainer>
+      <NewPost.Container>
+        <NewPost.Header title='New post' />
+        <NewPost.Content content='Muita legal essa nova rede social aqui, hein!!! :). Aqui é muito bom, posso postar várias coisas e o design da plataforma é muito bonito.' />
+        <NewPost.Actions buttonText='Postar' />
+      </NewPost.Container>
       <PostsList>
         <Title>Feed page</Title>
         {mockPosts.map((post) => (
