@@ -33,10 +33,11 @@ export const Feed = () => {
       <PostsList>
         <Title>Feed page</Title>
         {mockPosts.map((post) => (
-          <Post
-            key={post.time}
-            {...post}
-          />
+          <Post.Container>
+            <Post.Header time={post.time} userInfo={post.userInfo} />
+            <Post.Content content={post.content} />
+            <Post.Interactions likes={post.interactions.likes} comments={post.interactions.comments} />
+          </Post.Container>
         ))}
       </PostsList>
     </FeedContainer>
