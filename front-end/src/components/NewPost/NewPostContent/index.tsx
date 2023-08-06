@@ -1,8 +1,8 @@
 import { Content } from './styles';
 import { NewPostContentProps } from './types';
 
-export const NewPostContent: React.FC<NewPostContentProps> = ({ content }) => {
+export const NewPostContent: React.FC<NewPostContentProps> = ({ contentRef }) => {
   return (
-    <Content>{content}</Content>
+    <Content ref={contentRef} />
   )
 };

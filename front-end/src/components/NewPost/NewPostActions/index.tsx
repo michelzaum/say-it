@@ -1,8 +1,8 @@
 import { Button } from './styles';
 import { NewPostActionsProps } from './types';
 
-export const NewPostActions: React.FC<NewPostActionsProps> = ({ buttonText }) => {
+export const NewPostActions: React.FC<NewPostActionsProps> = ({ buttonText, onClick }) => {
   return (
-    <Button>{buttonText}</Button>
+    <Button onClick={onClick}>{buttonText}</Button>
   )
 };

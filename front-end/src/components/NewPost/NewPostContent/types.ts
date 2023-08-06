@@ -1,3 +1,5 @@
+import { RefObject } from "react";
+
 export type NewPostContentProps = {
-  content: string
+  contentRef: RefObject<HTMLTextAreaElement>
 };
