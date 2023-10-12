@@ -5,6 +5,6 @@ export const Content = styled.textarea`
   min-height: 100px;
   outline-color: ${colors.gray};
   border: 1px solid ${colors.gray};
-  border-radius: 0%.5rem;
+  border-radius: 0.5rem;
   padding: 1rem;
 `;

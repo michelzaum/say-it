@@ -18,11 +18,12 @@ export const PostHeader: React.FC<PostHeaderProps> = ({ userInfo, time }) => {
     <PostDetails>
      <UserImage />
      <UserInfo>
-       <UserName>{ userInfo.name }</UserName>
+       <UserName>{ userInfo.email }</UserName>
+       {/* TODO: Get the user name instead of the email. Validate why it's returning null */}
        <UserLocationContainer>
          { <Location /> }
          <UserLocation>
-           { userInfo.location }
+           { userInfo.country }
          </UserLocation>
        </UserLocationContainer>
      </UserInfo>

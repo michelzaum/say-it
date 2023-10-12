@@ -7,11 +7,12 @@ import {
 type InteractionProps = {
   icon: ReactNode
   count: number
+  onClick: () => void
 }
 
-export const Interaction: React.FC<InteractionProps> = ({ icon, count }) => {
+export const Interaction: React.FC<InteractionProps> = ({ icon, count, onClick }) => {
   return (
-    <InteractionsContaincer>
+    <InteractionsContaincer onClick={onClick}>
       { icon }
       <Text>
         { count }

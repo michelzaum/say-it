@@ -1,63 +1,64 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
+import { useLazyQuery } from '@apollo/client';
 import { FeedContainer, Title, PostsList } from './styles';
 import { Post } from '../../components/Post';
 import { NewPost } from '../../components/NewPost';
+import { GET_POSTS } from '../../graphql/Posts/queries';
+import { LoadingComponent } from '../../components/Loading';
 
-const mockPosts = [
-  { 
-    id: 1,
-    time: '3 horas atrás',
-    content: 'Muita legal essa nova rede social aqui, hein!!! :). Aqui é muito bom, posso postar várias coisas e o design da plataforma é muito bonito.',
-    userInfo: {
-      name: 'Michel de Oliveira',
-      location: 'São Paulo, Brazil'
-    },
-    interactions: {
-      likes: 16,
-      comments: 6
-    }
-  },
-  {
-    id: 2,
-    time: '1 dia atrás',
-    content: 'Gostei bastante dessa rede social pra devs! :D',
-    userInfo: {
-      name: 'John Doe',
-      location: 'São Paulo, Brazil'
-    },
-    interactions: {
-      likes: 12,
-      comments: 4
-    }
-  },
-]
+type PostInterface = {
+  content: string
+  createdAt: string
+  id: string
+  author: {
+    id: string
+    country: string
+    first_name: string
+    last_name: string
+    email: string
+  }
+}
 
 export const Feed = () => {  
-  const [posts, setPosts] = useState(mockPosts);
+  const [posts, setPosts] = useState<PostInterface[]>([]);
   const contentRef = useRef<HTMLTextAreaElement>(null);
+
+  const [getPosts, { loading, error }] = useLazyQuery(GET_POSTS);
+
+  useEffect(() => {
+    async function listPosts() {
+      const result = await getPosts();
+      if (result) {
+        setPosts(result.data.posts);
+      }
+    }
+
+    listPosts();
+  }, [getPosts]);
+
+  if (loading) return <LoadingComponent />
+  if (error) return <h1>Error: {` ${error}`}</h1>
 
   function createPost() {
     const contentValue = contentRef.current?.value;
 
     if (contentValue) {
-      setPosts((prevState) => (
-        [
-          ...prevState,
-          {
-            id: posts.length + 1,
-            time: 'Agora mesmo',
-            content: contentValue,
-            userInfo: {
-              name: 'Michel da Silva',
-              location: 'Dublin, Ireland'
-            },
-            interactions: {
-              likes: 0,
-              comments: 0
-            }
-          }
-        ]
-      ))
+      setPosts(prevState => ([
+        ...prevState,
+        {
+          id: "200",
+          author: {
+            country: "Alemanha",
+            first_name: "Michel",
+            last_name: "Oliveira",
+            email: "micheloliver42@gmail.com",
+            id: "3"
+          },
+          content: contentValue,
+          createdAt: "Oct, 11st"
+        }
+      ]));
+
       contentRef.current.value = '';
     }
   }
@@ -73,9 +74,9 @@ export const Feed = () => {
         <Title>Feed page</Title>
         {posts.map((post) => (
           <Post.Container key={post.id}>
-            <Post.Header time={post.time} userInfo={post.userInfo} />
+            <Post.Header time={post.createdAt} userInfo={post.author} />
             <Post.Content content={post.content} />
-            <Post.Interactions likes={post.interactions.likes} comments={post.interactions.comments} />
+            {/* <Post.Interactions likes={post.interactions.likes} comments={post.interactions.comments} /> */}
           </Post.Container>
         ))}
       </PostsList>

@@ -1,7 +1,8 @@
 import styled from "styled-components";
+import { colors } from "../../constants/colors";
 
 export const FeedContainer = styled.div`
-  background-color: aliceblue;
+  background-color: ${colors.white};
   display: flex;
   flex-direction: column;
   align-items: center;
