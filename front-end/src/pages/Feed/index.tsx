@@ -1,10 +1,11 @@
 import { useRef, useState, useEffect } from 'react';
-import { useLazyQuery } from '@apollo/client';
+import { useLazyQuery, useMutation } from '@apollo/client';
 import { FeedContainer, Title, PostsList } from './styles';
 import { Post } from '../../components/Post';
 import { NewPost } from '../../components/NewPost';
-import { GET_POSTS } from '../../graphql/Posts/queries';
 import { LoadingComponent } from '../../components/Loading';
+import { GET_POSTS } from '../../graphql/Posts/queries';
+import { CREATE_POST } from '../../graphql/Posts/mutations';
 
 type PostInterface = {
   content: string
@@ -24,6 +25,26 @@ export const Feed = () => {
   const contentRef = useRef<HTMLTextAreaElement>(null);
 
   const [getPosts, { loading, error }] = useLazyQuery(GET_POSTS);
+  const [createPost] = useMutation(CREATE_POST);
+
+  async function handleCreatePost() {
+    const contentValue = contentRef.current?.value;
+    const userId = "1";
+    const createdAt = "Oct, 11st";
+
+    if (contentValue) {
+      await createPost({
+        variables: {
+          content: contentValue,
+          authorId: userId,
+          createdAt
+        },
+        onError(error) {
+          console.log('The following error happened: ', error)
+        },
+      });
+    }
+  }
 
   useEffect(() => {
     async function listPosts() {
@@ -39,36 +60,12 @@ export const Feed = () => {
   if (loading) return <LoadingComponent />
   if (error) return <h1>Error: {` ${error}`}</h1>
 
-  function createPost() {
-    const contentValue = contentRef.current?.value;
-
-    if (contentValue) {
-      setPosts(prevState => ([
-        ...prevState,
-        {
-          id: "200",
-          author: {
-            country: "Alemanha",
-            first_name: "Michel",
-            last_name: "Oliveira",
-            email: "micheloliver42@gmail.com",
-            id: "3"
-          },
-          content: contentValue,
-          createdAt: "Oct, 11st"
-        }
-      ]));
-
-      contentRef.current.value = '';
-    }
-  }
-
   return (
     <FeedContainer>
       <NewPost.Container>
         <NewPost.Header title='New post' />
         <NewPost.Content contentRef={contentRef} />
-        <NewPost.Actions onClick={createPost} buttonText='Postar' />
+        <NewPost.Actions onClick={handleCreatePost} buttonText='Postar' />
       </NewPost.Container>
       <PostsList>
         <Title>Feed page</Title>
@@ -76,7 +73,7 @@ export const Feed = () => {
           <Post.Container key={post.id}>
             <Post.Header time={post.createdAt} userInfo={post.author} />
             <Post.Content content={post.content} />
-            {/* <Post.Interactions likes={post.interactions.likes} comments={post.interactions.comments} /> */}
+            <Post.Interactions likes={21} comments={2} />
           </Post.Container>
         ))}
       </PostsList>
