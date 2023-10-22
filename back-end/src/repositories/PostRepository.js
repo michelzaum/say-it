@@ -1,45 +1,44 @@
-let posts = require('../mock/mock_posts');
+const db = require('../database');
 
 class PostRepository {
-  listPost() {
-    return new Promise((resolve, reject) => {
-      const listPosts = posts;
-
-      if (listPosts) {
-        resolve(posts);
-      } else {
-        reject({ err: 'Error fetchin posts' });
-      };
-    });
+  async listPost() {
+    try {
+      const [posts] = await db.query(`
+        SELECT *, posts.id
+        FROM posts
+        INNER JOIN users
+        ON posts.user_id = users.id
+      `);
+      return posts;
+    } catch (err) {
+      console.log(err);
+    }
   };
 
-  create(data, author) {
-    return new Promise((resolve, reject) => {
-      if(data && author) {
-        const newPost = {
-          id: posts.length + 1,
-          ...data,
-          author,
-        };
-
-        posts.push(newPost);
-        resolve(newPost);
-      } else {
-        reject({ err: 'Error creating post' });
-      };
-    });
+  async create(content, authorId) {    
+    try {
+      const [response] = await db.query(`
+        INSERT INTO posts (
+          content, user_id
+        ) VALUES (
+          ?, ?
+        );
+      `, [content, authorId]);
+      return response.affectedRows;
+    } catch (err) {
+      console.log(err);
+    }
   };
 
-  delete(id) {
-    const deleted = true;
-    return new Promise((resolve, reject) => {
-      if(id) {
-        posts = posts.filter((post) => post.id != id);
-        resolve(deleted);
-      } else {
-        reject({ err: 'Error deleting post' });
-      };
-    });
+  async delete(id) {
+    try {
+      const response = await db.query(`
+        DELETE FROM posts WHERE id = ?
+      `, [id]);
+      return response.affectedRows;
+    } catch (err) {
+      console.log(err);
+    }
   };
 };
 

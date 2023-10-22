@@ -10,16 +10,12 @@ export const CREATE_POST = gql`
       content: $content
       authorId: $authorId
       createdAt: $createdAt
-    }) {
-      id
-      content
-      author {
-        id
-        first_name
-        last_name
-        email
-        country
-      }
-    }
+    })
+  }
+`;
+
+export const DELETE_POST = gql`
+  mutation DeletePost($postId: ID!) {
+    deletePost(id: $postId)
   }
 `;

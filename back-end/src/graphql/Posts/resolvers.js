@@ -1,11 +1,21 @@
 const PostRepository = require("../../repositories/PostRepository");
-const UserRepository = require("../../repositories/UserRepository");
 
 module.exports = {
   Query: {
     posts: async () => {
       try {
-        return await PostRepository.listPost();
+        const formatedPosts = [];
+        const posts = await PostRepository.listPost();
+        for (let post of posts) {
+          const { id, created_at, content, ...author } = post;
+          formatedPosts.push({
+            id,
+            created_at,
+            content,
+            author,
+          });
+        }
+        return formatedPosts;
       } catch (err) {
         console.log(err);
       };
@@ -15,10 +25,8 @@ module.exports = {
   Mutation: {
     createPost: async (_, { data }) => {
       try {
-        const { authorId } = data;
-        const author = UserRepository.findUserById(Number(authorId));
-  
-        const newPost = PostRepository.create(data, author);
+        const { authorId, content } = data;
+        const newPost = await PostRepository.create(content, authorId);
         return newPost;
       } catch (err) {
         console.log(err);
@@ -27,8 +35,7 @@ module.exports = {
 
     deletePost: async (_, { id }) => {
       try {
-        const postDeleted = PostRepository.delete(Number(id));
-        return postDeleted;
+        return await PostRepository.delete(id);
       } catch (err) {
         console.log(err);
       };

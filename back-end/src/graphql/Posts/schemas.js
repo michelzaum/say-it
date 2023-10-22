@@ -19,7 +19,7 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    createPost(data: PostInput): Post!
+    createPost(data: PostInput): Boolean
     deletePost(id: ID!): Boolean
   }
 `;

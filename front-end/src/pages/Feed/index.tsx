@@ -4,15 +4,16 @@ import { FeedContainer, Title, PostsList } from './styles';
 import { Post } from '../../components/Post';
 import { NewPost } from '../../components/NewPost';
 import { LoadingComponent } from '../../components/Loading';
+import { Delete } from '../../components/Icons/delete';
 import { GET_POSTS } from '../../graphql/Posts/queries';
-import { CREATE_POST } from '../../graphql/Posts/mutations';
+import { CREATE_POST, DELETE_POST } from '../../graphql/Posts/mutations';
 
 type PostInterface = {
   content: string
   createdAt: string
   id: string
   author: {
-    id: string
+    user_id: string
     country: string
     first_name: string
     last_name: string
@@ -26,18 +27,30 @@ export const Feed = () => {
 
   const [getPosts, { loading, error }] = useLazyQuery(GET_POSTS);
   const [createPost] = useMutation(CREATE_POST);
+  const [deletePost] = useMutation(DELETE_POST);
+
+  async function handleDeletePost(postId: string) {
+    if (!postId) {
+      return;
+    }
+
+    await deletePost({
+      variables: { postId },
+      onError(error) {
+        console.log('The following error happened: ', error);
+      },
+    });
+  }
 
   async function handleCreatePost() {
     const contentValue = contentRef.current?.value;
-    const userId = "1";
-    const createdAt = "Oct, 11st";
+    const userId = "31a14fe3-3c69-11ed-a3de-0242ac110002";
 
     if (contentValue) {
       await createPost({
         variables: {
           content: contentValue,
           authorId: userId,
-          createdAt
         },
         onError(error) {
           console.log('The following error happened: ', error)
@@ -74,6 +87,7 @@ export const Feed = () => {
             <Post.Header time={post.createdAt} userInfo={post.author} />
             <Post.Content content={post.content} />
             <Post.Interactions likes={21} comments={2} />
+            <Delete onClick={() => handleDeletePost(post.id)}>delete post</Delete>
           </Post.Container>
         ))}
       </PostsList>

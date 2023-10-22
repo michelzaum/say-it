@@ -7,7 +7,7 @@ query Posts {
     createdAt
     content
     author {
-      id
+      user_id
       first_name
       last_name
       email
