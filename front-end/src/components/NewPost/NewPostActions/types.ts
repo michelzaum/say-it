@@ -1,4 +1,6 @@
 export type NewPostActionsProps = {
-  buttonText: string
-  onClick: () => void
+  primaryButtonText: string
+  primaryButtonClick: () => void
+  secondaryButtonText: string
+  secondaryButtonClick: () => void
 };

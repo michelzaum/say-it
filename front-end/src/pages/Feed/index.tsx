@@ -56,6 +56,14 @@ export const Feed = () => {
           console.log('The following error happened: ', error)
         },
       });
+
+      clearFields();
+    }
+  }
+
+  function clearFields() {
+    if (contentRef.current?.value) {
+      contentRef.current.value = '';
     }
   }
 
@@ -78,7 +86,12 @@ export const Feed = () => {
       <NewPost.Container>
         <NewPost.Header title='New post' />
         <NewPost.Content contentRef={contentRef} />
-        <NewPost.Actions onClick={handleCreatePost} buttonText='Postar' />
+        <NewPost.Actions
+          primaryButtonClick={handleCreatePost}
+          primaryButtonText='Postar'
+          secondaryButtonClick={clearFields}
+          secondaryButtonText='Limpar'
+        />
       </NewPost.Container>
       <PostsList>
         <Title>Feed page</Title>
