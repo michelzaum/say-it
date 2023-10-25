@@ -99,8 +99,11 @@ export const Feed = () => {
           <Post.Container key={post.id}>
             <Post.Header time={post.createdAt} userInfo={post.author} />
             <Post.Content content={post.content} />
-            <Post.Interactions likes={21} comments={2} />
-            <Delete onClick={() => handleDeletePost(post.id)}>delete post</Delete>
+            <Post.Interactions
+              likes={21}
+              comments={2}
+              onDeletePost={() => handleDeletePost(post.id)}
+            />
           </Post.Container>
         ))}
       </PostsList>
