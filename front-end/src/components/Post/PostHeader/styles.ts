@@ -24,7 +24,9 @@ export const UserInfo = styled.div`
 export const UserImage = styled.img``;
 
 export const UserName = styled.span`
-  font-weight: 500;
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: ${colors.dark};
 `;
 
 export const PostTime = styled.span`

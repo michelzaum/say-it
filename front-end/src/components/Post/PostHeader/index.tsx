@@ -18,8 +18,7 @@ export const PostHeader: React.FC<PostHeaderProps> = ({ userInfo, time }) => {
     <PostDetails>
      <UserImage />
      <UserInfo>
-       <UserName>{ userInfo.email }</UserName>
-       {/* TODO: Get the user name instead of the email. Validate why it's returning null */}
+       <UserName>{ `${userInfo.first_name} ${userInfo.last_name}` }</UserName>
        <UserLocationContainer>
          { <Location /> }
          <UserLocation>

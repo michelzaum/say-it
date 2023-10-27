@@ -4,7 +4,6 @@ import { FeedContainer, Title, PostsList } from './styles';
 import { Post } from '../../components/Post';
 import { NewPost } from '../../components/NewPost';
 import { LoadingComponent } from '../../components/Loading';
-import { Delete } from '../../components/Icons/delete';
 import { GET_POSTS } from '../../graphql/Posts/queries';
 import { CREATE_POST, DELETE_POST } from '../../graphql/Posts/mutations';
 

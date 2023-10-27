@@ -15,8 +15,9 @@ export const Interactions: React.FC<InteractionsProps> = ({ likes, comments, onD
 
   return (
     <InteractionList>
-      <Interaction count={addLike} icon={<Like />} onClick={() => handleAddLike(likes)} />
-      <Interaction count={comments} icon={<Comment />} onClick={() => {}} />
+      <Interaction count={addLike} interactionName='like' icon={<Like />} onClick={() => handleAddLike(likes)} />
+      <Interaction count={comments} interactionName='comment' icon={<Comment />} onClick={() => {}} />
+
       <DeleteContainer>
         <Delete onClick={onDeletePost}>delete post</Delete>
       </DeleteContainer>

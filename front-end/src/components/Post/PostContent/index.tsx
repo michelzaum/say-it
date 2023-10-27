@@ -1,10 +1,12 @@
-import { ContentContainer } from './styles';
+import { ContentContainer, ContenteText } from './styles';
 import { PostContentProps } from './types';
 
 export const PostContent: React.FC<PostContentProps> = ({ content }) => {
   return (
     <ContentContainer>
-      { content }
+      <ContenteText>
+        { content }
+      </ContenteText>
     </ContentContainer>
   )
 }
