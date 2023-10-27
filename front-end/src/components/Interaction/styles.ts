@@ -1,5 +1,17 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { colors } from "../../constants/colors";
+
+const interactionTransition = keyframes`
+  from {
+    fill: ${colors.white};
+    scale: 0.1;
+  }
+  to {
+    fill: red;
+    stroke: red;
+    scale: 1;
+  }
+`;
 
 export const Container = styled.div`
   display: flex;
@@ -7,10 +19,14 @@ export const Container = styled.div`
   gap: 0.5rem;
 `;
 
-export const InteractionsContaincer = styled.div`
+export const InteractionsContaincer = styled.div<{ isClicked: boolean }>`
   display: flex;
   align-items: start;
   gap: 0.5rem;
+
+  i svg {
+    animation: ${({ isClicked }) => isClicked ? interactionTransition : ''} 0.2s ease-in-out forwards;
+  }
   
   &:not(:first-child) {
     margin-left: 1rem;

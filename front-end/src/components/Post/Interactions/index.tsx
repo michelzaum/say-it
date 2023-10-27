@@ -8,16 +8,22 @@ import { Delete } from '../../Icons/delete';
 
 export const Interactions: React.FC<InteractionsProps> = ({ likes, comments, onDeletePost }) => {
   const [addLike, setAddLike] = useState(likes);
+  const [interactionProvided, setInteractionProvided] = useState(false);
 
-  function handleAddLike(currentCount: number) {
-    setAddLike(currentCount + 1);
+  function toggleInteraction(currentCount: number) {
+    if (interactionProvided) {
+      setAddLike(currentCount);
+      setInteractionProvided(false);
+    } else {
+      setAddLike(currentCount + 1);
+      setInteractionProvided(true);
+    }
   }
 
   return (
     <InteractionList>
-      <Interaction count={addLike} interactionName='like' icon={<Like />} onClick={() => handleAddLike(likes)} />
-      <Interaction count={comments} interactionName='comment' icon={<Comment />} onClick={() => {}} />
-
+      <Interaction count={addLike} interactionName='like' icon={<Like />} onClick={() => toggleInteraction(likes)} isClicked={interactionProvided} />
+      <Interaction count={comments} interactionName='comment' icon={<Comment />} onClick={() => {}} isClicked={false} />
       <DeleteContainer>
         <Delete onClick={onDeletePost}>delete post</Delete>
       </DeleteContainer>

@@ -10,12 +10,13 @@ type InteractionProps = {
   count: number
   onClick: () => void
   interactionName: string
+  isClicked: boolean
 }
 
-export const Interaction: React.FC<InteractionProps> = ({ icon, count, interactionName, onClick }) => {
+export const Interaction: React.FC<InteractionProps> = ({ icon, count, interactionName, onClick, isClicked }) => {
   return (
     <Container>
-      <InteractionsContaincer onClick={onClick}>
+      <InteractionsContaincer onClick={onClick} isClicked={isClicked}>
         { icon }
       </InteractionsContaincer>
       <Text>{ `${count} ${interactionName}${count > 1 ? 's' : ''}` }</Text>
