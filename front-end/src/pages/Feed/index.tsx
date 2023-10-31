@@ -22,6 +22,7 @@ type PostInterface = {
 
 export const Feed = () => {  
   const [posts, setPosts] = useState<PostInterface[]>([]);
+  const [updatePostList, setUpdatePostList] = useState(false);
   const contentRef = useRef<HTMLTextAreaElement>(null);
 
   const [getPosts, { loading, error }] = useLazyQuery(GET_POSTS);
@@ -33,29 +34,30 @@ export const Feed = () => {
       return;
     }
 
-    await deletePost({
-      variables: { postId },
-      onError(error) {
-        console.log('The following error happened: ', error);
-      },
+    deletePost({ variables: { postId } }).then(() => {
+      setUpdatePostList(true);
+    }).catch((error) => {
+      console.error('The following error happened: ', error);
     });
+    setUpdatePostList(false);
   }
 
-  async function handleCreatePost() {
+  function handleCreatePost() {
     const contentValue = contentRef.current?.value;
     const userId = "31a14fe3-3c69-11ed-a3de-0242ac110002";
 
     if (contentValue) {
-      await createPost({
-        variables: {
+      createPost({
+          variables: {
           content: contentValue,
           authorId: userId,
         },
-        onError(error) {
-          console.log('The following error happened: ', error)
-        },
+      }).then(() => {
+        setUpdatePostList(true);
+      }).catch((error) => {
+        console.error('The following error happened: ', error);
       });
-
+      setUpdatePostList(false);
       clearFields();
     }
   }
@@ -75,7 +77,7 @@ export const Feed = () => {
     }
 
     listPosts();
-  }, [getPosts]);
+  }, [getPosts, updatePostList]);
 
   if (loading) return <LoadingComponent />
   if (error) return <h1>Error: {` ${error}`}</h1>

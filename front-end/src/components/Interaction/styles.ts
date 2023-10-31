@@ -2,11 +2,14 @@ import styled, { keyframes } from "styled-components";
 import { colors } from "../../constants/colors";
 
 const interactionTransition = keyframes`
-  from {
+  0% {
     fill: ${colors.white};
     scale: 0.1;
   }
-  to {
+  50% {
+    scale: 1.5;
+  }
+  100% {
     fill: red;
     stroke: red;
     scale: 1;
