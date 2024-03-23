@@ -9,7 +9,7 @@ import { CREATE_POST, DELETE_POST } from '../../graphql/Posts/mutations';
 
 type PostInterface = {
   content: string
-  createdAt: string
+  created_at: string
   id: string
   author: {
     user_id: string
@@ -98,7 +98,7 @@ export const Feed = () => {
         <Title>Feed page</Title>
         {posts.map((post) => (
           <Post.Container key={post.id}>
-            <Post.Header time={post.createdAt} userInfo={post.author} />
+            <Post.Header time={post.created_at} userInfo={post.author} />
             <Post.Content content={post.content} />
             <Post.Interactions
               likes={21}

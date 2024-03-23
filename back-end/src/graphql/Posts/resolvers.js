@@ -1,4 +1,5 @@
 const PostRepository = require("../../repositories/PostRepository");
+const formatDate = require("../../utils/formatDate");
 
 module.exports = {
   Query: {
@@ -10,7 +11,7 @@ module.exports = {
           const { id, created_at, content, ...author } = post;
           formatedPosts.push({
             id,
-            created_at,
+            created_at: formatDate(created_at),
             content,
             author,
           });

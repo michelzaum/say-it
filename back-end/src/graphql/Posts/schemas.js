@@ -4,7 +4,7 @@ const typeDefs = gql`
   type Post {
     id: ID!
     author: User!
-    createdAt: String
+    created_at: String
     content: String!
   }
 
