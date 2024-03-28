@@ -1,10 +1,3 @@
-import { useState, useEffect, useRef, FormEvent } from 'react';
-
-import { useMutation } from '@apollo/client';
-import { CREATE_USER } from '../../graphql/Users/mutations';
-
-import { FormContainer } from './styles';
-
 import { Approach } from '../../components/Approach';
 import { Button } from '../../components/Button';
 import { TextWithLink } from '../../components/TextWithLink';
@@ -13,103 +6,29 @@ import { FormFieldGroup } from '../../components/FormField/FormFieldGroup';
 import { List } from '../../components/FormField/Select';
 import { Modal } from '../../components/Modal';
 import { LoadingComponent as Loading } from '../../components/Loading';
-
 import { MockCountry } from '../../mock/countries';
-import { returnRandomPeople } from '../../utils/returnRandomPeople';
+import { useRegister } from './useRegister';
+import { FormContainer } from './styles';
 
 export const Register = () => {
-  const firstNameRef = useRef<HTMLInputElement>(null);
-  const lastNameRef = useRef<HTMLInputElement>(null);
-  const emailRef = useRef<HTMLInputElement>(null);
-  const passwordRef = useRef<HTMLInputElement>(null);
-  const confirmPasswordRef = useRef<HTMLInputElement>(null);
-  const countryRef = useRef<HTMLInputElement>(null);
-
-  const [randomPeople, setRandomPeople] = useState({
-    randomFirstName: '',
-    randomLastName: '',
-    randomEmail: ''
-  });
-
-  const [modalInfo, setModalInfo] = useState({
-    show: false,
-    title: '',
-    content: '',
-    onClick: () => {},
-  });
-  
-  const [createUser, { loading }] = useMutation(CREATE_USER);
-  
-  useEffect(() => {
-    const { randomFirstName, randomLastName, randomEmail } = returnRandomPeople();
-    
-    setRandomPeople({
-      randomFirstName, randomLastName, randomEmail
-    });
-  }, []);
-
-  if (loading) return <Loading />;
-
-  const handleUser = async (e: FormEvent) => {
-    e.preventDefault();
-    const firstNameValue = firstNameRef.current?.value;
-    const lastNameValue = lastNameRef.current?.value;
-    const emailValue = emailRef.current?.value;
-    const passwordValue = passwordRef.current?.value;
-    const confirmPasswordValue = confirmPasswordRef.current?.value;
-    const countryValue = countryRef.current?.value;
-
-    const requiredFields = [
-      firstNameValue, lastNameValue, emailValue, passwordValue, confirmPasswordValue
-    ];
-
-    if (requiredFields.some(field => field === '')) {
-      setModalInfo({
-        show: true,
-        title: 'Campos obrigatórios',
-        content: 'Há campos obrigatórios que não foram preenchidos',
-        onClick: () => setModalInfo({ ...modalInfo, show: false })
-      });
-      return;
-    };
-
-    if (passwordValue !== confirmPasswordValue) {
-      setModalInfo({
-        show: true, 
-        title: 'Senhas diferentes',
-        content: 'A senha fornecida está diferente da confirmação da senha',
-        onClick: () => setModalInfo({ ...modalInfo, show: false }),
-      });
-      return;
-    };
-
-    if (passwordValue && passwordValue.length < 8) {
-      setModalInfo({
-        show: true,
-        title: 'Senha inválida',
-        content: 'A senha deve conter no mínimo 8 caracteres',
-        onClick: () => setModalInfo({ ...modalInfo, show: false })
-      });
-      return;
-    };
-
-    await createUser({
-      variables: {
-        firstNameValue, lastNameValue, emailValue, passwordValue, countryValue
-      },
-      onError(error) {
-        setModalInfo({
-          show: true,
-          title: 'Ocorreu um erro:',
-          content: error.message,
-          onClick: () => setModalInfo({ ...modalInfo, show: false })
-        });
-      },
-    });
-  };
+  const {
+    firstNameRef,
+    lastNameRef,
+    emailRef,
+    passwordRef,
+    confirmPasswordRef,
+    countryRef,
+    randomPeople,
+    modalInfo,
+    loading,
+    handleUser,
+  } = useRegister();
 
   return (
     <>
+      {loading && (
+        <Loading />
+      )}
       <FormContainer onSubmit={handleUser}>
         <Approach
           title="Crie sua conta no say-it."
